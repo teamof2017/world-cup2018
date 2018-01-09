@@ -1,1 +1,1 @@
-# word-cup2018
+# world-cup2018
