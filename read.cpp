@@ -106,29 +106,39 @@ void ReadFromFilePlayerinfo(void){
 }
 
 
-void search_group(){
+void print_group(){
+	
+	
+	puts("\n\n GROUPS OF WORLD CUP 2018\n\n");
 	
 	int i=0 , j=0;
-	char y = 'A';
-	char *x=0;
-	int cnt =0 ;
+	char groupName = 'A';
+	char *x = 0;
+	int cnt = 0 ;
 	 x = (char*)calloc(20 , sizeof(char));
 	for(cnt=0 ; cnt<32 ; cnt++){
+		if(groupName > 'H')
+			  return;
+		
+		
+		printf("      GROUP   %c\n" , groupName);
 		for(i=0 , j=0 ; i<32 ; i++){
 			
+		if(groupName > 'H')
+			  return;
 			
-		if(team_array[i].group == y){
+		if(team_array[i].group == groupName){
 
 			strcpy(x , (team_array[i].name )) ;
 			j++;
-			printf("%s\n", x);
+			printf("\t%s\n", x);
 
-			if(j % 4 == 0)
-				y++;
+			if(j % 4 == 0){
+				groupName++;
+				break;
+			}
 				
-			if(y > 'G')
-			  return;
-
+			
 		}
 	
 }
@@ -139,24 +149,17 @@ void search_group(){
 
 
 
-void print_groups(){
-	int i=0;
-	for(i=0 ; i<32 ;i++){
-		
-		printf("%s\n", groupArray[i]);
-	}	
 
-	}
 
 	
 
 int main(){
 	ReadFromFileTeaminfo();
 
-	ReadFromFilePlayerinfo();
+//	ReadFromFilePlayerinfo();
 
 
-	//search_group();
+	print_group();
 	//print_groups();
 
 
