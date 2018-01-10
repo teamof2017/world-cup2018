@@ -47,18 +47,14 @@ void ReadFromFileTeaminfo(void){
 	FILE *fp=fopen("Teams.csv","r");
 	char tmp[100];
 	char TeamName[20];
-	char TeamName2[20];
 	char group;
 	int placeInGroup,seed,i=0;
 	char confedration[20];
-	char filename[20];
-	char filename2[20];
+	char filename[40];
 	for( i=0;fgets(tmp,100,fp)!=NULL;i++){
 		RemoveChars(tmp,',');
-		sscanf(tmp,"%5s %s %c %d %s %d %5s %s", TeamName,TeamName2 , &group  , &placeInGroup , confedration , &seed , filename,filename2 );
+		sscanf(tmp,"%s %c %d %s %d %s", TeamName , &group  , &placeInGroup , confedration , &seed , filename );
 		printf("%d. 	name=%s 	  group=%c 	 placeInGroup=%d 	\n 	confedration=%s   seed=%d    filename=%s\n\n\n\n\n\n",i+1,TeamName,group,placeInGroup,confedration,seed,filename);
-		strcat(TeamName,TeamName2);
-		strcat(filename,filename2);
 		strcpy(team_array[i].name , TeamName);
 		team_array[i].group=group;
 		team_array[i].placeInGroup=placeInGroup;
@@ -101,5 +97,5 @@ void ReadFromFilePlayerinfo(void){
 }
 int main(){
 	ReadFromFileTeaminfo();
-//	ReadFromFilePlayerinfo();
+	//ReadFromFilePlayerinfo();
 }
