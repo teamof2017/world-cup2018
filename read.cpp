@@ -17,7 +17,7 @@ typedef struct infoteams{
 	int placeInGroup;
 	char confedration[20];
 	int seed;
-	char filename[40];
+    char filename[40];
 	players *p;
 }teams;
 
@@ -61,18 +61,19 @@ void ReadFromFileTeaminfo(void){
 		strcpy(team_array[i].confedration,confedration);
 		strcpy(team_array[i].filename,filename);
 	}
-	for(int j=0;j<i;j++){
+	/*for(int j=0;j<i;j++){
 		printf("%d.Teamname=%10s	  group=%2c 	 place=%3d 	\n confedration=%5s seed=%3d  filename=%10s \n",j+1,team_array[j].name,team_array[j].group,team_array[j].placeInGroup,team_array[j].confedration,team_array[j].seed,team_array[j].filename);
-	}
+	}*/
 	fclose(fp);
 }
 void ReadFromFilePlayerinfo(void){
-	//for(int count=0;count<32;count++){
-		//char file[strlen(team_array[count].filename)+1];
-		//strcpy(file,team_array[count].filename);
-	FILE *fpo=fopen("Argentina.csv","r");
-	if(fpo == NULL)
-	puts(" hoooooooooooo");
+	char s[32][40]={{"Argentina.csv"},{"Australia.csv"},{"Belgium.csv"},{"Brazil.csv"},{"Colombia.csv"},{"CostaRica.csv"},{"Croatia.csv"},{"Denmark.csv"},{"Egypt.csv"},{"England.csv"},{"France.csv"},{"Germany.csv"},{"Iceland.csv"},{"Iran.csv"},{"Japan.csv"},{"Korea.csv"},{"Mexico.csv"},{"Morocco.csv"},{"Nigeria.csv"},{"Panama.csv"},{"Peru.csv"},{"Poland.csv"},{"Portugal.csv"},{"Russia.csv"},{"SaudiArabia.csv"},{"Senegal.csv"},{"Serbia.csv"},{"Spain.csv"},{"Sweden.csv"},{"Switzerland.csv"},{"Tunisia.csv"},{"Uruguay.csv"}};
+	for(int count=0;count<32;count++){
+	
+	FILE *fpo=fopen(s[count],"r");
+	if(fpo == NULL){
+	perror("file open");
+	}
 	char tmp[100];
 	char *token;
 	char mainpost;
@@ -96,12 +97,12 @@ void ReadFromFilePlayerinfo(void){
 		player_array[i].mainpost=mainpost;
 		strcpy(player_array[i].playername,name);
 	}
-	for(int j=0;j<i;j++){
+	/*for(int j=0;j<i;j++){
 		printf("num=%3d 	  name=%10s 	 age=%3d 	 mainpost=%2c\n",player_array[j].num,player_array[j].playername,player_array[j].age,player_array[j].mainpost);
-	}
+	}*/
 	fclose(fpo);
 	//printf("\n\n\n\n\n\n\"Team : %s\"\n\n\n\n\n",team_array[count].filename);
-	//}
+	}
 }
 
 
