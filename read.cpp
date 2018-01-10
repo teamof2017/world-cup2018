@@ -1,6 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <string.h>
+#include "test.cpp"
+
+void game_start();
 typedef struct teamplayer{
 	char playername[40];
 	int form;
@@ -94,6 +97,7 @@ void ReadFromFilePlayerinfo(void){
 	}
 }
 int main(){
-	ReadFromFileTeaminfo();
+	//ReadFromFileTeaminfo();
 	//ReadFromFilePlayerinfo();
+	game_start();
 }
