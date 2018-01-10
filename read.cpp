@@ -13,6 +13,7 @@ typedef struct teamplayer{
 }players;
 typedef struct infoteams{
 	char name[30];
+	char system[6];
 	char group;
 	int placeInGroup;
 	char confedration[20];
@@ -23,7 +24,6 @@ typedef struct infoteams{
 
 
 
-char groupArray[20][32];
 
 teams team_array[32];
 
@@ -147,6 +147,20 @@ void print_group(){
 }
 
 
+void systemOfTeam(int i){
+	
+	int n=0;
+	puts("Please insert your team`s system\n\n");
+	scanf("%d",&n);
+	switch (n){
+		case 1:
+			team_array[i].system = "";	
+	}
+//	team_array[9].system = "3-5-2";
+	
+}
+
+
 
 
 
@@ -162,4 +176,5 @@ int main(){
 	//print_groups();
 
 
+	
 }
