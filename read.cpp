@@ -10,11 +10,23 @@ typedef struct teamplayer{
 	char post;
 	int num;
 	int age;
-}player;
+}players;
 typedef struct infoteams{
-	char *name;
-	player *p;
+	char name[20];
+	char group;
+	int placeInGroup;
+	char confedration[20];
+	int seed;
+	char filename[40];
+	players *p;
 }teams;
+
+teams team_array[40];
+players player_array[40];
+
+
+
+
 void RemoveChars(char *s, char c)
 {
     int writer = 0, reader = 0;
@@ -28,47 +40,60 @@ void RemoveChars(char *s, char c)
         {   
             s[writer++] = s[reader];
         }
-        
-        
+
         reader++;       
     }
 
     s[writer]=0;
 }
-void ReadFromFile(void){
-	FILE *fp=fopen("Iran.csv","r");
-	char q[100];
-	char p[100];
-	char mainpost;
-	char name[100];
-	player array[40];
-	int num, i=0,age;
-	
-	for( i=0;fgets(q,100,fp)!=NULL;i++){
-		RemoveChars(q,',');
-		sscanf(q,"%d %s %s %d %c",&num , q  , p , &age,&mainpost);
-		array[i].num = num;
-		array[i].age=age;
-		array[i].mainpost=mainpost;
-		strcat(q,p);
-		strcpy(array[i].playername,q);
-				
-	//	printf("num=%d		%s       age=%d    mainpost=%c\n",num,q,age,mainpost);
+void ReadFromFileTeaminfo(void){
+	FILE *fp=fopen("Teams.csv","r");
+	char tmp[100];
+	char TeamName[20];
+	char group;
+	int placeInGroup,seed,i=0;
+	char confedration[20];
+	char filename[40];
+	for( i=0;fgets(tmp,100,fp)!=NULL;i++){
+		RemoveChars(tmp,',');
+		sscanf(tmp,"%s %c %d %s %d %s", TeamName , &group  , &placeInGroup , confedration , &seed , filename );
+		//printf("name=%s 	  group=%c 	 placeInGroup=%d 	 confedration=%s   seed=%d    filename=%s\n",TeamName,group,placeInGroup,confedration,seed,filename);
+		strcpy(team_array[i].name , TeamName);
+		team_array[i].group=group;
+		team_array[i].placeInGroup=placeInGroup;
+		strcpy(team_array[i].confedration,confedration);
+		team_array[i].seed=seed;
+		strcpy(team_array[i].filename,filename);
 	}
-	for(int i=0;i<33;i++){
-		printf("num=%d 	  name=%s 	 age=%d 	 mainpost=%c\n",array[i].num,array[i].playername,array[i].age,array[i].mainpost);
+	for(int j=0;j<i;j++){
+		printf("name=%s 	  group=%c 	 placeInGroup=%d 	 confedration=%s   seed=%d    filename=%s\n",team_array[j].name,team_array[j].group,team_array[j].placeInGroup,team_array[j].confedration,team_array[j].seed,team_array[j].filename);
 	}
-/*	fseek(fp,0,SEEK_SET);
-	
-	for(i=0 ; fgets(q,100,fp)!=NULL ; i++){
-		//name=(char*)calloc(30,sizeof(char));
-		
-		
-	}*/
-	
-	
 	fclose(fp);
 }
+void ReadFromFilePlayerinfo(void){
+	for(int count=0;count<32;count++){
+	FILE *fp=fopen(team_array[count].filename,"r");
+	char tmp[100];//tmp is temp and first name in this function
+	char mainpost;
+	char lastname[20];
+	int num, i=0,age;
+	for( i=0;fgets(tmp,100,fp)!=NULL;i++){
+		RemoveChars(tmp,',');
+		sscanf(tmp,"%d %s %s %d %c",&num , tmp  , lastname , &age,&mainpost);
+		//printf("num=%d	name=%s %s   age=%d    mainpost=%c\n",num,tmp,lastname,age,mainpost);
+		player_array[i].num = num;
+		player_array[i].age=age;
+		player_array[i].mainpost=mainpost;
+		strcat(tmp,lastname);
+		strcpy(player_array[i].playername,tmp);
+	}
+	/*for(int j=0;j<i;j++){
+		printf("num=%d 	  name=%s 	 age=%d 	 mainpost=%c\n",player_array[j].num,player_array[j].playername,player_array[j].age,player_array[j].mainpost);
+	}*/	
+	fclose(fp);
+	}
+}
 int main(){
-	ReadFromFile();
+	ReadFromFileTeaminfo();
+	//ReadFromFilePlayerinfo();
 }
