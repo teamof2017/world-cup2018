@@ -150,14 +150,14 @@ void print_group(){
 
 void systemOfTeam(int i){
 	
-	int n=0;
+/*	int n=0;
 	puts("Please insert your team`s system\n\n");
 	scanf("%d",&n);
 	switch (n){
 		case 1:
 			team_array[i].system = "";	
 	}
-//	team_array[9].system = "3-5-2";
+//	team_array[9].system = "3-5-2";*/
 	
 }
 
