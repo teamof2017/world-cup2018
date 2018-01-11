@@ -362,6 +362,9 @@ void typeInConsole(char sentence[])
 void lineup(int team_number)
 {
 	
+	
+	
+	
 }
 
 void game_start()
@@ -439,7 +442,7 @@ void showTeamList()
 	//int team_number;
 	int cnt = 0;
 	for (cnt = 0; cnt < team_array[team_number - 1].numberOfPlayer; cnt++) {
-		printf("%d %s %c\n\n", team_array[team_number - 1].playerinfo[cnt].num, team_array[team_number - 1].playerinfo[cnt].playername, team_array[team_number - 1].playerinfo[cnt].mainpost);
+		printf("%d.%s %c\n\n", team_array[team_number - 1].playerinfo[cnt].num, team_array[team_number - 1].playerinfo[cnt].playername, team_array[team_number - 1].playerinfo[cnt].mainpost);
 		Sleep(200);
 	}
 }
@@ -473,7 +476,6 @@ int main(){
 	//print_seed();
 	//print_group();
 	//print_groups();
-	int n=0;
 	//scanf("%d", n);
 	//printf("%d",team_array[n].numberOfPlayer);
 	
