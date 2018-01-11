@@ -22,12 +22,49 @@ typedef struct infoteams{
     char filename[40];
 	players *p;
 }teams;
+<<<<<<< HEAD
+enum teamsName{
+	Argentina=1,
+	Australia,
+	Belgium,
+	Brazil,
+	Colombia,
+	Costa Rica,
+	Croatia,
+	Denmark,
+	Egypt,
+	England,
+	France,
+	Germany,
+	Iceland,
+	Iran,
+	Japan,
+	Korea Republic,
+	Mexico,
+	Morocco,
+	Nigeria,
+	Panama,
+	Peru,
+	Poland,
+	Portugal,
+	Russia,
+	Saudi Arabia,
+	Senegal,
+	Serbia,
+	Spain,
+	Sweden,
+	Switzerland,
+	Tunisia,
+	Uruguay
+};
+char groupArray[20][32];
+=======
 
 
 
 
+>>>>>>> 9bb2a5ad7ddd7a5b769a25164b19f5afa5127669
 teams team_array[32];
-
 
 void ReadFromFileTeaminfo(void){
 	FILE *fp=fopen("Teams.csv","r");
@@ -52,7 +89,7 @@ void ReadFromFileTeaminfo(void){
      		token = strtok(NULL, ",");
      		sscanf(token,"%d",&seed);
      		token = strtok(NULL, ",");
-     		strcpy(filename,token);
+     		sscanf(token,"%s",filename);
      		token = strtok(NULL, ",");
   		 }
 		team_array[i].group=group;
@@ -62,16 +99,16 @@ void ReadFromFileTeaminfo(void){
 		strcpy(team_array[i].confedration,confedration);
 		strcpy(team_array[i].filename,filename);
 	}
-	/*for(int j=0;j<i;j++){
+/*	for(int j=0;j<i;j++){
 		printf("%d.Teamname=%10s	  group=%2c 	 place=%3d 	\n confedration=%5s seed=%3d  filename=%10s \n",j+1,team_array[j].name,team_array[j].group,team_array[j].placeInGroup,team_array[j].confedration,team_array[j].seed,team_array[j].filename);
 	}*/
 	fclose(fp);
 }
+
 void ReadFromFilePlayerinfo(void){
-	char s[32][40]={{"Argentina.csv"},{"Australia.csv"},{"Belgium.csv"},{"Brazil.csv"},{"Colombia.csv"},{"CostaRica.csv"},{"Croatia.csv"},{"Denmark.csv"},{"Egypt.csv"},{"England.csv"},{"France.csv"},{"Germany.csv"},{"Iceland.csv"},{"Iran.csv"},{"Japan.csv"},{"Korea.csv"},{"Mexico.csv"},{"Morocco.csv"},{"Nigeria.csv"},{"Panama.csv"},{"Peru.csv"},{"Poland.csv"},{"Portugal.csv"},{"Russia.csv"},{"SaudiArabia.csv"},{"Senegal.csv"},{"Serbia.csv"},{"Spain.csv"},{"Sweden.csv"},{"Switzerland.csv"},{"Tunisia.csv"},{"Uruguay.csv"}};
+	//char s[32][40]={{"Argentina.csv"},{"Australia.csv"},{"Belgium.csv"},{"Brazil.csv"},{"Colombia.csv"},{"CostaRica.csv"},{"Croatia.csv"},{"Denmark.csv"},{"Egypt.csv"},{"England.csv"},{"France.csv"},{"Germany.csv"},{"Iceland.csv"},{"Iran.csv"},{"Japan.csv"},{"Korea.csv"},{"Mexico.csv"},{"Morocco.csv"},{"Nigeria.csv"},{"Panama.csv"},{"Peru.csv"},{"Poland.csv"},{"Portugal.csv"},{"Russia.csv"},{"SaudiArabia.csv"},{"Senegal.csv"},{"Serbia.csv"},{"Spain.csv"},{"Sweden.csv"},{"Switzerland.csv"},{"Tunisia.csv"},{"Uruguay.csv"}};
 	for(int count=0;count<32;count++){
-	
-	FILE *fpo=fopen(s[count],"r");
+	FILE *fpo=fopen(team_array[count].filename,"r");
 	if(fpo == NULL){
 	perror("file open");
 	}
@@ -102,7 +139,7 @@ void ReadFromFilePlayerinfo(void){
 		printf("num=%3d 	  name=%10s 	 age=%3d 	 mainpost=%2c\n",player_array[j].num,player_array[j].playername,player_array[j].age,player_array[j].mainpost);
 	}*/
 	fclose(fpo);
-	//printf("\n\n\n\n\n\n\"Team : %s\"\n\n\n\n\n",team_array[count].filename);
+//	printf("\n\n\n\n\n\n\"Team : %s\"\n\n\n\n\n",team_array[count].filename);
 	}
 }
 
@@ -296,6 +333,10 @@ void print_seed(){
 
 int main(){
 	ReadFromFileTeaminfo();
+<<<<<<< HEAD
+	ReadFromFilePlayerinfo();
+	print_group();
+=======
 
 //	ReadFromFilePlayerinfo();
 	systemOfTeam(4);
@@ -305,6 +346,7 @@ int main(){
 	//print_seed();
 	//print_group();
 	//print_groups();
+>>>>>>> 9bb2a5ad7ddd7a5b769a25164b19f5afa5127669
 
 
 	
