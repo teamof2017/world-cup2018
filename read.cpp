@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <string.h>
+#include<time.h>
 typedef struct teamplayer{
 	char playername[40];
 	int form;
@@ -13,6 +14,7 @@ typedef struct teamplayer{
 }players;
 typedef struct infoteams{
 	char name[30];
+	int system;
 	char group;
 	int placeInGroup;
 	char confedration[20];
@@ -20,6 +22,7 @@ typedef struct infoteams{
     char filename[40];
 	players *p;
 }teams;
+<<<<<<< HEAD
 enum teamsName{
 	Argentina=1,
 	Australia,
@@ -55,6 +58,12 @@ enum teamsName{
 	Uruguay
 };
 char groupArray[20][32];
+=======
+
+
+
+
+>>>>>>> 9bb2a5ad7ddd7a5b769a25164b19f5afa5127669
 teams team_array[32];
 
 void ReadFromFileTeaminfo(void){
@@ -177,6 +186,142 @@ void print_group(){
 }
 
 
+void systemOfTeam(int i){
+	int n = 0 , cnt = 0;
+	srand( time ( NULL ));
+	for(cnt = 0 ; cnt < 32 ; cnt++){
+		
+		n = rand () % 7 + 1 ;
+	switch (n){
+		case 1:
+			team_array[cnt].system = 352;
+			break;
+			
+		case 2:
+			team_array[cnt].system = 343;
+			break;
+
+		case 3:
+			team_array[cnt].system = 442;
+			break;
+
+		case 4:
+			team_array[cnt].system = 451;
+			break;
+
+		case 5:
+			team_array[cnt].system = 433;
+			break;
+
+		case 6:
+			team_array[cnt].system = 541;
+			break;
+
+		case 7:
+			team_array[cnt].system = 532;
+			break;
+
+	}
+	
+}
+	
+	n=0;
+	puts("Please insert your team`s system\n\n");
+	
+	puts("\t1. 3-5-2\n");
+	puts("\t2. 3-4-3\n");
+	puts("\t3. 4-4-2\n");
+	puts("\t4. 4-5-1\n");
+	puts("\t5. 4-3-3\n");
+	puts("\t6. 5-4-1\n");
+	puts("\t7. 5-3-2\n");
+	
+	scanf("%d",&n);
+	
+	switch (n){
+		case 1:
+			team_array[i].system = 352;
+			break;
+			
+		case 2:
+			team_array[i].system = 343;
+			break;
+
+		case 3:
+			team_array[i].system = 442;
+			break;
+
+		case 4:
+			team_array[i].system = 451;
+			break;
+
+		case 5:
+			team_array[i].system = 433;
+			break;
+
+		case 6:
+			team_array[i].system = 541;
+			break;
+
+		case 7:
+			team_array[i].system = 532;
+			break;
+
+	}
+	
+}
+
+
+
+void print_seed(){
+	
+	
+	puts("\n\n SEEDS OF WORLD CUP 2018\n\n");
+	
+	int i=0 , j=0;
+	int  seedNumber = 1;	
+	char *x = 0;
+	int cnt = 0 ;
+	 x = (char*)calloc(20 , sizeof(char));
+	for(cnt=0 ; cnt<32 ; cnt++){
+		if(seedNumber > 4)
+			  return;
+		
+		
+		printf("      SEED   %d\n" , seedNumber);
+		for(i=0 , j=0 ; i<32 ; i++){
+			
+		if(seedNumber > 4)
+			  return;
+			  			
+		if(team_array[i].seed == seedNumber){
+			strcpy(x , (team_array[i].name )) ;
+
+			j++;
+			printf("\t%s\n", x);
+
+			if(j % 8 == 0){
+				seedNumber++;
+				break;
+			}
+				
+			
+		}
+	
+}
+
+		puts("");
+}
+		int z;
+
+		puts("if you want to change seeds prees 1\nelse prees 2\n");
+		scanf("%d" , &z);
+		if (z == 1){
+		//	lotterySeeds();
+		}
+		else{
+		}
+}
 
 
 
@@ -184,8 +329,20 @@ void print_group(){
 
 int main(){
 	ReadFromFileTeaminfo();
+<<<<<<< HEAD
 	ReadFromFilePlayerinfo();
 	print_group();
+=======
+
+//	ReadFromFilePlayerinfo();
+	systemOfTeam(4);
 
 
+	//print_seed();
+	//print_group();
+	//print_groups();
+>>>>>>> 9bb2a5ad7ddd7a5b769a25164b19f5afa5127669
+
+
+	
 }
