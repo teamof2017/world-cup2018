@@ -1,7 +1,12 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include<time.h>
+#include <time.h>
+#include <windows.h>
+
+
+
 typedef struct teamplayer{
 	char playername[40];
 	int form;
@@ -11,7 +16,12 @@ typedef struct teamplayer{
 	char post;
 	int num;
 	int age;
+
+	int numberOfPlayer;
 }players;
+
+
+
 typedef struct infoteams{
 	char name[30];
 	int system;
@@ -22,6 +32,17 @@ typedef struct infoteams{
     char filename[40];
     players playerinfo[60];
 }teams;
+
+
+
+
+
+
+
+
+
+teams team_array[32];
+
 
 enum teamsName{
 	Argentina=1,
@@ -57,13 +78,14 @@ enum teamsName{
 	Tunisia,
 	Uruguay
 };
-char groupArray[20][32];
 
 
 
 
 
-teams team_array[32];
+
+
+
 
 void ReadFromFileTeaminfo(void){
 	FILE *fp=fopen("Teams.csv","r");
@@ -134,8 +156,8 @@ void ReadFromFilePlayerinfo(void){
   		 team_array[count].playerinfo[i].mainpost = mainpost;
   		 
 	}
-	/*for(int j=0;j<i;j++){
-		printf("num=%3d 	  name=%10s 	 age=%3d 	 mainpost=%2c\n",player_array[j].num,player_array[j].playername,player_array[j].age,player_array[j].mainpost);
+/*	for(int j=0;j<i;j++){
+		printf("num=%3d 	  name=%10s 	 age=%3d 	 mainpost=%2c\n",team_array[j].p->num,team_array[j].p->playername,team_array[j].p->age,team_array[j].p->mainpost);
 	}*/
 	fclose(fpo);
 //	printf("\n\n\n\n\n\n\"Team : %s\"\n\n\n\n\n",team_array[count].filename);
@@ -326,15 +348,112 @@ void print_seed(){
 		}
 }
 
+void typeInConsole(char sentence[])
+{
+	int cnt = 0;
+	for (cnt = 0; cnt < strlen(sentence); cnt++) {
+		printf("%c", sentence[cnt]);
+		Sleep(100);
+	}
+}
+
+/*void lineup(int team_number)
+{
+	
+}*/
+
+void game_start()
+{
+	char username[100];
+	system("color 0E");
+	Sleep(2000);
+	
+	printf("\n");
+    char hello[45] = "Hello. Welcome to the World Cup Simulator!";
+    typeInConsole(hello);
+	Sleep(3000);
+	system("cls");
+	printf("\n");
+	
+	char wait[] = "PLEASE WAIT!";
+	typeInConsole(wait);
+	Sleep(500);
+	printf("\n\nLOADING");
+	Sleep(2000);
+	printf(".");
+	Sleep(1000);
+	printf(".");
+	Sleep(1000);
+	printf(".\n\n\n");
+	Sleep(500);
+	system("cls");
+	Sleep(1000);
+	printf("\n");
+	
+	char yourname[] = "Please tell me your name to be more intimate : ";
+	typeInConsole(yourname);
+	puts("\n");
+    scanf("%s", &username);
+    Sleep(1000);
+    
+	system("cls");
+	char welcome[] = "Welcome to World Cup 2018 !";
+	printf("\n'%s', ", username);
+	typeInConsole(welcome);
+	Sleep(1000);
+	printf("\n\n");
+	
+	char choose[] = "Make your choose : \n\n1. NEW GAME\n\n2. CONTINUE PREVIOUS GAME\n\nIf you want to make a new game : Wirte '1'\n\nIf you want to continue previous game : Wirte '2'\n\nWrite Here : ";
+	typeInConsole(choose);
+    Sleep(500);
+	
+	int start;
+	scanf("%d", &start);
+	
+	system("cls");
+	Sleep(1000);
+	
+	if(start == 1) {
+		int cnt = 0;
+		for (cnt = 0; cnt < 32; cnt++) {
+			printf("\n%d. %s\n", cnt + 1, team_array[cnt].name);
+			Sleep(200);
+		}
+		Sleep(800);
+		int team_number = 0;
+		char write_teamNum[] = " write the number of the team you want to play with : ";
+		printf("\n\n'%s'", username);
+		typeInConsole(write_teamNum);
+		scanf("%d", &team_number);
+	}
+}
+
+/*void showTeamList()
+{
+	int team_number;
+	int cnt = 0
+	for ()
+}*/
+
+
+
 
 
 	
 
 int main(){
+
 	ReadFromFileTeaminfo();
+
 
 	ReadFromFilePlayerinfo();
 	//print_group();
+
+
+
+
+
+
 
 
 //	ReadFromFilePlayerinfo();
@@ -345,12 +464,22 @@ int main(){
 	//print_seed();
 	//print_group();
 	//print_groups();
+
 	for(int j=1 ; j<33 ; j++){
 		printf("\t%s\n",team_array[j].name);
-	for(int i=0 ; i< 34 ;i++){
+	for(int i=0 ; i< 51 ;i++){
 	printf("%s\n" , team_array[j].playerinfo[i].playername);
 
+
+
+
+
 	
+
+
+	//game_start();
+
+
 }
 }
 }
