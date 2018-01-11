@@ -353,10 +353,10 @@ void typeInConsole(char sentence[])
 	}
 }
 
-/*void lineup(int team_number)
+void lineup(int team_number)
 {
 	
-}*/
+}
 
 void game_start()
 {
