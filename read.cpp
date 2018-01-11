@@ -402,12 +402,14 @@ void game_start()
 	}
 }
 
-/*void showTeamList()
+void showTeamList()
 {
-	int team_number;
-	int cnt = 0
-	for ()
-}*/
+	enum teamsName team_number;
+	scanf("%d", &team_number);
+	//int team_number;
+	int cnt = 0;
+	//for (cnt = 0; cnt < )
+}
 
 
 
