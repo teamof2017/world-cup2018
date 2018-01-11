@@ -20,7 +20,6 @@ typedef struct teamplayer{
 
 
 
-
 typedef struct infoteams{
 	char name[30];
 	int system;
@@ -29,8 +28,12 @@ typedef struct infoteams{
 	char confedration[20];
 	int seed;
     char filename[40];
+
+
+
     int numberOfPlayer;
 	players playerinfo[60];
+
 
 }teams;
 
@@ -126,7 +129,7 @@ void ReadFromFileTeaminfo(void){
 
 void ReadFromFilePlayerinfo(void){
 	//char s[32][40]={{"Argentina.csv"},{"Australia.csv"},{"Belgium.csv"},{"Brazil.csv"},{"Colombia.csv"},{"CostaRica.csv"},{"Croatia.csv"},{"Denmark.csv"},{"Egypt.csv"},{"England.csv"},{"France.csv"},{"Germany.csv"},{"Iceland.csv"},{"Iran.csv"},{"Japan.csv"},{"Korea.csv"},{"Mexico.csv"},{"Morocco.csv"},{"Nigeria.csv"},{"Panama.csv"},{"Peru.csv"},{"Poland.csv"},{"Portugal.csv"},{"Russia.csv"},{"SaudiArabia.csv"},{"Senegal.csv"},{"Serbia.csv"},{"Spain.csv"},{"Sweden.csv"},{"Switzerland.csv"},{"Tunisia.csv"},{"Uruguay.csv"}};
-	for(int count=0;count<32;count++){
+	for(int count=0;count<=32;count++){
 	FILE *fpo=fopen(team_array[count].filename,"r");
 	if(fpo == NULL){
 	perror("file open");
@@ -137,6 +140,7 @@ void ReadFromFilePlayerinfo(void){
 	char name[30];
 	int num, i=0,age;
 	for( i=0 ; fgets(tmp,100,fpo) != NULL ; i++ ){
+
 		token=strtok(tmp,",");
 		while( token != NULL ) {
    		 	sscanf(token,"%d",&num);
@@ -148,21 +152,20 @@ void ReadFromFilePlayerinfo(void){
      		sscanf(token,"%c",&mainpost);
      		token = strtok(NULL, ",");
   		 }
-		team_array[count].playerinfo[i].num = num;
-		team_array[count].playerinfo[i].age=age;
-		team_array[count].playerinfo[i].mainpost=mainpost;
-		strcpy(team_array[count].playerinfo[i].playername,name);
-	}
-	team_array[count].numberOfPlayer=i;
 
-	/*	for(int j=0;j<i;j++){
-			printf("num=%3d 	  name=%10s 	 age=%3d 	 mainpost=%2c\n",team_array[count].playerinfo[j].num,team_array[count].playerinfo[j].playername,team_array[count].playerinfo[j].age,team_array[count].playerinfo[j].mainpost);
-		}
-		puts("");*/
-	fclose(fpo);
-//	printf("\n\n\n\n\n\n\"Team : %s\"\n\n\n\n\n",team_array[count].filename);
+  		 team_array[count].playerinfo[i].num = num;
+  		 strcpy(team_array[count].playerinfo[i].playername , name);
+  		 team_array[count].playerinfo[i].age = age;
+  		 team_array[count].playerinfo[i].mainpost = mainpost;
+  		 
 	}
+	
+	team_array[count].numberOfPlayer = i;
+	fclose(fpo);
 }
+
+	}
+
 
 
 void print_group(){
@@ -256,7 +259,7 @@ void systemOfTeam(int i){
 	puts("\t5. 4-3-3\n");
 	puts("\t6. 5-4-1\n");
 	puts("\t7. 5-3-2\n");
-	
+A:	
 	scanf("%d",&n);
 	
 	switch (n){
@@ -287,6 +290,10 @@ void systemOfTeam(int i){
 		case 7:
 			team_array[i].system = 532;
 			break;
+			
+		default:
+			puts("\tLotfan Bebin , 7 Ta Tarkib Bishtar Nist.\n\tHala Mitony Ye Bar Dige Emtehan Koni.");
+			goto A;
 
 	}
 	
@@ -438,7 +445,7 @@ void showTeamList()
 	}
 }
 
-
+	
 
 
 
@@ -450,16 +457,30 @@ int main(){
 
 
 	ReadFromFilePlayerinfo();
-//	print_group();
+	//print_group();
+
+
+
+
+
+
 
 
 //	ReadFromFilePlayerinfo();
-//	systemOfTeam(4);
-
-
+	//systemOfTeam(4);
+	/*for(int cnt = 0 ; cnt <32 ; cnt++)
+		printf("%d\n",team_array[cnt].system);
+*/
 	//print_seed();
 	//print_group();
 	//print_groups();
+	int n=0;
+	//scanf("%d", n);
+	//printf("%d",team_array[n].numberOfPlayer);
+	
+	
+	
+	
 
 
 
@@ -467,6 +488,7 @@ int main(){
 
 
 	game_start();
+
 
 
 }
