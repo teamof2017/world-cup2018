@@ -16,11 +16,9 @@ typedef struct teamplayer{
 	char post;
 	int num;
 	int age;
-
-	int numberOfPlayer;
 }players;
 
-} players;
+
 
 
 typedef struct infoteams{
@@ -31,21 +29,17 @@ typedef struct infoteams{
 	char confedration[20];
 	int seed;
     char filename[40];
-	players *p;
+    int numberOfPlayer;
+	players playerinfo[60];
 
 }teams;
 
 
-char groupArray[20][32];
+
 
 teams team_array[32];
 
 
-
-} teams;
-
-char groupArray[20][32];
-teams team_array[32];
 
 
 enum teamsName{
@@ -142,8 +136,7 @@ void ReadFromFilePlayerinfo(void){
 	char mainpost;
 	char name[30];
 	int num, i=0,age;
-	team_array[i].p->numberOfPlayer=1;
-	for( i=0;fgets(tmp,100,fpo)!=NULL;i++,team_array[i].p->numberOfPlayer++){
+	for( i=0 ; fgets(tmp,100,fpo) != NULL ; i++ ){
 		token=strtok(tmp,",");
 		while( token != NULL ) {
    		 	sscanf(token,"%d",&num);
@@ -155,14 +148,17 @@ void ReadFromFilePlayerinfo(void){
      		sscanf(token,"%c",&mainpost);
      		token = strtok(NULL, ",");
   		 }
-		team_array[i].p->num = num;
-		team_array[i].p->age=age;
-		team_array[i].p->mainpost=mainpost;
-		strcpy(team_array[i].p->playername,name);
+		team_array[count].playerinfo[i].num = num;
+		team_array[count].playerinfo[i].age=age;
+		team_array[count].playerinfo[i].mainpost=mainpost;
+		strcpy(team_array[count].playerinfo[i].playername,name);
 	}
-	for(int j=0;j<i;j++){
-		printf("num=%3d 	  name=%10s 	 age=%3d 	 mainpost=%2c\n",team_array[j].p->num,team_array[j].p->playername,team_array[j].p->age,team_array[j].p->mainpost);
-	}
+	team_array[count].numberOfPlayer=i;
+
+	/*	for(int j=0;j<i;j++){
+			printf("num=%3d 	  name=%10s 	 age=%3d 	 mainpost=%2c\n",team_array[count].playerinfo[j].num,team_array[count].playerinfo[j].playername,team_array[count].playerinfo[j].age,team_array[count].playerinfo[j].mainpost);
+		}
+		puts("");*/
 	fclose(fpo);
 //	printf("\n\n\n\n\n\n\"Team : %s\"\n\n\n\n\n",team_array[count].filename);
 	}
