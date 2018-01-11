@@ -20,16 +20,16 @@ typedef struct infoteams{
 	char confedration[20];
 	int seed;
     char filename[40];
-	players *p;
+    players playerinfo[60];
 }teams;
-<<<<<<< HEAD
+
 enum teamsName{
 	Argentina=1,
 	Australia,
 	Belgium,
 	Brazil,
 	Colombia,
-	Costa Rica,
+	CostaRica,
 	Croatia,
 	Denmark,
 	Egypt,
@@ -39,7 +39,7 @@ enum teamsName{
 	Iceland,
 	Iran,
 	Japan,
-	Korea Republic,
+	KoreaRepublic,
 	Mexico,
 	Morocco,
 	Nigeria,
@@ -48,7 +48,7 @@ enum teamsName{
 	Poland,
 	Portugal,
 	Russia,
-	Saudi Arabia,
+	SaudiArabia,
 	Senegal,
 	Serbia,
 	Spain,
@@ -58,12 +58,11 @@ enum teamsName{
 	Uruguay
 };
 char groupArray[20][32];
-=======
 
 
 
 
->>>>>>> 9bb2a5ad7ddd7a5b769a25164b19f5afa5127669
+
 teams team_array[32];
 
 void ReadFromFileTeaminfo(void){
@@ -107,7 +106,7 @@ void ReadFromFileTeaminfo(void){
 
 void ReadFromFilePlayerinfo(void){
 	//char s[32][40]={{"Argentina.csv"},{"Australia.csv"},{"Belgium.csv"},{"Brazil.csv"},{"Colombia.csv"},{"CostaRica.csv"},{"Croatia.csv"},{"Denmark.csv"},{"Egypt.csv"},{"England.csv"},{"France.csv"},{"Germany.csv"},{"Iceland.csv"},{"Iran.csv"},{"Japan.csv"},{"Korea.csv"},{"Mexico.csv"},{"Morocco.csv"},{"Nigeria.csv"},{"Panama.csv"},{"Peru.csv"},{"Poland.csv"},{"Portugal.csv"},{"Russia.csv"},{"SaudiArabia.csv"},{"Senegal.csv"},{"Serbia.csv"},{"Spain.csv"},{"Sweden.csv"},{"Switzerland.csv"},{"Tunisia.csv"},{"Uruguay.csv"}};
-	for(int count=0;count<32;count++){
+	for(int count=1;count<=32;count++){
 	FILE *fpo=fopen(team_array[count].filename,"r");
 	if(fpo == NULL){
 	perror("file open");
@@ -116,7 +115,6 @@ void ReadFromFilePlayerinfo(void){
 	char *token;
 	char mainpost;
 	char name[30];
-	players player_array[60];
 	int num, i=0,age;
 	for( i=0;fgets(tmp,100,fpo)!=NULL;i++){
 		token=strtok(tmp,",");
@@ -130,10 +128,11 @@ void ReadFromFilePlayerinfo(void){
      		sscanf(token,"%c",&mainpost);
      		token = strtok(NULL, ",");
   		 }
-		player_array[i].num = num;
-		player_array[i].age=age;
-		player_array[i].mainpost=mainpost;
-		strcpy(player_array[i].playername,name);
+  		 team_array[count].playerinfo[i].num = num;
+  		 strcpy(team_array[count].playerinfo[i].playername , name);
+  		 team_array[count].playerinfo[i].age = age;
+  		 team_array[count].playerinfo[i].mainpost = mainpost;
+  		 
 	}
 	/*for(int j=0;j<i;j++){
 		printf("num=%3d 	  name=%10s 	 age=%3d 	 mainpost=%2c\n",player_array[j].num,player_array[j].playername,player_array[j].age,player_array[j].mainpost);
@@ -333,21 +332,25 @@ void print_seed(){
 
 int main(){
 	ReadFromFileTeaminfo();
-<<<<<<< HEAD
+
 	ReadFromFilePlayerinfo();
-	print_group();
-=======
+	//print_group();
+
 
 //	ReadFromFilePlayerinfo();
-	systemOfTeam(4);
-	for(int cnt = 0 ; cnt <32 ; cnt++)
+	//systemOfTeam(4);
+	/*for(int cnt = 0 ; cnt <32 ; cnt++)
 		printf("%d\n",team_array[cnt].system);
-
+*/
 	//print_seed();
 	//print_group();
 	//print_groups();
->>>>>>> 9bb2a5ad7ddd7a5b769a25164b19f5afa5127669
-
+	for(int j=1 ; j<33 ; j++){
+		printf("\t%s\n",team_array[j].name);
+	for(int i=0 ; i< 34 ;i++){
+	printf("%s\n" , team_array[j].playerinfo[i].playername);
 
 	
+}
+}
 }
