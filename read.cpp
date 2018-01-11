@@ -471,11 +471,6 @@ int main(){
 	//printf("%d",team_array[n].numberOfPlayer);
 	int j=0;
 	playerSkill();
-	for(int i=0; i<32 ;i++){
-		for( j=0 ; j<team_array[i].numberOfPlayer ; j++){
-			printf("%d\n", team_array[i].playerinfo[j].fitness );
-		}
-	}
 	
 	
 
