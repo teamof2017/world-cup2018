@@ -198,7 +198,7 @@ void systemOfTeam(int i){
 	puts("\t5. 4-3-3\n");
 	puts("\t6. 5-4-1\n");
 	puts("\t7. 5-3-2\n");
-	
+A:	
 	scanf("%d",&n);
 	
 	switch (n){
@@ -229,6 +229,10 @@ void systemOfTeam(int i){
 		case 7:
 			team_array[i].system = 532;
 			break;
+			
+		default:
+			puts("\tLotfan Bebin , 7 Ta Tarkib Bishtar Nist.\n\tHala Mitony Ye Bar Dige Emtehan Koni.");
+			goto A;
 
 	}
 	
@@ -295,7 +299,8 @@ int main(){
 
 //	ReadFromFilePlayerinfo();
 	systemOfTeam(4);
-
+	for(int cnt = 0 ; cnt <32 ; cnt++)
+		printf("%d\n",team_array[cnt].system);
 
 	//print_seed();
 	//print_group();
