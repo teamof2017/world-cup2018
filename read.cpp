@@ -28,13 +28,8 @@ typedef struct infoteams{
 	char confedration[20];
 	int seed;
     char filename[40];
-
-
-
-    int numberOfPlayer;
+	int numberOfPlayer;
 	players playerinfo[60];
-
-
 }teams;
 
 
@@ -129,7 +124,7 @@ void ReadFromFileTeaminfo(void){
 
 void ReadFromFilePlayerinfo(void){
 	//char s[32][40]={{"Argentina.csv"},{"Australia.csv"},{"Belgium.csv"},{"Brazil.csv"},{"Colombia.csv"},{"CostaRica.csv"},{"Croatia.csv"},{"Denmark.csv"},{"Egypt.csv"},{"England.csv"},{"France.csv"},{"Germany.csv"},{"Iceland.csv"},{"Iran.csv"},{"Japan.csv"},{"Korea.csv"},{"Mexico.csv"},{"Morocco.csv"},{"Nigeria.csv"},{"Panama.csv"},{"Peru.csv"},{"Poland.csv"},{"Portugal.csv"},{"Russia.csv"},{"SaudiArabia.csv"},{"Senegal.csv"},{"Serbia.csv"},{"Spain.csv"},{"Sweden.csv"},{"Switzerland.csv"},{"Tunisia.csv"},{"Uruguay.csv"}};
-	for(int count=0;count<=32;count++){
+	for(int count=0;count<32;count++){
 	FILE *fpo=fopen(team_array[count].filename,"r");
 	if(fpo == NULL){
 	perror("file open");
@@ -438,7 +433,18 @@ void game_start()
 	for ()
 }*/
 
-	
+void playerSkill(){
+	srand( time (NULL));
+	for(int i=0; i<32 ;i++){
+		for(int j=0 ; j<team_array[i].numberOfPlayer ; j++){
+			
+			team_array[i].playerinfo[j].skill = rand() % 50 + 50;
+			team_array[i].playerinfo[j].form = rand() % 10 + 90;
+			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
+			
+		}
+	}
+}
 
 
 
@@ -452,13 +458,6 @@ int main(){
 	ReadFromFilePlayerinfo();
 	//print_group();
 
-
-
-
-
-
-
-
 //	ReadFromFilePlayerinfo();
 	//systemOfTeam(4);
 	/*for(int cnt = 0 ; cnt <32 ; cnt++)
@@ -470,8 +469,13 @@ int main(){
 	int n=0;
 	//scanf("%d", n);
 	//printf("%d",team_array[n].numberOfPlayer);
-	
-	
+	int j=0;
+	playerSkill();
+	for(int i=0; i<32 ;i++){
+		for( j=0 ; j<team_array[i].numberOfPlayer ; j++){
+			printf("%d\n", team_array[i].playerinfo[j].fitness );
+		}
+	}
 	
 	
 
