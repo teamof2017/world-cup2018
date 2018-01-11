@@ -16,6 +16,7 @@ typedef struct teamplayer{
 	char post;
 	int num;
 	int age;
+	int avg;
 }players;
 
 
@@ -29,6 +30,7 @@ typedef struct infoteams{
 	int seed;
     char filename[40];
 	int numberOfPlayer;
+	int power;
 	players playerinfo[60];
 }teams;
 
@@ -443,6 +445,7 @@ void showTeamList()
 }
 
 void playerSkill(){
+	int sum=0;
 	srand( time (NULL));
 	for(int i=0; i<32 ;i++){
 		for(int j=0 ; j<team_array[i].numberOfPlayer ; j++){
@@ -450,8 +453,12 @@ void playerSkill(){
 			team_array[i].playerinfo[j].skill = rand() % 50 + 50;
 			team_array[i].playerinfo[j].form = rand() % 10 + 90;
 			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
+			team_array[i].playerinfo[j].avg=(team_array[i].playerinfo[j].skill+team_array[i].playerinfo[j].form+team_array[i].playerinfo[j].fitness)/3;
+			sum+=team_array[i].playerinfo[j].avg
 			
 		}
+		team_array[i].power=sum;
+		sum=0;
 	}
 }
 
