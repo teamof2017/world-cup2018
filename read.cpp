@@ -6,6 +6,7 @@
 #include <windows.h>
 
 void showTeamList();
+int team_number = 0;
 
 typedef struct teamplayer{
 	char playername[40];
@@ -80,13 +81,7 @@ enum teamsName{
 	Uruguay
 };
 
-
-
-
-
-
-
-
+enum teamsName team_number;
 
 void ReadFromFileTeaminfo(void){
 	FILE *fp=fopen("Teams.csv","r");
@@ -130,40 +125,39 @@ void ReadFromFileTeaminfo(void){
 void ReadFromFilePlayerinfo(void){
 	//char s[32][40]={{"Argentina.csv"},{"Australia.csv"},{"Belgium.csv"},{"Brazil.csv"},{"Colombia.csv"},{"CostaRica.csv"},{"Croatia.csv"},{"Denmark.csv"},{"Egypt.csv"},{"England.csv"},{"France.csv"},{"Germany.csv"},{"Iceland.csv"},{"Iran.csv"},{"Japan.csv"},{"Korea.csv"},{"Mexico.csv"},{"Morocco.csv"},{"Nigeria.csv"},{"Panama.csv"},{"Peru.csv"},{"Poland.csv"},{"Portugal.csv"},{"Russia.csv"},{"SaudiArabia.csv"},{"Senegal.csv"},{"Serbia.csv"},{"Spain.csv"},{"Sweden.csv"},{"Switzerland.csv"},{"Tunisia.csv"},{"Uruguay.csv"}};
 	for(int count=0;count<32;count++){
-	FILE *fpo=fopen(team_array[count].filename,"r");
-	if(fpo == NULL){
-	perror("file open");
-	}
-	char tmp[100];
-	char *token;
-	char mainpost;
-	char name[30];
-	int num, i=0,age;
-	for( i=0 ; fgets(tmp,100,fpo) != NULL ; i++ ){
 
-		token=strtok(tmp,",");
-		while( token != NULL ) {
-   		 	sscanf(token,"%d",&num);
-     		token = strtok(NULL, ",");
-     		strcpy(name,token);
-     		token = strtok(NULL, ",");
-     		sscanf(token,"%d",&age);
-     		token = strtok(NULL, ",");
-     		sscanf(token,"%c",&mainpost);
-     		token = strtok(NULL, ",");
-  		 }
+		FILE *fpo=fopen(team_array[count].filename,"r");
+		if(fpo == NULL){
+		perror("file open");
+		}
+		char tmp[100];
+		char *token;
+		char mainpost;
+		char name[30];
+		int num, i=0,age;
+		for( i=0 ; fgets(tmp,100,fpo) != NULL ; i++ ){
+			token=strtok(tmp,",");
+			while( token != NULL ) {
+	   		 	sscanf(token,"%d",&num);
+	     		token = strtok(NULL, ",");
+	     		strcpy(name,token);
+	     		token = strtok(NULL, ",");
+	     		sscanf(token,"%d",&age);
+	     		token = strtok(NULL, ",");
+    	 		sscanf(token,"%c",&mainpost);
+     			token = strtok(NULL, ",");
+  			}
 
-  		 team_array[count].playerinfo[i].num = num;
-  		 strcpy(team_array[count].playerinfo[i].playername , name);
-  		 team_array[count].playerinfo[i].age = age;
-  		 team_array[count].playerinfo[i].mainpost = mainpost;
-  		 
+  			team_array[count].playerinfo[i].num = num;
+	  		strcpy(team_array[count].playerinfo[i].playername , name);
+  			team_array[count].playerinfo[i].age = age;
+  			team_array[count].playerinfo[i].mainpost = mainpost; 
+		}
+		team_array[count].numberOfPlayer = i;
+		fclose(fpo);
 	}
-	team_array[count].numberOfPlayer = i;
-	fclose(fpo);
+
 }
-
-	}
 
 
 
@@ -400,12 +394,16 @@ void lineup(int team_number)
 
 int  game_start()
 {
+<<<<<<< HEAD
 
 	printBall();
 
+=======
+	//printBall();
+>>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
 	char username[100];
 	system("color 0E");
-	Sleep(2000);
+	/*Sleep(2000);
 	
 	
 	
@@ -414,9 +412,9 @@ int  game_start()
     typeInConsole(hello);
 	Sleep(2000);
 	system("cls");
-	printf("\n");
+	printf("\n");*/
 	
-	char wait[] = "PLEASE WAIT!";
+	/*char wait[] = "PLEASE WAIT!";
 	typeInConsole(wait);
 	Sleep(300);
 	printf("\n\nLOADING");
@@ -429,13 +427,13 @@ int  game_start()
 	Sleep(500);
 	system("cls");
 	Sleep(700);
-	printf("\n");
+	printf("\n");*/
 	
 	char yourname[] = "Please tell me your name to be more intimate : ";
 	typeInConsole(yourname);
 	puts("\n");
     scanf("%s", &username);
-    Sleep(700);
+    /*Sleep(700);
     
 	system("cls");
 	char welcome[] = "Welcome to World Cup 2018 !";
@@ -446,7 +444,7 @@ int  game_start()
 	
 	char choose[] = "Make your choose : \n\n1. NEW GAME\n\n2. CONTINUE PREVIOUS GAME\n\nIf you want to make a new game : Wirte '1'\n\nIf you want to continue previous game : Wirte '2'\n\nWrite Here : ";
 	typeInConsole(choose);
-    Sleep(400);
+    Sleep(400);*/
 	
 	int start;
 	scanf("%d", &start);
@@ -461,7 +459,7 @@ int  game_start()
 			Sleep(100);
 		}
 		Sleep(500);
-		int team_number = 0;
+		
 		char write_teamNum[] = "\nWrite the number of the team you want to play with : ";
 		//printf("\n\n'%s'", username);
 		typeInConsole(write_teamNum);
@@ -476,15 +474,22 @@ int  game_start()
 
 void showTeamList()
 {
-	enum teamsName team_number;
+	//enum teamsName team_number;
 	scanf("%d", &team_number);
-	//int team_number;
 	int cnt = 0;
+	system("cls");
+	printf("Player Number		Player Name		Player MainPost\n\n\n");
 	for (cnt = 0; cnt < team_array[team_number - 1].numberOfPlayer; cnt++) {
-		printf("%d.%s %c\n\n", team_array[team_number - 1].playerinfo[cnt].num, team_array[team_number - 1].playerinfo[cnt].playername, team_array[team_number - 1].playerinfo[cnt].mainpost);
+		printf("%6d                  %-20s%11c\n\n", team_array[team_number - 1].playerinfo[cnt].num, team_array[team_number - 1].playerinfo[cnt].playername, team_array[team_number - 1].playerinfo[cnt].mainpost);
 		Sleep(200);
 	}
 }
+
+
+void changePlayers()
+{
+	
+}	
 
 void playerSkill(){
 	float sum=0;
@@ -505,6 +510,7 @@ void playerSkill(){
 	}
 }
 
+<<<<<<< HEAD
 void serachAndChose(mainplayer[],storeplayer[]){
 	for(int j=0;j<32;j++){
 	for(int i=0;i<team_array[j].numberOfPlayer)
@@ -512,6 +518,15 @@ void serachAndChose(mainplayer[],storeplayer[]){
 	
 	
 }
+=======
+
+void print_players(){
+	
+}
+
+
+
+>>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
 
 	
 
@@ -519,9 +534,64 @@ int main(){
 	int i = 0;
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
+<<<<<<< HEAD
 	i = game_start();
 	systemOfTeam(i);
 	playerSkill();
 	
+=======
+//	i = game_start();
+	
+	
+
+	
+	while(1){
+	
+	void *input;
+	input = calloc(15 , sizeof(char));
+	puts("Please Insert Correct Order :");
+	scanf("%s", input);
+	
+			
+		if( input == "lineup"){
+			
+		}
+		
+		
+		if(input == "save"){
+			
+		}
+		
+		
+		/*if(input == "proceed"){
+			int proceedNum = 0;
+			void *b;
+			sscanf(input , "%s%d" , b , &proceedNum);
+			//proceedNum tedad dafeati ke proceed bayad ejra shavad.
+			//proceed (proceedNum);
+		}*/
+		
+		
+		if(input == "exit"){
+			puts("exit");
+		}
+	}
+
+//	systemOfTeam(i);
+	
+		//print_group();
+
+	//print_seed();
+	//print_group();
+	//print_groups();
+	playerSkill();
+	
+	
+
+
+
+	
+
+>>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
 
 }
