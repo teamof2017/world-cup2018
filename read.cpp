@@ -80,13 +80,7 @@ enum teamsName{
 	Uruguay
 };
 
-
-
-
-
-
-
-
+enum teamsName team_number;
 
 void ReadFromFileTeaminfo(void){
 	FILE *fp=fopen("Teams.csv","r");
@@ -129,42 +123,38 @@ void ReadFromFileTeaminfo(void){
 
 void ReadFromFilePlayerinfo(void){
 	//char s[32][40]={{"Argentina.csv"},{"Australia.csv"},{"Belgium.csv"},{"Brazil.csv"},{"Colombia.csv"},{"CostaRica.csv"},{"Croatia.csv"},{"Denmark.csv"},{"Egypt.csv"},{"England.csv"},{"France.csv"},{"Germany.csv"},{"Iceland.csv"},{"Iran.csv"},{"Japan.csv"},{"Korea.csv"},{"Mexico.csv"},{"Morocco.csv"},{"Nigeria.csv"},{"Panama.csv"},{"Peru.csv"},{"Poland.csv"},{"Portugal.csv"},{"Russia.csv"},{"SaudiArabia.csv"},{"Senegal.csv"},{"Serbia.csv"},{"Spain.csv"},{"Sweden.csv"},{"Switzerland.csv"},{"Tunisia.csv"},{"Uruguay.csv"}};
-	for(int count=0;count<=32;count++){
-	FILE *fpo=fopen(team_array[count].filename,"r");
-	if(fpo == NULL){
-	perror("file open");
-	}
-	char tmp[100];
-	char *token;
-	char mainpost;
-	char name[30];
-	int num, i=0,age;
-	for( i=0 ; fgets(tmp,100,fpo) != NULL ; i++ ){
+	for(int count=0;count<32;count++){
+		FILE *fpo=fopen(team_array[count].filename,"r");
+		if(fpo == NULL){
+		perror("file open");
+		}
+		char tmp[100];
+		char *token;
+		char mainpost;
+		char name[30];
+		int num, i=0,age;
+		for( i=0 ; fgets(tmp,100,fpo) != NULL ; i++ ){
+			token=strtok(tmp,",");
+			while( token != NULL ) {
+	   		 	sscanf(token,"%d",&num);
+	     		token = strtok(NULL, ",");
+	     		strcpy(name,token);
+	     		token = strtok(NULL, ",");
+	     		sscanf(token,"%d",&age);
+	     		token = strtok(NULL, ",");
+    	 		sscanf(token,"%c",&mainpost);
+     			token = strtok(NULL, ",");
+  			}
 
-		token=strtok(tmp,",");
-		while( token != NULL ) {
-   		 	sscanf(token,"%d",&num);
-     		token = strtok(NULL, ",");
-     		strcpy(name,token);
-     		token = strtok(NULL, ",");
-     		sscanf(token,"%d",&age);
-     		token = strtok(NULL, ",");
-     		sscanf(token,"%c",&mainpost);
-     		token = strtok(NULL, ",");
-  		 }
-
-  		 team_array[count].playerinfo[i].num = num;
-  		 strcpy(team_array[count].playerinfo[i].playername , name);
-  		 team_array[count].playerinfo[i].age = age;
-  		 team_array[count].playerinfo[i].mainpost = mainpost;
-  		 
+  			team_array[count].playerinfo[i].num = num;
+	  		strcpy(team_array[count].playerinfo[i].playername , name);
+  			team_array[count].playerinfo[i].age = age;
+  			team_array[count].playerinfo[i].mainpost = mainpost; 
+		}
+		team_array[count].numberOfPlayer = i;
+		fclose(fpo);
 	}
-	
-	team_array[count].numberOfPlayer = i;
-	fclose(fpo);
 }
-
-	}
 
 
 
@@ -435,9 +425,8 @@ void game_start()
 
 void showTeamList()
 {
-	enum teamsName team_number;
+	//enum teamsName team_number;
 	scanf("%d", &team_number);
-	//int team_number;
 	int cnt = 0;
 	for (cnt = 0; cnt < team_array[team_number - 1].numberOfPlayer; cnt++) {
 		printf("%d %s %c\n\n", team_array[team_number - 1].playerinfo[cnt].num, team_array[team_number - 1].playerinfo[cnt].playername, team_array[team_number - 1].playerinfo[cnt].mainpost);
@@ -445,7 +434,10 @@ void showTeamList()
 	}
 }
 
+void changePlayers()
+{
 	
+}	
 
 
 
