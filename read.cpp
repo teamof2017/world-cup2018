@@ -243,7 +243,7 @@ void systemOfTeam(int i){
 	
 }
 	
-	n=0;
+/*	n=0;
 	puts("Please insert your team`s system\n\n");
 	
 	puts("\t1. 3-5-2\n");
@@ -289,7 +289,7 @@ A:
 			puts("\tLotfan Bebin , 7 Ta Tarkib Bishtar Nist.\n\tHala Mitony Ye Bar Dige Emtehan Koni.");
 			goto A;
 
-	}
+	}*/
 	
 }
 
@@ -345,6 +345,32 @@ void print_seed(){
 		}
 }
 
+void printBall(){
+	
+	puts("                                           **************");
+	puts("                                  *******************************");
+	puts("                             *****************************************");
+	puts("                            *********************************************");
+	puts("                          ***************************************************");
+	puts("                       ********************************************************");
+	puts("                      ***********************************************************");
+	puts("                     ************************************************************");
+	puts("                    **************************************************************");
+	puts("                  ****************************************************************");
+	puts("                  ****************************************************************");
+	puts("                  ****************************************************************");
+	puts("                  ****************************************************************");
+	puts("                   **************************************************************");
+	puts("                   ************************************************************");
+	puts("                    **********************************************************");
+	puts("                     ********************************************************");
+	puts("                      ***************************************************");
+	puts("                        **********************************************");
+	puts("                          ******************************************");
+	puts("                                *********************************");
+	puts("                                       *******************");
+}
+
 void typeInConsole(char sentence[])
 {
 	int cnt = 0;
@@ -361,9 +387,12 @@ void lineup(int team_number)
 
 void game_start()
 {
-	/*char username[100];
+	printBall();
+	char username[100];
 	system("color 0E");
 	Sleep(2000);
+	
+	
 	
 	printf("\n");
     char hello[45] = "Hello. Welcome to the World Cup Simulator!";
@@ -398,7 +427,7 @@ void game_start()
 	printf("\n'%s', ", username);
 	typeInConsole(welcome);
 	Sleep(700);
-	printf("\n\n");*/
+	printf("\n\n");
 	
 	char choose[] = "Make your choose : \n\n1. NEW GAME\n\n2. CONTINUE PREVIOUS GAME\n\nIf you want to make a new game : Wirte '1'\n\nIf you want to continue previous game : Wirte '2'\n\nWrite Here : ";
 	typeInConsole(choose);
@@ -462,16 +491,15 @@ int main(){
 
 
 	ReadFromFilePlayerinfo();
-	//print_group();
+	game_start();
 
-//	ReadFromFilePlayerinfo();
+	print_group();
+
 	//systemOfTeam(4);
 	/*for(int cnt = 0 ; cnt <32 ; cnt++)
 		printf("%d\n",team_array[cnt].system);
 */
-	//print_seed();
-	//print_group();
-	//print_groups();
+	print_seed();
 	int n=0;
 	//scanf("%d", n);
 	//printf("%d",team_array[n].numberOfPlayer);
@@ -485,7 +513,6 @@ int main(){
 	
 
 
-	//game_start();
 
 
 
