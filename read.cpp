@@ -16,6 +16,7 @@ typedef struct teamplayer{
 	char post;
 	int num;
 	int age;
+	float avg;
 }players;
 
 
@@ -28,13 +29,9 @@ typedef struct infoteams{
 	char confedration[20];
 	int seed;
     char filename[40];
-
-
-
-    int numberOfPlayer;
+	int numberOfPlayer;
+	float power;
 	players playerinfo[60];
-
-
 }teams;
 
 
@@ -115,7 +112,7 @@ void ReadFromFileTeaminfo(void){
 		strcpy(team_array[i].confedration,confedration);
 		strcpy(team_array[i].filename,filename);
 	}
-/*	for(int j=0;j<i;j++){
+	/*for(int j=0;j<i;j++){
 		printf("%d.Teamname=%10s	  group=%2c 	 place=%3d 	\n confedration=%5s seed=%3d  filename=%10s \n",j+1,team_array[j].name,team_array[j].group,team_array[j].placeInGroup,team_array[j].confedration,team_array[j].seed,team_array[j].filename);
 	}*/
 	fclose(fp);
@@ -124,6 +121,7 @@ void ReadFromFileTeaminfo(void){
 void ReadFromFilePlayerinfo(void){
 	//char s[32][40]={{"Argentina.csv"},{"Australia.csv"},{"Belgium.csv"},{"Brazil.csv"},{"Colombia.csv"},{"CostaRica.csv"},{"Croatia.csv"},{"Denmark.csv"},{"Egypt.csv"},{"England.csv"},{"France.csv"},{"Germany.csv"},{"Iceland.csv"},{"Iran.csv"},{"Japan.csv"},{"Korea.csv"},{"Mexico.csv"},{"Morocco.csv"},{"Nigeria.csv"},{"Panama.csv"},{"Peru.csv"},{"Poland.csv"},{"Portugal.csv"},{"Russia.csv"},{"SaudiArabia.csv"},{"Senegal.csv"},{"Serbia.csv"},{"Spain.csv"},{"Sweden.csv"},{"Switzerland.csv"},{"Tunisia.csv"},{"Uruguay.csv"}};
 	for(int count=0;count<32;count++){
+
 		FILE *fpo=fopen(team_array[count].filename,"r");
 		if(fpo == NULL){
 		perror("file open");
@@ -154,6 +152,7 @@ void ReadFromFilePlayerinfo(void){
 		team_array[count].numberOfPlayer = i;
 		fclose(fpo);
 	}
+
 }
 
 
@@ -239,7 +238,7 @@ void systemOfTeam(int i){
 	
 }
 	
-	n=0;
+/*	n=0;
 	puts("Please insert your team`s system\n\n");
 	
 	puts("\t1. 3-5-2\n");
@@ -285,7 +284,7 @@ A:
 			puts("\tLotfan Bebin , 7 Ta Tarkib Bishtar Nist.\n\tHala Mitony Ye Bar Dige Emtehan Koni.");
 			goto A;
 
-	}
+	}*/
 	
 }
 
@@ -341,6 +340,32 @@ void print_seed(){
 		}
 }
 
+void printBall(){
+	
+	puts("                                           **************");
+	puts("                                  *******************************");
+	puts("                             *****************************************");
+	puts("                            *********************************************");
+	puts("                          ***************************************************");
+	puts("                       ********************************************************");
+	puts("                      ***********************************************************");
+	puts("                     ************************************************************");
+	puts("                    **************************************************************");
+	puts("                  ****************************************************************");
+	puts("                  ****************************************************************");
+	puts("                  ****************************************************************");
+	puts("                  ****************************************************************");
+	puts("                   **************************************************************");
+	puts("                   ************************************************************");
+	puts("                    **********************************************************");
+	puts("                     ********************************************************");
+	puts("                      ***************************************************");
+	puts("                        **********************************************");
+	puts("                          ******************************************");
+	puts("                                *********************************");
+	puts("                                       *******************");
+}
+
 void typeInConsole(char sentence[])
 {
 	int cnt = 0;
@@ -350,25 +375,31 @@ void typeInConsole(char sentence[])
 	}
 }
 
-/*void lineup(int team_number)
+void lineup(int team_number)
 {
 	
-}*/
+	
+	
+	
+}
 
 void game_start()
 {
-	/*char username[100];
+	printBall();
+	char username[100];
 	system("color 0E");
-	Sleep(2000);
+	/*Sleep(2000);
+	
+	
 	
 	printf("\n");
     char hello[45] = "Hello. Welcome to the World Cup Simulator!";
     typeInConsole(hello);
 	Sleep(2000);
 	system("cls");
-	printf("\n");
+	printf("\n");*/
 	
-	char wait[] = "PLEASE WAIT!";
+	/*char wait[] = "PLEASE WAIT!";
 	typeInConsole(wait);
 	Sleep(300);
 	printf("\n\nLOADING");
@@ -381,24 +412,24 @@ void game_start()
 	Sleep(500);
 	system("cls");
 	Sleep(700);
-	printf("\n");
+	printf("\n");*/
 	
 	char yourname[] = "Please tell me your name to be more intimate : ";
 	typeInConsole(yourname);
 	puts("\n");
     scanf("%s", &username);
-    Sleep(700);
+    /*Sleep(700);
     
 	system("cls");
 	char welcome[] = "Welcome to World Cup 2018 !";
 	printf("\n'%s', ", username);
 	typeInConsole(welcome);
 	Sleep(700);
-	printf("\n\n");*/
+	printf("\n\n");
 	
 	char choose[] = "Make your choose : \n\n1. NEW GAME\n\n2. CONTINUE PREVIOUS GAME\n\nIf you want to make a new game : Wirte '1'\n\nIf you want to continue previous game : Wirte '2'\n\nWrite Here : ";
 	typeInConsole(choose);
-    Sleep(400);
+    Sleep(400);*/
 	
 	int start;
 	scanf("%d", &start);
@@ -428,16 +459,38 @@ void showTeamList()
 	//enum teamsName team_number;
 	scanf("%d", &team_number);
 	int cnt = 0;
+	system("cls");
+	printf("Player Number		Player Name		Player MainPost\n\n\n");
 	for (cnt = 0; cnt < team_array[team_number - 1].numberOfPlayer; cnt++) {
-		printf("%d %s %c\n\n", team_array[team_number - 1].playerinfo[cnt].num, team_array[team_number - 1].playerinfo[cnt].playername, team_array[team_number - 1].playerinfo[cnt].mainpost);
+		printf("%6d                  %-20s%11c\n\n", team_array[team_number - 1].playerinfo[cnt].num, team_array[team_number - 1].playerinfo[cnt].playername, team_array[team_number - 1].playerinfo[cnt].mainpost);
 		Sleep(200);
 	}
 }
+
 
 void changePlayers()
 {
 	
 }	
+
+void playerSkill(){
+	float sum=0;
+	srand( time (NULL));
+	for(int i=0; i<32 ;i++){
+		for(int j=0 ; j<team_array[i].numberOfPlayer ; j++){
+			
+			team_array[i].playerinfo[j].skill = rand() % 50 + 50;
+			team_array[i].playerinfo[j].form = rand() % 10 + 90;
+			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
+			team_array[i].playerinfo[j].avg=(team_array[i].playerinfo[j].skill+team_array[i].playerinfo[j].form+team_array[i].playerinfo[j].fitness)/3;
+			sum+=team_array[i].playerinfo[j].avg;
+			
+		}
+		team_array[i].power=sum;
+		sum=0;
+	}
+}
+
 
 
 
@@ -449,38 +502,21 @@ int main(){
 
 
 	ReadFromFilePlayerinfo();
-	//print_group();
+	game_start();
 
+	print_group();
 
-
-
-
-
-
-
-//	ReadFromFilePlayerinfo();
 	//systemOfTeam(4);
 	/*for(int cnt = 0 ; cnt <32 ; cnt++)
 		printf("%d\n",team_array[cnt].system);
 */
+	print_seed();
+	int n=0;
 	//print_seed();
 	//print_group();
 	//print_groups();
-	int n=0;
 	//scanf("%d", n);
 	//printf("%d",team_array[n].numberOfPlayer);
-	
-	
-	
-	
-
-
-
-	
-
-
-	game_start();
-
-
-
+	int j=0;
+	playerSkill();
 }
