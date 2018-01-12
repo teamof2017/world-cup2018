@@ -6,7 +6,6 @@
 #include <windows.h>
 
 void showTeamList();
-int team_number = 0;
 
 typedef struct teamplayer{
 	char playername[40];
@@ -203,7 +202,7 @@ void print_group(){
 }
 
 
-void systemOfTeam(int i){
+void systemOfTeam(){
 	int n = 0 , cnt = 0;
 	srand( time ( NULL ));
 	for(cnt = 0 ; cnt < 32 ; cnt++){
@@ -241,7 +240,11 @@ void systemOfTeam(int i){
 	}
 	
 }
+	int flag = 0;
+	puts("Do you want to change your team system?\n1.No\n2.Yes");
+	scanf("%d",&flag);
 	
+	if(flag == 2){
 	n=0;
 	puts("Please insert your team`s system\n\n");
 	
@@ -254,7 +257,8 @@ void systemOfTeam(int i){
 	puts("\t7. 5-3-2\n");
 	
 	scanf("%d",&n);
-	while( n>7 && n<1){
+}
+	while( n>7 && n<1 && flag == 2){
 		puts("Your number is incorrect Please try again!");
 		scanf("%d",&n);
 	}
@@ -262,31 +266,31 @@ void systemOfTeam(int i){
 	
 	switch (n){
 		case 1:
-			team_array[i].system = 352;
+			team_array[team_number].system = 352;
 			break;
 			
 		case 2:
-			team_array[i].system = 343;
+			team_array[team_number].system = 343;
 			break;
 
 		case 3:
-			team_array[i].system = 442;
+			team_array[team_number].system = 442;
 			break;
 
 		case 4:
-			team_array[i].system = 451;
+			team_array[team_number].system = 451;
 			break;
 
 		case 5:
-			team_array[i].system = 433;
+			team_array[team_number].system = 433;
 			break;
 
 		case 6:
-			team_array[i].system = 541;
+			team_array[team_number].system = 541;
 			break;
 
 		case 7:
-			team_array[i].system = 532;
+			team_array[team_number].system = 532;
 			break;
 			
 		default:
@@ -394,13 +398,9 @@ void lineup(int team_number)
 
 int  game_start()
 {
-<<<<<<< HEAD
 
-	printBall();
 
-=======
 	//printBall();
->>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
 	char username[100];
 	system("color 0E");
 	/*Sleep(2000);
@@ -510,23 +510,30 @@ void playerSkill(){
 	}
 }
 
-<<<<<<< HEAD
-void serachAndChose(mainplayer[],storeplayer[]){
-	for(int j=0;j<32;j++){
-	for(int i=0;i<team_array[j].numberOfPlayer)
-	
-	
-	
-}
-=======
 
 void print_players(){
 	
+	puts("\n\t MAIN PLAYERS:");
+	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
+	
+	for(int i=0 ; i<11 ; i++){
+		printf("%2d.%-20s%4d%4d%4d%4c%4c\n",team_array[team_number].mainplayers[i].num , team_array[team_number].mainplayers[i].playername , team_array[team_number].mainplayers[i].skill , team_array[team_number].mainplayers[i].fitness , team_array[team_number].mainplayers[i].form , team_array[team_number].mainplayers[i].mainpost , team_array[team_number].mainplayers[i].post);
+	}
+	
+	int j = team_array[team_number].numberOfPlayer - 11;
+	
+	puts("\n\t STORE PLAYERS:");
+	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
+
+	for(int i=0 ; i<j ; i++){
+		printf("%2d.%-20s%4d%4d%4d%4c%4c\n",team_array[team_number].storeplayers[i].num , team_array[team_number].storeplayers[i].playername , team_array[team_number].storeplayers[i].skill , team_array[team_number].storeplayers[i].fitness , team_array[team_number].storeplayers[i].form , team_array[team_number].storeplayers[i].mainpost , team_array[team_number].storeplayers[i].post);
+	}
+	
+	
 }
 
 
 
->>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
 
 	
 
@@ -534,46 +541,52 @@ int main(){
 	int i = 0;
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
-<<<<<<< HEAD
-	i = game_start();
-	systemOfTeam(i);
+	//i = game_start();
+	//systemOfTeam(i);
 	playerSkill();
 	
-=======
 //	i = game_start();
 	
 	
 
 	
 	while(1){
-	
-	void *input;
-	input = calloc(15 , sizeof(char));
+	int proceedNum = 0;
+	char *input;
+	char *input2;
+	input =(char *) calloc(15 , sizeof(char));
+	input2 =(char *) calloc(15 , sizeof(char));
 	puts("Please Insert Correct Order :");
-	scanf("%s", input);
+	scanf("%s",input);
+
+	//sscanf( input2,"%s%d", input ,&proceedNum);
 	
 			
-		if( input == "lineup"){
-			
+		if( !strcmp(input , "lineup") ){
+			puts("lineup");
 		}
 		
 		
-		if(input == "save"){
-			
+		if( !strcmp(input , "save") ){
+			puts("save");
+
 		}
 		
 		
-		/*if(input == "proceed"){
-			int proceedNum = 0;
-			void *b;
-			sscanf(input , "%s%d" , b , &proceedNum);
-			//proceedNum tedad dafeati ke proceed bayad ejra shavad.
-			//proceed (proceedNum);
-		}*/
+		if(!strcmp(input , "proceed") ){
+			//if(fgets(input2 , 20 , stdin)!= NULL)
+			scanf("%d" , &proceedNum);
 		
+			/*else{
+				proceedNum = 1;
+			}*/
+			
+			printf("%d\n", proceedNum);
+
+				}
 		
-		if(input == "exit"){
-			puts("exit");
+		if(!strcmp(input , "exit")){
+			return 0;
 		}
 	}
 
@@ -592,6 +605,5 @@ int main(){
 
 	
 
->>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
 
 }
