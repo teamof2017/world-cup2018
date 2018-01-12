@@ -16,7 +16,7 @@ typedef struct teamplayer{
 	char post;
 	int num;
 	int age;
-	int avg;
+	float avg;
 }players;
 
 
@@ -30,7 +30,7 @@ typedef struct infoteams{
 	int seed;
     char filename[40];
 	int numberOfPlayer;
-	int power;
+	float power;
 	players playerinfo[60];
 }teams;
 
@@ -366,7 +366,7 @@ void lineup(int team_number)
 
 void game_start()
 {
-	/*char username[100];
+	char username[100];
 	system("color 0E");
 	Sleep(2000);
 	
@@ -403,7 +403,7 @@ void game_start()
 	printf("\n'%s', ", username);
 	typeInConsole(welcome);
 	Sleep(700);
-	printf("\n\n");*/
+	printf("\n\n");
 	
 	char choose[] = "Make your choose : \n\n1. NEW GAME\n\n2. CONTINUE PREVIOUS GAME\n\nIf you want to make a new game : Wirte '1'\n\nIf you want to continue previous game : Wirte '2'\n\nWrite Here : ";
 	typeInConsole(choose);
@@ -417,8 +417,8 @@ void game_start()
 	
 	if(start == 1) {
 		int cnt = 0;
-		for (cnt = 0; cnt < 32; cnt++) {
-			printf("\n%d. %s\n", cnt + 1, team_array[cnt].name);
+		for (cnt = 0; cnt < 16; cnt++) {
+			printf("\n%-2d. %-16s		%-2d. %-16s\n", cnt + 1, team_array[cnt].name,cnt + 17,team_array[cnt+16].name);
 			Sleep(100);
 		}
 		Sleep(500);
@@ -445,7 +445,7 @@ void showTeamList()
 }
 
 void playerSkill(){
-	int sum=0;
+	float sum=0;
 	srand( time (NULL));
 	for(int i=0; i<32 ;i++){
 		for(int j=0 ; j<team_array[i].numberOfPlayer ; j++){
@@ -454,9 +454,10 @@ void playerSkill(){
 			team_array[i].playerinfo[j].form = rand() % 10 + 90;
 			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
 			team_array[i].playerinfo[j].avg=(team_array[i].playerinfo[j].skill+team_array[i].playerinfo[j].form+team_array[i].playerinfo[j].fitness)/3;
-			sum+=team_array[i].playerinfo[j].avg
+			sum+=team_array[i].playerinfo[j].avg;
 			
 		}
+		sum/=(i-1);
 		team_array[i].power=sum;
 		sum=0;
 	}
@@ -484,7 +485,6 @@ int main(){
 	//print_groups();
 	//scanf("%d", n);
 	//printf("%d",team_array[n].numberOfPlayer);
-	int j=0;
 	playerSkill();
 	
 	
@@ -494,7 +494,7 @@ int main(){
 	
 
 
-	//game_start();
+	game_start();
 
 
 
