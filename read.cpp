@@ -6,6 +6,7 @@
 #include <windows.h>
 
 void showTeamList();
+int team_number = 0;
 
 typedef struct teamplayer{
 	char playername[40];
@@ -17,7 +18,12 @@ typedef struct teamplayer{
 	int num;
 	int age;
 	float avg;
+<<<<<<< HEAD
 } players;
+=======
+	
+}players;
+>>>>>>> d8ac8d2e6c715ccbfa7894c912b921618051ab6b
 
 
 
@@ -348,6 +354,7 @@ void print_seed(){
 }
 
 void printBall(){
+<<<<<<< HEAD
 	puts("                                        ******************");
 	puts("                                       ********************");
 	puts("                                      **********************");
@@ -379,6 +386,30 @@ void printBall(){
 	puts("                                          *************");
 	puts("                                         ***************");
 	puts("                                        *****************");
+=======
+	
+	puts("                                        *******************************");
+	puts("                                  ****************************************");
+	puts("                             ***********************************************");
+	puts("                            ***************************************************");
+	puts("                          *******************************************************");
+	puts("                       ************************************************************");
+	puts("                      ***************************************************************");
+	puts("                   *******************************************************************");
+	puts("                  *********************************************************************");
+	puts("                  *********************************************************************");
+	puts("                  *********************************************************************");
+	puts("                  *********************************************************************");
+	puts("                  ********************************************************************");
+	puts("                   ******************************************************************");
+	puts("                    ****************************************************************");
+	puts("                     **************************************************************");
+	puts("                      ***********************************************************");
+	puts("                       ********************************************************");
+	puts("                         ****************************************************");
+	puts("                           ************************************************");
+	puts("                             ***************************************");
+>>>>>>> d8ac8d2e6c715ccbfa7894c912b921618051ab6b
 	puts("                                       *******************");
 	puts("                                      *********************");
 	puts("                                     ***********************");
@@ -468,7 +499,7 @@ void typeInConsole(char sentence[])
 	int cnt = 0;
 	for (cnt = 0; cnt < strlen(sentence); cnt++) {
 		printf("%c", sentence[cnt]);
-		Sleep(100);
+		Sleep(80);
 	}
 }
 
@@ -482,8 +513,18 @@ void lineup(int team_number)
 
 int  game_start()
 {
+<<<<<<< HEAD
 	printBall();
 	//printBall();
+=======
+<<<<<<< HEAD
+
+	printBall();
+
+=======
+	//printBall();
+>>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
+>>>>>>> d8ac8d2e6c715ccbfa7894c912b921618051ab6b
 	char username[100];
 	system("color 0E");
 	/*Sleep(2000);
@@ -542,7 +583,7 @@ int  game_start()
 			Sleep(100);
 		}
 		Sleep(500);
-		int team_number = 0;
+		
 		char write_teamNum[] = "\nWrite the number of the team you want to play with : ";
 		//printf("\n\n'%s'", username);
 		typeInConsole(write_teamNum);
@@ -587,28 +628,40 @@ void playerSkill(){
 			sum+=team_array[i].playerinfo[j].avg;
 			
 		}
-		sum/=(i-1);
+		sum/=team_array[i].numberOfPlayer;
 		team_array[i].power=sum;
 		sum=0;
 	}
 }
 
+<<<<<<< HEAD
+void serachAndChose(mainplayer[],storeplayer[]){
+	for(int j=0;j<32;j++){
+	for(int i=0;i<team_array[j].numberOfPlayer)
+	
+	
+	
+}
+=======
+
+void print_players(){
+	
+}
 
 
+
+>>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
 
 	
 
 int main(){
 	int i = 0;
 	ReadFromFileTeaminfo();
-
-
 	ReadFromFilePlayerinfo();
+<<<<<<< HEAD
 	i = game_start();
-
-	//print_group();
-
 	systemOfTeam(i);
+<<<<<<< HEAD
 	/*for(int cnt = 0 ; cnt <32 ; cnt++)
 		printf("%d\n",team_array[cnt].system);
 */
@@ -622,4 +675,63 @@ int main(){
 	//printf("%d",team_array[n].numberOfPlayer);
 	playerSkill();
 	game_start();
+=======
+	playerSkill();
+	
+=======
+//	i = game_start();
+	
+	
+
+	
+	while(1){
+	
+	void *input;
+	input = calloc(15 , sizeof(char));
+	puts("Please Insert Correct Order :");
+	scanf("%s", input);
+	
+			
+		if( input == "lineup"){
+			
+		}
+		
+		
+		if(input == "save"){
+			
+		}
+		
+		
+		/*if(input == "proceed"){
+			int proceedNum = 0;
+			void *b;
+			sscanf(input , "%s%d" , b , &proceedNum);
+			//proceedNum tedad dafeati ke proceed bayad ejra shavad.
+			//proceed (proceedNum);
+		}*/
+		
+		
+		if(input == "exit"){
+			puts("exit");
+		}
+	}
+
+//	systemOfTeam(i);
+	
+		//print_group();
+
+	//print_seed();
+	//print_group();
+	//print_groups();
+	playerSkill();
+	
+	
+
+
+
+	
+
+>>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
+
+>>>>>>> d8ac8d2e6c715ccbfa7894c912b921618051ab6b
 }
