@@ -176,14 +176,14 @@ void print_group(){
 	 x = (char*)calloc(20 , sizeof(char));
 	for(cnt=0 ; cnt<32 ; cnt++){
 		if(groupName > 'H')
-			  return;
+			  break;
 		
 		
 		printf("      GROUP   %c\n" , groupName);
 		for(i=0 , j=0 ; i<32 ; i++){
 			
 		if(groupName > 'H')
-			  return;
+			  break;
 			
 		if(team_array[i].group == groupName){
 
@@ -245,7 +245,7 @@ void systemOfTeam(int i){
 	
 }
 	
-/*	n=0;
+	n=0;
 	puts("Please insert your team`s system\n\n");
 	
 	puts("\t1. 3-5-2\n");
@@ -255,8 +255,13 @@ void systemOfTeam(int i){
 	puts("\t5. 4-3-3\n");
 	puts("\t6. 5-4-1\n");
 	puts("\t7. 5-3-2\n");
-A:	
+	
 	scanf("%d",&n);
+	while( n>7 && n<1){
+		puts("Your number is incorrect Please try again!");
+		scanf("%d",&n);
+	}
+
 	
 	switch (n){
 		case 1:
@@ -289,10 +294,10 @@ A:
 			
 		default:
 			puts("\tLotfan Bebin , 7 Ta Tarkib Bishtar Nist.\n\tHala Mitony Ye Bar Dige Emtehan Koni.");
-			goto A;
+			
 
-	}*/
-	
+	}
+
 }
 
 
@@ -390,9 +395,9 @@ void lineup(int team_number)
 	
 }
 
-void game_start()
+int  game_start()
 {
-	printBall();
+	//printBall();
 	char username[100];
 	system("color 0E");
 	Sleep(2000);
@@ -458,7 +463,10 @@ void game_start()
 		//scanf("%d", &team_number);
 		//system("cls");
 		showTeamList();
+			return team_number;
+
 	}
+	
 }
 
 void showTeamList()
@@ -483,7 +491,7 @@ void playerSkill(){
 			team_array[i].playerinfo[j].form = rand() % 10 + 90;
 			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
 			team_array[i].playerinfo[j].avg=(team_array[i].playerinfo[j].skill+team_array[i].playerinfo[j].form+team_array[i].playerinfo[j].fitness)/3;
-			sum+=team_array[i].playerinfo[j].avg
+			sum+=team_array[i].playerinfo[j].avg;
 			
 		}
 		team_array[i].power=sum;
@@ -496,27 +504,24 @@ void playerSkill(){
 	
 
 int main(){
-
+	int i = 0;
 	ReadFromFileTeaminfo();
 
 
 	ReadFromFilePlayerinfo();
-	game_start();
+	i = game_start();
 
-	print_group();
+	//print_group();
 
-	//systemOfTeam(4);
+	systemOfTeam(i);
 	/*for(int cnt = 0 ; cnt <32 ; cnt++)
 		printf("%d\n",team_array[cnt].system);
 */
-<<<<<<< HEAD
-	print_seed();
+	//print_seed();
 	int n=0;
-=======
 	//print_seed();
 	//print_group();
 	//print_groups();
->>>>>>> 2545c7dc73e77fda165bfd32718b7be4462f8bfd
 	//scanf("%d", n);
 	//printf("%d",team_array[n].numberOfPlayer);
 	int j=0;
