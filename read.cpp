@@ -6,6 +6,7 @@
 #include <windows.h>
 
 void showTeamList();
+int team_number = 0;
 
 typedef struct teamplayer{
 	char playername[40];
@@ -390,14 +391,7 @@ void lineup(int team_number)
 
 int  game_start()
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	printBall();
->>>>>>> 4ed8872dbc7b262d644187dbf69346db9f6d7e20
-=======
 	//printBall();
->>>>>>> 552ffc8b619b401173f53ff87d6ebc557ad14a0a
 	char username[100];
 	system("color 0E");
 	/*Sleep(2000);
@@ -456,7 +450,7 @@ int  game_start()
 			Sleep(100);
 		}
 		Sleep(500);
-		int team_number = 0;
+		
 		char write_teamNum[] = "\nWrite the number of the team you want to play with : ";
 		//printf("\n\n'%s'", username);
 		typeInConsole(write_teamNum);
@@ -508,6 +502,11 @@ void playerSkill(){
 }
 
 
+void print_players(){
+	
+}
+
+
 
 
 	
@@ -515,31 +514,52 @@ void playerSkill(){
 int main(){
 	int i = 0;
 	ReadFromFileTeaminfo();
-
-
 	ReadFromFilePlayerinfo();
-	i = game_start();
+//	i = game_start();
+	
+	
 
-	//print_group();
+	
+	while(1){
+	
+	void *input;
+	input = calloc(15 , sizeof(char));
+	puts("Please Insert Correct Order :");
+	scanf("%s", input);
+	
+			
+		if( input == "lineup"){
+			
+		}
+		
+		
+		if(input == "save"){
+			
+		}
+		
+		
+		/*if(input == "proceed"){
+			int proceedNum = 0;
+			void *b;
+			sscanf(input , "%s%d" , b , &proceedNum);
+			//proceedNum tedad dafeati ke proceed bayad ejra shavad.
+			//proceed (proceedNum);
+		}*/
+		
+		
+		if(input == "exit"){
+			puts("exit");
+		}
+	}
 
-	systemOfTeam(i);
-	/*for(int cnt = 0 ; cnt <32 ; cnt++)
-		printf("%d\n",team_array[cnt].system);
-*/
-<<<<<<< HEAD
-	print_seed();
-=======
-	//print_seed();
->>>>>>> c5723d3287f357170e0da5d2811eb8a52f9a3e76
-	int n=0;
+//	systemOfTeam(i);
+	
+		//print_group();
+
 	//print_seed();
 	//print_group();
 	//print_groups();
-	//scanf("%d", n);
-	//printf("%d",team_array[n].numberOfPlayer);
 	playerSkill();
-<<<<<<< HEAD
-=======
 	
 	
 
@@ -548,12 +568,4 @@ int main(){
 	
 
 
-<<<<<<< HEAD
-	game_start();
-=======
->>>>>>> 4ed8872dbc7b262d644187dbf69346db9f6d7e20
-
-
-
->>>>>>> c5723d3287f357170e0da5d2811eb8a52f9a3e76
 }
