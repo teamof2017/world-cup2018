@@ -16,6 +16,7 @@ typedef struct teamplayer{
 	char post;
 	int num;
 	int age;
+	int avg;
 }players;
 
 
@@ -29,6 +30,7 @@ typedef struct infoteams{
 	int seed;
     char filename[40];
 	int numberOfPlayer;
+	int power;
 	players playerinfo[60];
 }teams;
 
@@ -383,6 +385,9 @@ void typeInConsole(char sentence[])
 void lineup(int team_number)
 {
 	
+	
+	
+	
 }
 
 void game_start()
@@ -463,12 +468,13 @@ void showTeamList()
 	//int team_number;
 	int cnt = 0;
 	for (cnt = 0; cnt < team_array[team_number - 1].numberOfPlayer; cnt++) {
-		printf("%d %s %c\n\n", team_array[team_number - 1].playerinfo[cnt].num, team_array[team_number - 1].playerinfo[cnt].playername, team_array[team_number - 1].playerinfo[cnt].mainpost);
+		printf("%d.%s %c\n\n", team_array[team_number - 1].playerinfo[cnt].num, team_array[team_number - 1].playerinfo[cnt].playername, team_array[team_number - 1].playerinfo[cnt].mainpost);
 		Sleep(200);
 	}
 }
 
 void playerSkill(){
+	int sum=0;
 	srand( time (NULL));
 	for(int i=0; i<32 ;i++){
 		for(int j=0 ; j<team_array[i].numberOfPlayer ; j++){
@@ -476,8 +482,12 @@ void playerSkill(){
 			team_array[i].playerinfo[j].skill = rand() % 50 + 50;
 			team_array[i].playerinfo[j].form = rand() % 10 + 90;
 			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
+			team_array[i].playerinfo[j].avg=(team_array[i].playerinfo[j].skill+team_array[i].playerinfo[j].form+team_array[i].playerinfo[j].fitness)/3;
+			sum+=team_array[i].playerinfo[j].avg
 			
 		}
+		team_array[i].power=sum;
+		sum=0;
 	}
 }
 
@@ -499,8 +509,14 @@ int main(){
 	/*for(int cnt = 0 ; cnt <32 ; cnt++)
 		printf("%d\n",team_array[cnt].system);
 */
+<<<<<<< HEAD
 	print_seed();
 	int n=0;
+=======
+	//print_seed();
+	//print_group();
+	//print_groups();
+>>>>>>> 2545c7dc73e77fda165bfd32718b7be4462f8bfd
 	//scanf("%d", n);
 	//printf("%d",team_array[n].numberOfPlayer);
 	int j=0;
