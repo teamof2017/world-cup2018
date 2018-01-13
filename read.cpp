@@ -31,6 +31,7 @@ typedef struct infoteams{
 	char confedration[20];
 	int seed;
     char filename[40];
+    char filesaved[40];
 	int numberOfPlayer;
 	float power;
 	players mainplayers[11];
@@ -115,6 +116,8 @@ void ReadFromFileTeaminfo(void){
 		strcpy(team_array[i].name,TeamName);
 		strcpy(team_array[i].confedration,confedration);
 		strcpy(team_array[i].filename,filename);
+		strcpy(team_array[i].filesaved,team_array[i].filename);
+		strcat(team_array[i].filesaved , "saved");
 	}
 	/*for(int j=0;j<i;j++){
 		printf("%d.Teamname=%10s	  group=%2c 	 place=%3d 	\n confedration=%5s seed=%3d  filename=%10s \n",j+1,team_array[j].name,team_array[j].group,team_array[j].placeInGroup,team_array[j].confedration,team_array[j].seed,team_array[j].filename);
@@ -354,9 +357,7 @@ void print_seed(){
 		}
 }
 
-<<<<<<< HEAD
 
-=======
 void printBall(){
 	puts("                                        ******************");
 	puts("                                       ********************");
@@ -494,7 +495,6 @@ void change()
 	//store_player.post = main_player.post;
 	team_array[team_number].storeplayers[store_player_element].mainpost = team_array[team_number].mainplayers[main_player_element].post;
 }
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 
 void typeInConsole(char sentence[])
 {
@@ -727,10 +727,6 @@ void choseMainPlayer(){
 			}
 
 }
-void choseStorePlayer(){
-	for()
-	
-}
 
 
 
@@ -757,10 +753,10 @@ void print_players(){
 }
 
 void save(){
-	 FILE *filesave = fopen( "output.txt" , "w");
+	
 
 	for(int cnt =0 ; cnt < 32 ; cnt++){
-
+		 FILE *filesave = fopen( team_array[cnt].filesaved , "w");
 		fprintf(filesave , "     %s\n" ,  team_array[cnt].name );
 		fprintf(filesave , "system =  %d\n" ,  team_array[cnt].system );
 		fprintf(filesave , "group = %c\n" ,  team_array[cnt].group );
@@ -768,7 +764,12 @@ void save(){
 		fprintf(filesave , "%d , %f\n" , cnt+1 , team_array[cnt].power );
 		fprintf(filesave , "%d , %d\n" , cnt+1 , team_array[cnt].seed );
 		fprintf(filesave , "%d , %s\n" , cnt+1, team_array[cnt].confedration );
-		puts("\n\n");
+		fputs("\n\n" , filesave);
+		fputs("MAIN PLAYERS\n" , filesave);
+		for(int i=0 ; i<11 ; i++){
+		fprintf(filesave , "%d . %s\n" , i+1, team_array[cnt].mainplayers[i] );
+			
+		}
 
 		//fprintf(filesave , "%d" , cnt);		
 
@@ -785,9 +786,9 @@ void save(){
 		}*/
 		
 		puts("\n\n");
-
-}
 		fclose(filesave);
+}
+		
 
 }
 
@@ -798,15 +799,16 @@ void save(){
 	
 
 int main(){
-	int i = 0;
+	
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
 
-	playerSkill();
-	i = game_start();
+    game_start();
+    
+   	playerSkill();
+
 	sortByPost();
-	systemOfTeam(i);
-//	sortByPost();
+	systemOfTeam();
 	choseMainPlayer();
 	
 
@@ -827,22 +829,20 @@ int main(){
 
 	
 
-	for(int j=0;j<team_array[i-1].numberOfPlayer;j++){
+/*	for(int j=0;j<team_array[i-1].numberOfPlayer;j++){
 	printf("%d. %-16s   mainpost=%c    avg=%-5f\n",j+1,team_array[i-1].playerinfo[j].playername,team_array[i-1].playerinfo[j].mainpost,team_array[i-1].playerinfo[j].avg );
 	}
 			for(int z=0;z<11;z++){
 				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].mainplayers[z].playername,team_array[i-1].mainplayers[z].skill,team_array[i-1].mainplayers[z].mainpost,team_array[i-1].system);
 			}
-		
+*/		
 	
 
 	
 
-/*	while(1){
 	
-	void *input;
-	input = calloc(15 , sizeof(char));
-
+	
+	
 	while(1){
 	int proceedNum = 0;
 	char *input;
@@ -862,8 +862,7 @@ int main(){
 		
 		
 		if( !strcmp(input , "save") ){
-			puts("save");
-
+			save();
 		}
 		
 		
@@ -892,12 +891,11 @@ int main(){
 		if(!strcmp(input , "exit")){
 			return 0;
 		}
-	}*/
+	}
 
 
 	
 	
-
-
 
 }
+
