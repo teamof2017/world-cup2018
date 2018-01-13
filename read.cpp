@@ -4,9 +4,8 @@
 #include<time.h>
 #include <time.h>
 #include <windows.h>
-
+int searchByPost(char post,int j);
 void showTeamList();
-int team_number = 0;
 
 typedef struct teamplayer{
 	char playername[40];
@@ -349,31 +348,7 @@ void print_seed(){
 		}
 }
 
-void printBall(){
-	
-	puts("                                        *******************************");
-	puts("                                  ****************************************");
-	puts("                             ***********************************************");
-	puts("                            ***************************************************");
-	puts("                          *******************************************************");
-	puts("                       ************************************************************");
-	puts("                      ***************************************************************");
-	puts("                   *******************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  ********************************************************************");
-	puts("                   ******************************************************************");
-	puts("                    ****************************************************************");
-	puts("                     **************************************************************");
-	puts("                      ***********************************************************");
-	puts("                       ********************************************************");
-	puts("                         ****************************************************");
-	puts("                           ************************************************");
-	puts("                             ***************************************");
-	puts("                                       *******************");
-}
+
 
 void typeInConsole(char sentence[])
 {
@@ -394,16 +369,12 @@ void lineup(int team_number)
 
 int  game_start()
 {
-<<<<<<< HEAD
 
-	printBall();
 
-=======
 	//printBall();
->>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
 	char username[100];
 	system("color 0E");
-	/*Sleep(2000);
+	Sleep(2000);
 	
 	
 	
@@ -412,9 +383,9 @@ int  game_start()
     typeInConsole(hello);
 	Sleep(2000);
 	system("cls");
-	printf("\n");*/
+	printf("\n");
 	
-	/*char wait[] = "PLEASE WAIT!";
+	char wait[] = "PLEASE WAIT!";
 	typeInConsole(wait);
 	Sleep(300);
 	printf("\n\nLOADING");
@@ -427,13 +398,13 @@ int  game_start()
 	Sleep(500);
 	system("cls");
 	Sleep(700);
-	printf("\n");*/
+	printf("\n");
 	
 	char yourname[] = "Please tell me your name to be more intimate : ";
 	typeInConsole(yourname);
 	puts("\n");
     scanf("%s", &username);
-    /*Sleep(700);
+    Sleep(700);
     
 	system("cls");
 	char welcome[] = "Welcome to World Cup 2018 !";
@@ -444,7 +415,7 @@ int  game_start()
 	
 	char choose[] = "Make your choose : \n\n1. NEW GAME\n\n2. CONTINUE PREVIOUS GAME\n\nIf you want to make a new game : Wirte '1'\n\nIf you want to continue previous game : Wirte '2'\n\nWrite Here : ";
 	typeInConsole(choose);
-    Sleep(400);*/
+    Sleep(400);
 	
 	int start;
 	scanf("%d", &start);
@@ -484,12 +455,77 @@ void showTeamList()
 		Sleep(200);
 	}
 }
+int searchByPost(char post,int j){
+	int tedad=0;	
+		for(int i=0;i<team_array[j].numberOfPlayer;i++){
+			if(team_array[j].playerinfo[i].mainpost == post)
+			tedad++;
+		}
+		
+	return tedad;
+}
 
-
-void changePlayers()
-{
+void sortByPost(){
+	for(int j=0;j<32;j++){
+		int sum=0;
+		sum+=searchByPost('G',j);
+		for(int x=0;x<searchByPost('G',j);x++){
+			for(int i=0;i<searchByPost('G',j)-1;i++) {
+			if(team_array[j].playerinfo[i].avg<team_array[j].playerinfo[i+1].avg){
+				players tmp;
+				tmp=team_array[j].playerinfo[i];
+				strcpy(tmp.playername,team_array[j].playerinfo[i].playername);
+				team_array[j].playerinfo[i]=team_array[j].playerinfo[i+1];
+				strcpy(team_array[j].playerinfo[i].playername,team_array[j].playerinfo[i+1].playername);
+				team_array[j].playerinfo[i+1]=tmp;
+				strcpy(team_array[j].playerinfo[i+1].playername,tmp.playername);
+			}
+			}
+		}
+		for(int x=sum;x<sum+searchByPost('D',j);x++){
+			for(int i=sum;i<sum+searchByPost('D',j)-1;i++){
+			if(team_array[j].playerinfo[i].avg<team_array[j].playerinfo[i+1].avg){	
+				players tmp;
+				tmp=team_array[j].playerinfo[i];
+				strcpy(tmp.playername,team_array[j].playerinfo[i].playername);
+				team_array[j].playerinfo[i]=team_array[j].playerinfo[i+1];
+				strcpy(team_array[j].playerinfo[i].playername,team_array[j].playerinfo[i+1].playername);
+				team_array[j].playerinfo[x+1]=tmp;
+				strcpy(team_array[j].playerinfo[i+1].playername,tmp.playername);
+			}
+			}
+		}
+		sum+=searchByPost('D',j);
+		for(int x=sum;x<sum+searchByPost('M',j);x++){
+			for(int i=sum;i<sum+searchByPost('M',j)-1;i++){
+			if(team_array[j].playerinfo[i].avg<team_array[j].playerinfo[i+1].avg){
+				players tmp;
+				tmp=team_array[j].playerinfo[i];
+				strcpy(tmp.playername,team_array[j].playerinfo[i].playername);
+				team_array[j].playerinfo[i]=team_array[j].playerinfo[i+1];
+				strcpy(team_array[j].playerinfo[i].playername,team_array[j].playerinfo[i+1].playername);
+				team_array[j].playerinfo[i+1]=tmp;
+				strcpy(team_array[j].playerinfo[i+1].playername,tmp.playername);
+			}
+			}
+		}
+		sum+=searchByPost('M',j);
+		for(int x=sum;x<sum+searchByPost('A',j);x++){
+			for(int i=sum;i<sum+searchByPost('A',j)-1;i++){
+			if(team_array[j].playerinfo[i].avg<team_array[j].playerinfo[i+1].avg){
+				players tmp;
+				tmp=team_array[j].playerinfo[i];
+				strcpy(tmp.playername,team_array[j].playerinfo[i].playername);
+				team_array[j].playerinfo[i]=team_array[j].playerinfo[i+1];
+				strcpy(team_array[j].playerinfo[i].playername,team_array[j].playerinfo[i+1].playername);
+				team_array[j].playerinfo[i+1]=tmp;
+				strcpy(team_array[j].playerinfo[i+1].playername,tmp.playername);
+			}
+			}
+		}
+	}
 	
-}	
+}
 
 void playerSkill(){
 	float sum=0;
@@ -510,15 +546,44 @@ void playerSkill(){
 	}
 }
 
-<<<<<<< HEAD
-void serachAndChose(mainplayer[],storeplayer[]){
-	for(int j=0;j<32;j++){
-	for(int i=0;i<team_array[j].numberOfPlayer)
+void choseMainPlayer(){	
 	
-	
+	int attack=0,midle=0,defensive=0,sum=0, i=0;
+			for(int j=0;j<32;j++){
+				i=0;
+				sum=searchByPost('G',j);
+				attack=(team_array[j].system)%10;
+				midle=((team_array[j].system)/10)%10;
+				defensive=((team_array[j].system)/100)%10;
+				team_array[j].mainplayers[0]=team_array[j].playerinfo[0];
+				strcpy(team_array[j].mainplayers[0].playername,team_array[j].playerinfo[0].playername);
+				i++;
+				for(int z=0;z<defensive;i++,z++,sum++){
+				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
+				strcpy(team_array[j].mainplayers[i].playername,team_array[j].playerinfo[sum].playername);	
+				}
+				//i--
+				sum=searchByPost('G',j) + searchByPost('D',j);
+				for(int z=0;z<midle;i++,z++,sum++){
+				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
+				strcpy(team_array[j].mainplayers[i].playername,team_array[j].playerinfo[sum].playername);	
+				}
+				//i--;
+				sum=searchByPost('M',j)+searchByPost('G',j) + searchByPost('D',j);
+				for(int z=0 ;z<attack;i++,z++,sum++){
+				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
+				strcpy(team_array[j].mainplayers[i].playername,team_array[j].playerinfo[sum].playername);	
+				}
+							
+							
+			}
+
+}
+void choseStorePlayer(){
+	for()
 	
 }
-=======
+
 
 void print_players(){
 	
@@ -526,7 +591,7 @@ void print_players(){
 
 
 
->>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
+
 
 	
 
@@ -534,18 +599,29 @@ int main(){
 	int i = 0;
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
-<<<<<<< HEAD
-	i = game_start();
-	systemOfTeam(i);
 	playerSkill();
-	
-=======
-//	i = game_start();
-	
+	i = game_start();
+	sortByPost();
+	systemOfTeam(i);
+//	sortByPost();
+	choseMainPlayer();
 	
 
 	
-	while(1){
+
+	
+
+	for(int j=0;j<team_array[i-1].numberOfPlayer;j++){
+	printf("%d. %-16s   mainpost=%c    avg=%-5f\n",j+1,team_array[i-1].playerinfo[j].playername,team_array[i-1].playerinfo[j].mainpost,team_array[i-1].playerinfo[j].avg );
+	}
+			for(int z=0;z<11;z++){
+				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].mainplayers[z].playername,team_array[i-1].mainplayers[z].skill,team_array[i-1].mainplayers[z].mainpost,team_array[i-1].system);
+			}
+		
+	
+
+	
+/*	while(1){
 	
 	void *input;
 	input = calloc(15 , sizeof(char));
@@ -563,35 +639,24 @@ int main(){
 		}
 		
 		
-		/*if(input == "proceed"){
+		if(input == "proceed"){
 			int proceedNum = 0;
 			void *b;
 			sscanf(input , "%s%d" , b , &proceedNum);
 			//proceedNum tedad dafeati ke proceed bayad ejra shavad.
 			//proceed (proceedNum);
-		}*/
+		}
 		
 		
 		if(input == "exit"){
 			puts("exit");
 		}
-	}
+	}*/
 
-//	systemOfTeam(i);
-	
-		//print_group();
 
-	//print_seed();
-	//print_group();
-	//print_groups();
-	playerSkill();
 	
 	
 
 
-
-	
-
->>>>>>> 3f6d513dd15091dc7eb80924f0a8a3e58fbc3fdc
 
 }
