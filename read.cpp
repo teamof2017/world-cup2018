@@ -22,6 +22,7 @@ typedef struct teamplayer{
 
 
 
+
 typedef struct infoteams{
 	char name[30];
 	int system;
@@ -35,7 +36,7 @@ typedef struct infoteams{
 	players mainplayers[11];
 	players storeplayers[50];
 	players playerinfo[60];
-}teams;
+} teams;
 
 
 
@@ -354,6 +355,37 @@ void print_seed(){
 }
 
 void printBall(){
+	puts("                                        ******************");
+	puts("                                       ********************");
+	puts("                                      **********************");
+	puts("                                     ************************");
+	puts("                                    **************************");
+	puts("                                   ****************************");
+	puts("                                  ******************************");
+	puts("                                 ********************************");
+	puts("                                **********************************");
+	puts("                               ************************************");
+	puts("                              **************************************");
+	puts("                              **************************************");
+	puts("                              **************************************");
+	puts("                               ************************************");
+	puts("                                **********************************");
+	puts("                                 ********************************");
+	puts("                                  ******************************");
+	puts("                                   ****************************");
+	puts("                                    **************************");
+	puts("                                     ************************");
+	puts("                                      *********************");
+	puts("                                       *******************");
+	puts("                                        *****************");
+	puts("                                         ***************");
+	puts("                                          *************");
+	puts("                                           ***********");
+	puts("                                           ***********");
+	puts("                                           ***********");
+	puts("                                          *************");
+	puts("                                         ***************");
+	puts("                                        *****************");
 	
 	puts("                                        *******************************");
 	puts("                                  ****************************************");
@@ -377,6 +409,87 @@ void printBall(){
 	puts("                           ************************************************");
 	puts("                             ***************************************");
 	puts("                                       *******************");
+	puts("                                      *********************");
+	puts("                                     ***********************");
+	puts("                                    *************************");
+	puts("\n                                           RUSSIA 2018\n\n\n");
+}
+
+int search_player(players player_number, int x)
+{
+	if(x == 1) {
+		int cnt = 0;
+		for (cnt = 0; cnt < 11; cnt++) {
+			if (team_array[cnt].mainplayers[cnt].num == player_number.num);
+				return cnt;
+		}
+	}
+	
+	else if(x == 2) {
+		int count = 0;
+		for (count = 0; count < team_array[team_number].numberOfPlayer - 11; count++) {
+			if (team_array[count].mainplayers[count].num == player_number.num)
+				return count;
+		}
+	}
+}
+
+void change()
+{
+	players main_player, store_player;
+	scanf("%d %d", &main_player.num, &store_player.num);
+	int main_player_element = search_player(main_player, 1);
+	int store_player_element = search_player(store_player, 2);
+	
+	teams tmp;
+	
+	//changing numbers
+	//tmp.num = main_player.num;
+	tmp.mainplayers[main_player_element].num = team_array[team_number].mainplayers[main_player_element].num;
+	//main_player.num = store_player.num;
+	team_array[team_number].mainplayers[main_player_element].num = team_array[team_number].storeplayers[store_player_element].num;
+	//store_player.num = tmp.num;
+	team_array[team_number].storeplayers[store_player_element].num = tmp.mainplayers[main_player_element].num;
+	
+	//keeping skills
+	//tmp.skill = main_player.skill;
+	tmp.mainplayers[main_player_element].skill = team_array[team_number].mainplayers[main_player_element].skill;
+	//main_player.skill = store_player.skill;
+	team_array[team_number].mainplayers[main_player_element].skill = team_array[team_number].storeplayers[store_player_element].skill;
+	//store_player.skill = tmp.skill;
+	team_array[team_number].storeplayers[store_player_element].skill = tmp.mainplayers[main_player_element].skill;
+	
+	//keeping fitness
+	//tmp.fitness = main_player.fitness;
+	tmp.mainplayers[main_player_element].fitness = team_array[team_number].mainplayers[main_player_element].fitness;
+	//main_player.fitness = store_player.fitness;
+	team_array[team_number].mainplayers[main_player_element].fitness = team_array[team_number].storeplayers[store_player_element].fitness;
+	//store_player.fitness = tmp.fitness;
+	team_array[team_number].storeplayers[store_player_element].fitness = tmp.mainplayers[main_player_element].fitness;
+	
+	//keeping form
+	//tmp.form = main_player.form;
+	tmp.mainplayers[main_player_element].form = team_array[team_number].mainplayers[main_player_element].form;
+	//main_player.form = store_player.form;
+	team_array[team_number].mainplayers[main_player_element].form = team_array[team_number].storeplayers[store_player_element].form;
+	//store_player.form = tmp.form;
+	team_array[team_number].storeplayers[store_player_element].form = tmp.mainplayers[main_player_element].form;
+	
+	//keeping name
+	//tmp.playername = strcpy(tmp.playername, main_player.playername);
+	strcpy(tmp.mainplayers[main_player_element].playername, team_array[team_number].mainplayers[main_player_element].playername);
+	//main_player.playername = strcpy(main_player.playername, store_player.playername);
+	strcpy(team_array[team_number].mainplayers[main_player_element].playername, team_array[team_number].storeplayers[store_player_element].playername);
+	//store_player.playername = strcpy(store_player.playername, tmp.playername);
+	strcpy(team_array[team_number].storeplayers[store_player_element].playername, tmp.mainplayers[main_player_element].playername);
+	
+	//changing post
+	//main_player.post = main_player.mainpost;
+	team_array[team_number].mainplayers[main_player_element].post = team_array[team_number].mainplayers[main_player_element].mainpost;
+	//store_player.post = store_player.mainpost;
+	team_array[team_number].storeplayers[store_player_element].post = team_array[team_number].storeplayers[store_player_element].mainpost;
+	//store_player.post = main_player.post;
+	team_array[team_number].storeplayers[store_player_element].mainpost = team_array[team_number].mainplayers[main_player_element].post;
 }
 
 void typeInConsole(char sentence[])
@@ -398,8 +511,6 @@ void lineup(int team_number)
 
 int  game_start()
 {
-
-
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -541,11 +652,17 @@ int main(){
 	int i = 0;
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
+
 	//i = game_start();
 	//systemOfTeam(i);
-	playerSkill();
-	
-//	i = game_start();
+	/*for(int cnt = 0 ; cnt <32 ; cnt++)
+		printf("%d\n",team_array[cnt].system);
+*/
+	//print_seed();
+	//print_seed();
+	int n=0;
+	//print_seed();
+	//print_group();
 	
 	
 
