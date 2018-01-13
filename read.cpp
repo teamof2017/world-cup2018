@@ -358,6 +358,11 @@ void print_seed(){
 }
 
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 0f2555a09177fce541f1530044f3574803daa93d
 void printBall(){
 	puts("                                        ******************");
 	puts("                                       ********************");
@@ -390,33 +395,11 @@ void printBall(){
 	puts("                                          *************");
 	puts("                                         ***************");
 	puts("                                        *****************");
-	
-	puts("                                        *******************************");
-	puts("                                  ****************************************");
-	puts("                             ***********************************************");
-	puts("                            ***************************************************");
-	puts("                          *******************************************************");
-	puts("                       ************************************************************");
-	puts("                      ***************************************************************");
-	puts("                   *******************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  ********************************************************************");
-	puts("                   ******************************************************************");
-	puts("                    ****************************************************************");
-	puts("                     **************************************************************");
-	puts("                      ***********************************************************");
-	puts("                       ********************************************************");
-	puts("                         ****************************************************");
-	puts("                           ************************************************");
-	puts("                             ***************************************");
 	puts("                                       *******************");
 	puts("                                      *********************");
 	puts("                                     ***********************");
 	puts("                                    *************************");
-	puts("\n                                           RUSSIA 2018\n\n\n");
+	puts("\n                                        RUSSIA 2018\n\n\n");
 }
 
 int search_player(players player_number, int x)
@@ -495,6 +478,10 @@ void change()
 	//store_player.post = main_player.post;
 	team_array[team_number].storeplayers[store_player_element].mainpost = team_array[team_number].mainplayers[main_player_element].post;
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0f2555a09177fce541f1530044f3574803daa93d
 
 void typeInConsole(char sentence[])
 {
@@ -518,6 +505,10 @@ int  game_start()
 
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0f2555a09177fce541f1530044f3574803daa93d
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -694,7 +685,11 @@ void playerSkill(){
 }
 
 
+<<<<<<< HEAD
+void chooseMainPlayer(){	
+=======
 void choseMainPlayer(){	
+>>>>>>> 0f2555a09177fce541f1530044f3574803daa93d
 	
 	int attack=0,midle=0,defensive=0,sum=0, i=0;
 			for(int j=0;j<32;j++){
@@ -727,6 +722,29 @@ void choseMainPlayer(){
 			}
 
 }
+<<<<<<< HEAD
+void chooseStorePlayer(){
+	for (int j=0;j<32;j++){
+		for(int i=0;i<team_array[j].numberOfPlayer-11;){
+			for(int h=0,flag=0;h<team_array[j].numberOfPlayer;h++){
+				flag=0;
+				for(int z=0;z<11;z++){
+					if(team_array[j].mainplayers[z].num==team_array[j].playerinfo[h].num){
+					flag=1;
+					}	
+				
+				}
+				if(flag==0){
+					team_array[j].storeplayers[i]=team_array[j].playerinfo[h];
+					strcpy(team_array[j].storeplayers[i].playername,team_array[j].playerinfo[h].playername);
+					i++;
+				}
+			}
+		}
+	}
+}
+=======
+>>>>>>> 0f2555a09177fce541f1530044f3574803daa93d
 
 
 
@@ -793,6 +811,21 @@ void save(){
 	
 
 int main(){
+<<<<<<< HEAD
+	int i=0;
+	ReadFromFileTeaminfo();
+	ReadFromFilePlayerinfo();
+
+	playerSkill();
+	i=game_start();
+	sortByPost();
+	systemOfTeam();
+	sortByPost();
+	chooseMainPlayer();
+	chooseStorePlayer();
+	
+
+=======
 	
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
@@ -807,6 +840,7 @@ int main(){
 	
 
 
+>>>>>>> 0f2555a09177fce541f1530044f3574803daa93d
 
 	//i = game_start();
 	//systemOfTeam(i);
@@ -829,14 +863,28 @@ int main(){
 			for(int z=0;z<11;z++){
 				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].mainplayers[z].playername,team_array[i-1].mainplayers[z].skill,team_array[i-1].mainplayers[z].mainpost,team_array[i-1].system);
 			}
+<<<<<<< HEAD
+		for(int z=0;z<team_array[i-1].numberOfPlayer-11;z++){
+				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].storeplayers[z].playername,team_array[i-1].storeplayers[z].skill,team_array[i-1].storeplayers[z].mainpost,team_array[i-1].system);
+			}
+=======
 */		
+>>>>>>> 0f2555a09177fce541f1530044f3574803daa93d
 	
 
 	
 
+<<<<<<< HEAD
+/*	while(1){
+	
+	void *input;
+	input = calloc(15 , sizeof(char));
+
+=======
 	
 	
 	
+>>>>>>> 0f2555a09177fce541f1530044f3574803daa93d
 	while(1){
 	int proceedNum = 0;
 	char *input;
@@ -876,7 +924,7 @@ int main(){
 		
 			/*else{
 				proceedNum = 1;
-			}*/
+			}
 			
 			printf("%d\n", proceedNum);
 
@@ -891,5 +939,11 @@ int main(){
 	
 	
 
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> 0f2555a09177fce541f1530044f3574803daa93d
 }
 
