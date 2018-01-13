@@ -358,6 +358,10 @@ void print_seed(){
 		}
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
 void printBall(){
 	puts("                                        ******************");
 	puts("                                       ********************");
@@ -397,27 +401,48 @@ void printBall(){
 	puts("\n                                        RUSSIA 2018\n\n\n");
 }
 
-int search_player(players player_number, int x)
+int search_player(int player_number, int x)
 {
 	if(x == 1) {
 		int cnt = 0;
-		for (cnt = 0; cnt < 11; cnt++) {
-			if (team_array[cnt].mainplayers[cnt].num == player_number.num);
-				return cnt;
+		while(team_array[team_number - 1].mainplayers[cnt].num != player_number) {
+			cnt++;
 		}
+		return cnt;
 	}
 	
 	else if(x == 2) {
 		int count = 0;
-		for (count = 0; count < team_array[team_number].numberOfPlayer - 11; count++) {
-			if (team_array[count].mainplayers[count].num == player_number.num)
+		for (count = 0; count < team_array[team_number - 1].numberOfPlayer - 11; count++) {
+			if (team_array[team_number - 1].storeplayers[count].num == player_number)
 				return count;
 		}
 	}
 }
 
+<<<<<<< HEAD
 
 
+=======
+void change()
+{
+	int main_player, store_player;
+	scanf("%d %d", &main_player, &store_player);
+	int main_player_element = search_player(main_player, 1);
+	int store_player_element = search_player(store_player, 2);
+	
+	teams tmp;
+	
+	//changing players
+	tmp.mainplayers[main_player_element] = team_array[team_number - 1].mainplayers[main_player_element];
+	team_array[team_number - 1].mainplayers[main_player_element] = team_array[team_number - 1].storeplayers[store_player_element];
+	team_array[team_number - 1].storeplayers[store_player_element] = tmp.mainplayers[main_player_element];
+	
+	strcpy(tmp.mainplayers[main_player_element].playername, team_array[team_number - 1].mainplayers[main_player_element].playername);
+	strcpy(team_array[team_number - 1].mainplayers[main_player_element].playername, team_array[team_number - 1].storeplayers[store_player_element].playername);
+	strcpy(team_array[team_number - 1].storeplayers[store_player_element].playername, tmp.mainplayers[main_player_element].playername);
+}
+>>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
 
 void typeInConsole(char sentence[])
 {
@@ -438,7 +463,10 @@ void lineup(int team_number)
 
 int  game_start()
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -623,8 +651,12 @@ void playerSkill(){
 }
 
 
+<<<<<<< HEAD
 
 void chooseMainPlayer(){	
+=======
+void chooseMainPlayer(){
+>>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
 	int attack=0,midle=0,defensive=0,sum=0, i=0;
 			for(int j=0;j<32;j++){
 				i=0;
@@ -639,6 +671,10 @@ void chooseMainPlayer(){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
 				strcpy(team_array[j].mainplayers[i].playername,team_array[j].playerinfo[sum].playername);	
 				}
+<<<<<<< HEAD
+=======
+				//i--;
+>>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
 				sum=searchByPost('G',j) + searchByPost('D',j);
 				for(int z=0;z<midle;i++,z++,sum++){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
@@ -675,10 +711,13 @@ void chooseStorePlayer(){
 		}
 	}
 }
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
 
 void print_players(){
 	
@@ -686,17 +725,17 @@ void print_players(){
 	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
 	
 	for(int i=0 ; i<11 ; i++){
-		printf("%2d.%-20s%4d%4d%4d%4c%4c\n",team_array[team_number].mainplayers[i].num , team_array[team_number].mainplayers[i].playername , team_array[team_number].mainplayers[i].skill , team_array[team_number].mainplayers[i].fitness , team_array[team_number].mainplayers[i].form , team_array[team_number].mainplayers[i].mainpost , team_array[team_number].mainplayers[i].post);
+		printf("%2d.%-20s%20d%10d%9d%8c%4c\n",team_array[team_number - 1].mainplayers[i].num , team_array[team_number - 1].mainplayers[i].playername , team_array[team_number - 1].mainplayers[i].skill , team_array[team_number - 1].mainplayers[i].fitness , team_array[team_number - 1].mainplayers[i].form , team_array[team_number - 1].mainplayers[i].mainpost , team_array[team_number - 1].mainplayers[i].post);
 	}
 	
-	int j = team_array[team_number].numberOfPlayer - 11;
+	int j = team_array[team_number - 1].numberOfPlayer - 11;
 	
 	puts("\n\t STORE PLAYERS:");
 	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
 
 
 	for(int i=0 ; i<j ; i++){
-		printf("%2d.%-20s%4d%4d%4d%4c%4c\n",team_array[team_number].storeplayers[i].num , team_array[team_number].storeplayers[i].playername , team_array[team_number].storeplayers[i].skill , team_array[team_number].storeplayers[i].fitness , team_array[team_number].storeplayers[i].form , team_array[team_number].storeplayers[i].mainpost , team_array[team_number].storeplayers[i].post);
+		printf("%2d.%-20s%20d%10d%9d%8c%4c\n",team_array[team_number - 1].storeplayers[i].num , team_array[team_number - 1].storeplayers[i].playername , team_array[team_number - 1].storeplayers[i].skill , team_array[team_number - 1].storeplayers[i].fitness , team_array[team_number - 1].storeplayers[i].form , team_array[team_number - 1].storeplayers[i].mainpost , team_array[team_number - 1].storeplayers[i].post);
 	}
 	
 	
@@ -756,6 +795,7 @@ int main(){
 
 	playerSkill();
 	i=game_start();
+<<<<<<< HEAD
 	systemOfTeam();
 //	sortByPost();
 	chooseMainPlayer();
@@ -791,11 +831,33 @@ int main(){
 			}
 
 
-	
+=======
 
+	systemOfTeam();
 	
+	chooseMainPlayer();
+	chooseStorePlayer();
+	
+	ReadFromFileTeaminfo();
+	ReadFromFilePlayerinfo();
+
+    
+    
+   	playerSkill();
+
+	print_players();
+	chooseMainPlayer();
+>>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
+	
+	change();
+	print_players();
+	
+<<<<<<< HEAD
 
 /*	while(1){
+=======
+	while(1){
+>>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
 	
 	void *input;
 	input = calloc(15 , sizeof(char));
@@ -835,7 +897,7 @@ int main(){
 		if(!strcmp(input , "proceed") ){
 			//if(fgets(input2 , 20 , stdin)!= NULL)
 			scanf("%d" , &proceedNum);
-
+	}
 		
 			/*else{
 				proceedNum = 1;
@@ -848,8 +910,14 @@ int main(){
 		if(!strcmp(input , "exit")){
 			return 0;
 		}
+<<<<<<< HEAD
 	}
 */
 
+=======
+	}*/
+}
+}
+>>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
 }
 
