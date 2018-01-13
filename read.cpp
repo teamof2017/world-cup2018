@@ -22,6 +22,7 @@ typedef struct teamplayer{
 
 
 
+
 typedef struct infoteams{
 	char name[30];
 	int system;
@@ -35,7 +36,7 @@ typedef struct infoteams{
 	players mainplayers[11];
 	players storeplayers[50];
 	players playerinfo[60];
-}teams;
+} teams;
 
 
 
@@ -202,7 +203,7 @@ void print_group(){
 }
 
 
-void systemOfTeam(int i){
+void systemOfTeam(){
 	int n = 0 , cnt = 0;
 	srand( time ( NULL ));
 	for(cnt = 0 ; cnt < 32 ; cnt++){
@@ -240,7 +241,11 @@ void systemOfTeam(int i){
 	}
 	
 }
+	int flag = 0;
+	puts("Do you want to change your team system?\n1.No\n2.Yes");
+	scanf("%d",&flag);
 	
+	if(flag == 2){
 	n=0;
 	puts("Please insert your team`s system\n\n");
 	
@@ -253,7 +258,8 @@ void systemOfTeam(int i){
 	puts("\t7. 5-3-2\n");
 	
 	scanf("%d",&n);
-	while( n>7 && n<1){
+}
+	while( n>7 && n<1 && flag == 2){
 		puts("Your number is incorrect Please try again!");
 		scanf("%d",&n);
 	}
@@ -261,31 +267,31 @@ void systemOfTeam(int i){
 	
 	switch (n){
 		case 1:
-			team_array[i].system = 352;
+			team_array[team_number].system = 352;
 			break;
 			
 		case 2:
-			team_array[i].system = 343;
+			team_array[team_number].system = 343;
 			break;
 
 		case 3:
-			team_array[i].system = 442;
+			team_array[team_number].system = 442;
 			break;
 
 		case 4:
-			team_array[i].system = 451;
+			team_array[team_number].system = 451;
 			break;
 
 		case 5:
-			team_array[i].system = 433;
+			team_array[team_number].system = 433;
 			break;
 
 		case 6:
-			team_array[i].system = 541;
+			team_array[team_number].system = 541;
 			break;
 
 		case 7:
-			team_array[i].system = 532;
+			team_array[team_number].system = 532;
 			break;
 			
 		default:
@@ -348,7 +354,147 @@ void print_seed(){
 		}
 }
 
+<<<<<<< HEAD
 
+=======
+void printBall(){
+	puts("                                        ******************");
+	puts("                                       ********************");
+	puts("                                      **********************");
+	puts("                                     ************************");
+	puts("                                    **************************");
+	puts("                                   ****************************");
+	puts("                                  ******************************");
+	puts("                                 ********************************");
+	puts("                                **********************************");
+	puts("                               ************************************");
+	puts("                              **************************************");
+	puts("                              **************************************");
+	puts("                              **************************************");
+	puts("                               ************************************");
+	puts("                                **********************************");
+	puts("                                 ********************************");
+	puts("                                  ******************************");
+	puts("                                   ****************************");
+	puts("                                    **************************");
+	puts("                                     ************************");
+	puts("                                      *********************");
+	puts("                                       *******************");
+	puts("                                        *****************");
+	puts("                                         ***************");
+	puts("                                          *************");
+	puts("                                           ***********");
+	puts("                                           ***********");
+	puts("                                           ***********");
+	puts("                                          *************");
+	puts("                                         ***************");
+	puts("                                        *****************");
+	
+	puts("                                        *******************************");
+	puts("                                  ****************************************");
+	puts("                             ***********************************************");
+	puts("                            ***************************************************");
+	puts("                          *******************************************************");
+	puts("                       ************************************************************");
+	puts("                      ***************************************************************");
+	puts("                   *******************************************************************");
+	puts("                  *********************************************************************");
+	puts("                  *********************************************************************");
+	puts("                  *********************************************************************");
+	puts("                  *********************************************************************");
+	puts("                  ********************************************************************");
+	puts("                   ******************************************************************");
+	puts("                    ****************************************************************");
+	puts("                     **************************************************************");
+	puts("                      ***********************************************************");
+	puts("                       ********************************************************");
+	puts("                         ****************************************************");
+	puts("                           ************************************************");
+	puts("                             ***************************************");
+	puts("                                       *******************");
+	puts("                                      *********************");
+	puts("                                     ***********************");
+	puts("                                    *************************");
+	puts("\n                                           RUSSIA 2018\n\n\n");
+}
+
+int search_player(players player_number, int x)
+{
+	if(x == 1) {
+		int cnt = 0;
+		for (cnt = 0; cnt < 11; cnt++) {
+			if (team_array[cnt].mainplayers[cnt].num == player_number.num);
+				return cnt;
+		}
+	}
+	
+	else if(x == 2) {
+		int count = 0;
+		for (count = 0; count < team_array[team_number].numberOfPlayer - 11; count++) {
+			if (team_array[count].mainplayers[count].num == player_number.num)
+				return count;
+		}
+	}
+}
+
+void change()
+{
+	players main_player, store_player;
+	scanf("%d %d", &main_player.num, &store_player.num);
+	int main_player_element = search_player(main_player, 1);
+	int store_player_element = search_player(store_player, 2);
+	
+	teams tmp;
+	
+	//changing numbers
+	//tmp.num = main_player.num;
+	tmp.mainplayers[main_player_element].num = team_array[team_number].mainplayers[main_player_element].num;
+	//main_player.num = store_player.num;
+	team_array[team_number].mainplayers[main_player_element].num = team_array[team_number].storeplayers[store_player_element].num;
+	//store_player.num = tmp.num;
+	team_array[team_number].storeplayers[store_player_element].num = tmp.mainplayers[main_player_element].num;
+	
+	//keeping skills
+	//tmp.skill = main_player.skill;
+	tmp.mainplayers[main_player_element].skill = team_array[team_number].mainplayers[main_player_element].skill;
+	//main_player.skill = store_player.skill;
+	team_array[team_number].mainplayers[main_player_element].skill = team_array[team_number].storeplayers[store_player_element].skill;
+	//store_player.skill = tmp.skill;
+	team_array[team_number].storeplayers[store_player_element].skill = tmp.mainplayers[main_player_element].skill;
+	
+	//keeping fitness
+	//tmp.fitness = main_player.fitness;
+	tmp.mainplayers[main_player_element].fitness = team_array[team_number].mainplayers[main_player_element].fitness;
+	//main_player.fitness = store_player.fitness;
+	team_array[team_number].mainplayers[main_player_element].fitness = team_array[team_number].storeplayers[store_player_element].fitness;
+	//store_player.fitness = tmp.fitness;
+	team_array[team_number].storeplayers[store_player_element].fitness = tmp.mainplayers[main_player_element].fitness;
+	
+	//keeping form
+	//tmp.form = main_player.form;
+	tmp.mainplayers[main_player_element].form = team_array[team_number].mainplayers[main_player_element].form;
+	//main_player.form = store_player.form;
+	team_array[team_number].mainplayers[main_player_element].form = team_array[team_number].storeplayers[store_player_element].form;
+	//store_player.form = tmp.form;
+	team_array[team_number].storeplayers[store_player_element].form = tmp.mainplayers[main_player_element].form;
+	
+	//keeping name
+	//tmp.playername = strcpy(tmp.playername, main_player.playername);
+	strcpy(tmp.mainplayers[main_player_element].playername, team_array[team_number].mainplayers[main_player_element].playername);
+	//main_player.playername = strcpy(main_player.playername, store_player.playername);
+	strcpy(team_array[team_number].mainplayers[main_player_element].playername, team_array[team_number].storeplayers[store_player_element].playername);
+	//store_player.playername = strcpy(store_player.playername, tmp.playername);
+	strcpy(team_array[team_number].storeplayers[store_player_element].playername, tmp.mainplayers[main_player_element].playername);
+	
+	//changing post
+	//main_player.post = main_player.mainpost;
+	team_array[team_number].mainplayers[main_player_element].post = team_array[team_number].mainplayers[main_player_element].mainpost;
+	//store_player.post = store_player.mainpost;
+	team_array[team_number].storeplayers[store_player_element].post = team_array[team_number].storeplayers[store_player_element].mainpost;
+	//store_player.post = main_player.post;
+	team_array[team_number].storeplayers[store_player_element].mainpost = team_array[team_number].mainplayers[main_player_element].post;
+}
+>>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 
 void typeInConsole(char sentence[])
 {
@@ -369,8 +515,11 @@ void lineup(int team_number)
 
 int  game_start()
 {
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -546,6 +695,7 @@ void playerSkill(){
 	}
 }
 
+<<<<<<< HEAD
 void choseMainPlayer(){	
 	
 	int attack=0,midle=0,defensive=0,sum=0, i=0;
@@ -584,14 +734,36 @@ void choseStorePlayer(){
 	
 }
 
+=======
 
 void print_players(){
+	
+	puts("\n\t MAIN PLAYERS:");
+	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
+	
+	for(int i=0 ; i<11 ; i++){
+		printf("%2d.%-20s%4d%4d%4d%4c%4c\n",team_array[team_number].mainplayers[i].num , team_array[team_number].mainplayers[i].playername , team_array[team_number].mainplayers[i].skill , team_array[team_number].mainplayers[i].fitness , team_array[team_number].mainplayers[i].form , team_array[team_number].mainplayers[i].mainpost , team_array[team_number].mainplayers[i].post);
+	}
+	
+	int j = team_array[team_number].numberOfPlayer - 11;
+	
+	puts("\n\t STORE PLAYERS:");
+	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
+>>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
+	for(int i=0 ; i<j ; i++){
+		printf("%2d.%-20s%4d%4d%4d%4c%4c\n",team_array[team_number].storeplayers[i].num , team_array[team_number].storeplayers[i].playername , team_array[team_number].storeplayers[i].skill , team_array[team_number].storeplayers[i].fitness , team_array[team_number].storeplayers[i].form , team_array[team_number].storeplayers[i].mainpost , team_array[team_number].storeplayers[i].post);
+	}
+	
 	
 }
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 
 	
 
@@ -599,6 +771,7 @@ int main(){
 	int i = 0;
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
+<<<<<<< HEAD
 	playerSkill();
 	i = game_start();
 	sortByPost();
@@ -607,6 +780,19 @@ int main(){
 	choseMainPlayer();
 	
 
+=======
+
+	//i = game_start();
+	//systemOfTeam(i);
+	/*for(int cnt = 0 ; cnt <32 ; cnt++)
+		printf("%d\n",team_array[cnt].system);
+*/
+	//print_seed();
+	//print_seed();
+	int n=0;
+	//print_seed();
+	//print_group();
+>>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 	
 
 	
@@ -621,24 +807,37 @@ int main(){
 	
 
 	
+<<<<<<< HEAD
 /*	while(1){
 	
 	void *input;
 	input = calloc(15 , sizeof(char));
+=======
+	while(1){
+	int proceedNum = 0;
+	char *input;
+	char *input2;
+	input =(char *) calloc(15 , sizeof(char));
+	input2 =(char *) calloc(15 , sizeof(char));
+>>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 	puts("Please Insert Correct Order :");
-	scanf("%s", input);
+	scanf("%s",input);
+
+	//sscanf( input2,"%s%d", input ,&proceedNum);
 	
 			
-		if( input == "lineup"){
-			
+		if( !strcmp(input , "lineup") ){
+			puts("lineup");
 		}
 		
 		
-		if(input == "save"){
-			
+		if( !strcmp(input , "save") ){
+			puts("save");
+
 		}
 		
 		
+<<<<<<< HEAD
 		if(input == "proceed"){
 			int proceedNum = 0;
 			void *b;
@@ -646,10 +845,22 @@ int main(){
 			//proceedNum tedad dafeati ke proceed bayad ejra shavad.
 			//proceed (proceedNum);
 		}
+=======
+		if(!strcmp(input , "proceed") ){
+			//if(fgets(input2 , 20 , stdin)!= NULL)
+			scanf("%d" , &proceedNum);
+>>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 		
+			/*else{
+				proceedNum = 1;
+			}*/
+			
+			printf("%d\n", proceedNum);
+
+				}
 		
-		if(input == "exit"){
-			puts("exit");
+		if(!strcmp(input , "exit")){
+			return 0;
 		}
 	}*/
 
@@ -659,4 +870,10 @@ int main(){
 
 
 
+<<<<<<< HEAD
+=======
+	
+
+
+>>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 }
