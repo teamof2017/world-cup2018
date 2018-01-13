@@ -267,31 +267,31 @@ void systemOfTeam(){
 	
 	switch (n){
 		case 1:
-			team_array[team_number].system = 352;
+			team_array[team_number-1].system = 352;
 			break;
 			
 		case 2:
-			team_array[team_number].system = 343;
+			team_array[team_number-1].system = 343;
 			break;
 
 		case 3:
-			team_array[team_number].system = 442;
+			team_array[team_number-1].system = 442;
 			break;
 
 		case 4:
-			team_array[team_number].system = 451;
+			team_array[team_number-1].system = 451;
 			break;
 
 		case 5:
-			team_array[team_number].system = 433;
+			team_array[team_number-1].system = 433;
 			break;
 
 		case 6:
-			team_array[team_number].system = 541;
+			team_array[team_number-1].system = 541;
 			break;
 
 		case 7:
-			team_array[team_number].system = 532;
+			team_array[team_number-1].system = 532;
 			break;
 			
 		default:
@@ -354,9 +354,9 @@ void print_seed(){
 		}
 }
 
-<<<<<<< HEAD
 
-=======
+
+
 void printBall(){
 	puts("                                        ******************");
 	puts("                                       ********************");
@@ -389,33 +389,11 @@ void printBall(){
 	puts("                                          *************");
 	puts("                                         ***************");
 	puts("                                        *****************");
-	
-	puts("                                        *******************************");
-	puts("                                  ****************************************");
-	puts("                             ***********************************************");
-	puts("                            ***************************************************");
-	puts("                          *******************************************************");
-	puts("                       ************************************************************");
-	puts("                      ***************************************************************");
-	puts("                   *******************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  *********************************************************************");
-	puts("                  ********************************************************************");
-	puts("                   ******************************************************************");
-	puts("                    ****************************************************************");
-	puts("                     **************************************************************");
-	puts("                      ***********************************************************");
-	puts("                       ********************************************************");
-	puts("                         ****************************************************");
-	puts("                           ************************************************");
-	puts("                             ***************************************");
 	puts("                                       *******************");
 	puts("                                      *********************");
 	puts("                                     ***********************");
 	puts("                                    *************************");
-	puts("\n                                           RUSSIA 2018\n\n\n");
+	puts("\n                                        RUSSIA 2018\n\n\n");
 }
 
 int search_player(players player_number, int x)
@@ -494,7 +472,7 @@ void change()
 	//store_player.post = main_player.post;
 	team_array[team_number].storeplayers[store_player_element].mainpost = team_array[team_number].mainplayers[main_player_element].post;
 }
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 
 void typeInConsole(char sentence[])
 {
@@ -515,11 +493,10 @@ void lineup(int team_number)
 
 int  game_start()
 {
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
+
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -695,8 +672,8 @@ void playerSkill(){
 	}
 }
 
-<<<<<<< HEAD
-void choseMainPlayer(){	
+
+void chooseMainPlayer(){	
 	
 	int attack=0,midle=0,defensive=0,sum=0, i=0;
 			for(int j=0;j<32;j++){
@@ -729,12 +706,28 @@ void choseMainPlayer(){
 			}
 
 }
-void choseStorePlayer(){
-	for()
-	
+void chooseStorePlayer(){
+	for (int j=0;j<32;j++){
+		for(int i=0;i<team_array[j].numberOfPlayer-11;){
+			for(int h=0,flag=0;h<team_array[j].numberOfPlayer;h++){
+				flag=0;
+				for(int z=0;z<11;z++){
+					if(team_array[j].mainplayers[z].num==team_array[j].playerinfo[h].num){
+					flag=1;
+					}	
+				
+				}
+				if(flag==0){
+					team_array[j].storeplayers[i]=team_array[j].playerinfo[h];
+					strcpy(team_array[j].storeplayers[i].playername,team_array[j].playerinfo[h].playername);
+					i++;
+				}
+			}
+		}
+	}
 }
 
-=======
+
 
 void print_players(){
 	
@@ -749,7 +742,7 @@ void print_players(){
 	
 	puts("\n\t STORE PLAYERS:");
 	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 
 	for(int i=0 ; i<j ; i++){
 		printf("%2d.%-20s%4d%4d%4d%4c%4c\n",team_array[team_number].storeplayers[i].num , team_array[team_number].storeplayers[i].playername , team_array[team_number].storeplayers[i].skill , team_array[team_number].storeplayers[i].fitness , team_array[team_number].storeplayers[i].form , team_array[team_number].storeplayers[i].mainpost , team_array[team_number].storeplayers[i].post);
@@ -760,27 +753,24 @@ void print_players(){
 
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 
 	
 
 int main(){
-	int i = 0;
+	int i=0;
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
-<<<<<<< HEAD
+
 	playerSkill();
-	i = game_start();
+	i=game_start();
 	sortByPost();
-	systemOfTeam(i);
-//	sortByPost();
-	choseMainPlayer();
+	systemOfTeam();
+	sortByPost();
+	chooseMainPlayer();
+	chooseStorePlayer();
 	
 
-=======
 
 	//i = game_start();
 	//systemOfTeam(i);
@@ -792,7 +782,7 @@ int main(){
 	int n=0;
 	//print_seed();
 	//print_group();
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 	
 
 	
@@ -803,23 +793,25 @@ int main(){
 			for(int z=0;z<11;z++){
 				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].mainplayers[z].playername,team_array[i-1].mainplayers[z].skill,team_array[i-1].mainplayers[z].mainpost,team_array[i-1].system);
 			}
-		
+		for(int z=0;z<team_array[i-1].numberOfPlayer-11;z++){
+				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].storeplayers[z].playername,team_array[i-1].storeplayers[z].skill,team_array[i-1].storeplayers[z].mainpost,team_array[i-1].system);
+			}
 	
 
 	
-<<<<<<< HEAD
+
 /*	while(1){
 	
 	void *input;
 	input = calloc(15 , sizeof(char));
-=======
+
 	while(1){
 	int proceedNum = 0;
 	char *input;
 	char *input2;
 	input =(char *) calloc(15 , sizeof(char));
 	input2 =(char *) calloc(15 , sizeof(char));
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 	puts("Please Insert Correct Order :");
 	scanf("%s",input);
 
@@ -837,7 +829,7 @@ int main(){
 		}
 		
 		
-<<<<<<< HEAD
+
 		if(input == "proceed"){
 			int proceedNum = 0;
 			void *b;
@@ -845,15 +837,15 @@ int main(){
 			//proceedNum tedad dafeati ke proceed bayad ejra shavad.
 			//proceed (proceedNum);
 		}
-=======
+
 		if(!strcmp(input , "proceed") ){
 			//if(fgets(input2 , 20 , stdin)!= NULL)
 			scanf("%d" , &proceedNum);
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 		
 			/*else{
 				proceedNum = 1;
-			}*/
+			}
 			
 			printf("%d\n", proceedNum);
 
@@ -870,10 +862,5 @@ int main(){
 
 
 
-<<<<<<< HEAD
-=======
-	
 
-
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 }
