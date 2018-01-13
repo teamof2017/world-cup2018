@@ -361,7 +361,11 @@ void print_seed(){
 <<<<<<< HEAD
 
 =======
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/master
+=======
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
+>>>>>>> 8cae025f5210ef21619e3ff9d1795a023c1f7220
 void printBall(){
 	puts("                                        ******************");
 	puts("                                       ********************");
@@ -425,10 +429,13 @@ int search_player(int player_number, int x)
 	}
 }
 
+<<<<<<< HEAD
+=======
 
 
 
 
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 void change()
 {
 	int main_player, store_player;
@@ -451,6 +458,10 @@ void change()
 	strcpy(team_array[team_number - 1].mainplayers[main_player_element].playername, team_array[team_number - 1].storeplayers[store_player_element].playername);
 	strcpy(team_array[team_number - 1].storeplayers[store_player_element].playername, tmp.mainplayers[main_player_element].playername);
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 
 void typeInConsole(char sentence[])
 {
@@ -469,11 +480,14 @@ void lineup(int team_number)
 	
 }
 
-int  game_start()
+void game_start()
 {
+<<<<<<< HEAD
+=======
 
 
 
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -540,7 +554,7 @@ int  game_start()
 		//scanf("%d", &team_number);
 		//system("cls");
 		showTeamList();
-			return team_number;
+			//return team_number;
 
 	}
 	
@@ -818,11 +832,16 @@ int main(){
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/master
 	int i=0;
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
+=======
+>>>>>>> 8cae025f5210ef21619e3ff9d1795a023c1f7220
 
+<<<<<<< HEAD
+=======
 	playerSkill();
 <<<<<<< HEAD
 	game_start();
@@ -836,6 +855,7 @@ int main(){
 >>>>>>> refs/remotes/origin/master
 	chooseMainPlayer();
 	chooseStorePlayer();
+<<<<<<< HEAD
 	print_players();
 
 <<<<<<< HEAD
@@ -848,6 +868,22 @@ int main(){
 
 >>>>>>> refs/remotes/origin/master
 	//i = game_start();
+=======
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
+	
+
+
+	
+	ReadFromFilePlayerinfo();
+	ReadFromFileTeaminfo();
+	game_start();
+   	playerSkill();
+	chooseMainPlayer();
+	chooseStorePlayer();
+	systemOfTeam();
+	print_players();
+
+>>>>>>> 8cae025f5210ef21619e3ff9d1795a023c1f7220
 	//systemOfTeam(i);
 	/*for(int cnt = 0 ; cnt <32 ; cnt++)
 		printf("%d\n",team_array[cnt].system);
@@ -882,11 +918,23 @@ int main(){
 
 
 
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/master
+=======
+<<<<<<< HEAD
+	
+
+=======
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
+>>>>>>> 8cae025f5210ef21619e3ff9d1795a023c1f7220
 	
 	print_players();
 	change();
 	print_players();
+<<<<<<< HEAD
+	
+=======
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 
 
 <<<<<<< HEAD
