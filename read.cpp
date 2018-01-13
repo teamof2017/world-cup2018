@@ -267,31 +267,31 @@ void systemOfTeam(){
 	
 	switch (n){
 		case 1:
-			team_array[team_number].system = 352;
+			team_array[team_number-1].system = 352;
 			break;
 			
 		case 2:
-			team_array[team_number].system = 343;
+			team_array[team_number-1].system = 343;
 			break;
 
 		case 3:
-			team_array[team_number].system = 442;
+			team_array[team_number-1].system = 442;
 			break;
 
 		case 4:
-			team_array[team_number].system = 451;
+			team_array[team_number-1].system = 451;
 			break;
 
 		case 5:
-			team_array[team_number].system = 433;
+			team_array[team_number-1].system = 433;
 			break;
 
 		case 6:
-			team_array[team_number].system = 541;
+			team_array[team_number-1].system = 541;
 			break;
 
 		case 7:
-			team_array[team_number].system = 532;
+			team_array[team_number-1].system = 532;
 			break;
 			
 		default:
@@ -515,11 +515,9 @@ void lineup(int team_number)
 
 int  game_start()
 {
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -695,7 +693,7 @@ void playerSkill(){
 	}
 }
 
-<<<<<<< HEAD
+
 void choseMainPlayer(){	
 	
 	int attack=0,midle=0,defensive=0,sum=0, i=0;
@@ -734,7 +732,7 @@ void choseStorePlayer(){
 	
 }
 
-=======
+
 
 void print_players(){
 	
@@ -749,7 +747,7 @@ void print_players(){
 	
 	puts("\n\t STORE PLAYERS:");
 	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 
 	for(int i=0 ; i<j ; i++){
 		printf("%2d.%-20s%4d%4d%4d%4c%4c\n",team_array[team_number].storeplayers[i].num , team_array[team_number].storeplayers[i].playername , team_array[team_number].storeplayers[i].skill , team_array[team_number].storeplayers[i].fitness , team_array[team_number].storeplayers[i].form , team_array[team_number].storeplayers[i].mainpost , team_array[team_number].storeplayers[i].post);
@@ -758,12 +756,44 @@ void print_players(){
 	
 }
 
+void save(){
+	 FILE *filesave = fopen( "output.txt" , "w");
+
+	for(int cnt =0 ; cnt < 32 ; cnt++){
+
+		fprintf(filesave , "     %s\n" ,  team_array[cnt].name );
+		fprintf(filesave , "system =  %d\n" ,  team_array[cnt].system );
+		fprintf(filesave , "group = %c\n" ,  team_array[cnt].group );
+		fprintf(filesave , "%d , %d\n" , cnt+1 , team_array[cnt].numberOfPlayer );
+		fprintf(filesave , "%d , %f\n" , cnt+1 , team_array[cnt].power );
+		fprintf(filesave , "%d , %d\n" , cnt+1 , team_array[cnt].seed );
+		fprintf(filesave , "%d , %s\n" , cnt+1, team_array[cnt].confedration );
+		puts("\n\n");
+
+		//fprintf(filesave , "%d" , cnt);		
+
+		/*for( int i = 0 ; i < 11 ; i++){
+		
+			fprintf(filesave , "%d.%s", i , team_array[cnt].mainplayers[i] );
+			
+}			
+			puts("\n\n");
+
+		for(int i = 0 ; i < team_array[cnt].numberOfPlayer - 11 ; i++){
+			
+			fprintf(filesave , "%d.%s", i , team_array[cnt].storeplayers[i] );
+		}*/
+		
+		puts("\n\n");
+
+}
+		fclose(filesave);
+
+}
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 
 	
 
@@ -771,7 +801,7 @@ int main(){
 	int i = 0;
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
-<<<<<<< HEAD
+
 	playerSkill();
 	i = game_start();
 	sortByPost();
@@ -780,7 +810,7 @@ int main(){
 	choseMainPlayer();
 	
 
-=======
+
 
 	//i = game_start();
 	//systemOfTeam(i);
@@ -792,7 +822,7 @@ int main(){
 	int n=0;
 	//print_seed();
 	//print_group();
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 	
 
 	
@@ -807,19 +837,19 @@ int main(){
 	
 
 	
-<<<<<<< HEAD
+
 /*	while(1){
 	
 	void *input;
 	input = calloc(15 , sizeof(char));
-=======
+
 	while(1){
 	int proceedNum = 0;
 	char *input;
 	char *input2;
 	input =(char *) calloc(15 , sizeof(char));
 	input2 =(char *) calloc(15 , sizeof(char));
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 	puts("Please Insert Correct Order :");
 	scanf("%s",input);
 
@@ -837,7 +867,7 @@ int main(){
 		}
 		
 		
-<<<<<<< HEAD
+
 		if(input == "proceed"){
 			int proceedNum = 0;
 			void *b;
@@ -845,11 +875,11 @@ int main(){
 			//proceedNum tedad dafeati ke proceed bayad ejra shavad.
 			//proceed (proceedNum);
 		}
-=======
+
 		if(!strcmp(input , "proceed") ){
 			//if(fgets(input2 , 20 , stdin)!= NULL)
 			scanf("%d" , &proceedNum);
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
+
 		
 			/*else{
 				proceedNum = 1;
@@ -870,10 +900,4 @@ int main(){
 
 
 
-<<<<<<< HEAD
-=======
-	
-
-
->>>>>>> 107df8d5252403259ac4f6bb30c2578a7b615a8b
 }
