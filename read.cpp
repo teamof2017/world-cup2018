@@ -770,21 +770,15 @@ void save(){
 		fprintf(filesave , "%d . %s\n" , i+1, team_array[cnt].mainplayers[i] );
 			
 		}
+		fputs("STORE PLAYERS\n" , filesave);
 
-		//fprintf(filesave , "%d" , cnt);		
-
-		/*for( int i = 0 ; i < 11 ; i++){
-		
-			fprintf(filesave , "%d.%s", i , team_array[cnt].mainplayers[i] );
+			for(int i=0 ; i<team_array[cnt].numberOfPlayer - 11 ; i++){
+		fprintf(filesave , "%d . %s\n" , i+1, team_array[cnt].storeplayers[i] );
 			
-}			
-			puts("\n\n");
+		}
+	
 
-		for(int i = 0 ; i < team_array[cnt].numberOfPlayer - 11 ; i++){
-			
-			fprintf(filesave , "%d.%s", i , team_array[cnt].storeplayers[i] );
-		}*/
-		
+				
 		puts("\n\n");
 		fclose(filesave);
 }
