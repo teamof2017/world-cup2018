@@ -358,7 +358,10 @@ void print_seed(){
 		}
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 void printBall(){
 	puts("                                        ******************");
 	puts("                                       ********************");
@@ -417,6 +420,13 @@ int search_player(int player_number, int x)
 	}
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 void change()
 {
 	int main_player, store_player;
@@ -431,11 +441,18 @@ void change()
 	team_array[team_number - 1].mainplayers[main_player_element] = team_array[team_number - 1].storeplayers[store_player_element];
 	team_array[team_number - 1].storeplayers[store_player_element] = tmp.mainplayers[main_player_element];
 	
+	tmp.mainplayers[main_player_element].mainpost = team_array[team_number - 1].mainplayers[main_player_element].mainpost;
+	team_array[team_number - 1].mainplayers[main_player_element].mainpost = team_array[team_number - 1].storeplayers[store_player_element].mainpost;
+	team_array[team_number - 1].storeplayers[store_player_element].mainpost = tmp.mainplayers[main_player_element].mainpost;
+	
 	strcpy(tmp.mainplayers[main_player_element].playername, team_array[team_number - 1].mainplayers[main_player_element].playername);
 	strcpy(team_array[team_number - 1].mainplayers[main_player_element].playername, team_array[team_number - 1].storeplayers[store_player_element].playername);
 	strcpy(team_array[team_number - 1].storeplayers[store_player_element].playername, tmp.mainplayers[main_player_element].playername);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 
 void typeInConsole(char sentence[])
 {
@@ -456,6 +473,12 @@ void lineup(int team_number)
 
 void game_start()
 {
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -775,6 +798,16 @@ void save(){
 int main(){
 
 
+<<<<<<< HEAD
+=======
+	playerSkill();
+	i=game_start();
+
+	systemOfTeam();
+//	sortByPost();
+	chooseMainPlayer();
+	chooseStorePlayer();
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 	
 
 
@@ -816,12 +849,19 @@ int main(){
 
 
 
+<<<<<<< HEAD
 	
 
+=======
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 	
+	print_players();
 	change();
 	print_players();
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
 
 
 /*	while(1){
