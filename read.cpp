@@ -487,12 +487,19 @@ void lineup()
 	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Exit lineup.\n");
 	scanf("%d",& num);
 	print_players();
-
 	if(num == 1){
 		systemOfTeam(1);
 		print_players();
 
 	}
+	
+	else if(num == 2){
+		change();
+		print_players();
+
+	}
+	
+	
 	
 	else if(num == 2){
 		change();
@@ -523,6 +530,7 @@ int  game_start()
   	chooseMainPlayer();
 	chooseStorePlayer();
 
+	
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -811,12 +819,9 @@ int determineWiner(teams team1 , teams team2){
 
 
 
-
-
 	
 
 int main(){
-
 
 	game_start();
 	
@@ -862,11 +867,18 @@ int main(){
 			return 0;
 		}
 }
+}
 
 
-	
+
+	}
 	
 
 }
+
+	
+	
+
+
 
 
