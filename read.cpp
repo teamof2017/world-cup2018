@@ -37,16 +37,6 @@ typedef struct group_stage{
 
 groups  groups_array[8];
 
-typedef struct group_stage{
-		char teams[4][20];
-		int goals;
-		int win;
-		int lose;
-		int draw;
-		int placeINgroup;
-		int score;
-} groups;
-
 
 typedef struct infoteams{
 	char name[30];
@@ -193,14 +183,14 @@ void ReadFromFilePlayerinfo(void){
 
 
 void print_group(){
-	groups_array[0].groupName = 'A';
-	groups_array[1].groupName = 'B';
-	groups_array[2].groupName = 'C';
-	groups_array[3].groupName = 'D';
-	groups_array[4].groupName = 'E';
-	groups_array[5].groupName = 'F';
-	groups_array[6].groupName = 'G';
-	groups_array[7].groupName = 'H';
+	groups_array[0].groupname = 'A';
+	groups_array[1].groupname = 'B';
+	groups_array[2].groupname = 'C';
+	groups_array[3].groupname = 'D';
+	groups_array[4].groupname = 'E';
+	groups_array[5].groupname = 'F';
+	groups_array[6].groupname = 'G';
+	groups_array[7].groupname = 'H';
 
 	
 	puts("\n\n GROUPS OF WORLD CUP 2018\n\n");
@@ -531,7 +521,7 @@ int  game_start()
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
 
-	print_group();
+	//print_group();
 
    	playerSkill();
    	systemOfTeam(0);
@@ -881,8 +871,9 @@ void save(){
 int determineWiner(teams team1 , teams team2){
 	int defensiveavg1 = 0;
 	int defensiveavg2 = 0;
-	for(cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
-		if(team1.playerinfo[cnt].mainpost)
+	for(int cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
+		if(team1.playerinfo[cnt].mainpost){
+		}
 	}
 }
 
