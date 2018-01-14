@@ -26,7 +26,15 @@ typedef struct teamplayer{
 	
 }players;
 
-
+typedef struct group_stage{
+		char teams[4][20];
+		int goals;
+		int win;
+		int lose;
+		int draw;
+		int placeINgroup;
+		int score;
+} groups;
 
 
 typedef struct infoteams{
@@ -36,14 +44,16 @@ typedef struct infoteams{
 	int placeInGroup;
 	char confedration[20];
 	int seed;
-    char filename[40];
-    char filesaved[40];
+  	char filename[40];
+  	char filesaved[40];
 	int numberOfPlayer;
 	float power;
 	players mainplayers[11];
 	players storeplayers[50];
 	players playerinfo[60];
+	groups  group[8];
 } teams;
+
 
 
 
