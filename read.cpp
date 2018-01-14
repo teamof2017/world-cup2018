@@ -38,6 +38,7 @@ groups  groups_array[8];
 
 
 
+
 typedef struct infoteams{
 	char name[30];
 	int system;
@@ -66,12 +67,6 @@ typedef struct infoteams{
 } teams;
 
 	groups group_stand;
-
-
-
-
-
-
 
 teams team_array[32];
 
@@ -528,7 +523,7 @@ int  game_start()
 
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
-	print_group();
+	//print_group();
 
    	playerSkill();
    	systemOfTeam(0);
@@ -928,14 +923,12 @@ int main(){
 			}
 			
 
-				
 		
 		if(!strcmp(input , "exit")){
 			return 0;
 		}
+
 }
 }
 
 
-
-	
