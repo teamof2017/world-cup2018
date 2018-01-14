@@ -11,10 +11,8 @@ void print_players();
 void playerSkill();
 void chooseMainPlayer();
 void chooseStorePlayer();
-<<<<<<< HEAD
 void sortByPost();
-=======
->>>>>>> dc6c6c914653cc81ef3d86e95a208d8430836406
+void sortByPost();
 
 
 typedef struct teamplayer{
@@ -36,6 +34,7 @@ typedef struct group_stage{
 } groups;
 
 groups groups_array[8];
+
 
 typedef struct infoteams{
 	char name[30];
@@ -59,6 +58,13 @@ typedef struct infoteams{
 	int placeINgroup;
 	int score;
 } teams;
+
+	groups group_stand;
+} teams;
+
+
+
+
 
 teams team_array[32];
 
@@ -475,16 +481,15 @@ void lineup()
 {  
 	int num;
 	while(1){
-	print_players();
 	puts("Enter the number for each statement: ");
 	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Exit lineup.\n");
 	scanf("%d",& num);
+	print_players();
 	if(num == 1){
 		systemOfTeam(1);
 		print_players();
 
 	}
-<<<<<<< HEAD
 	
 	else if(num == 2){
 		change();
@@ -492,7 +497,6 @@ void lineup()
 
 	}
 	
-=======
 	
 	else if(num == 2){
 		change();
@@ -500,7 +504,6 @@ void lineup()
 
 	}
 	
->>>>>>> dc6c6c914653cc81ef3d86e95a208d8430836406
 	else if(num == 3){
 		break;
 	}
@@ -908,7 +911,7 @@ int main(){
 				proceedNum = 1;
 			}
 			
-			printf("%d\n", proceedNum);*/
+			printf("%d\n", proceedNum);
 
 				
 		
@@ -919,27 +922,11 @@ int main(){
 
 
 
-<<<<<<< HEAD
 	}
 	
 
 }
-=======
-	
-	
-
-
-
-	
+	}
 	
 
-
-
->>>>>>> dc6c6c914653cc81ef3d86e95a208d8430836406
-
-	
-	
-
-
-
-
+}
