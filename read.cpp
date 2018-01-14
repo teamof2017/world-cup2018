@@ -27,13 +27,14 @@ typedef struct teamplayer{
 }players;
 
 typedef struct group_stage{
-		char teams[4][20];
-		int goals;
-		int win;
-		int lose;
-		int draw;
-		int placeINgroup;
-		int score;
+	char groupName;
+	char teams[4][20];
+	int goals;
+	int win;
+	int lose;
+	int draw;
+	int placeINgroup;
+	int score;
 } groups;
 
 
