@@ -51,7 +51,7 @@ typedef struct infoteams{
 	players mainplayers[11];
 	players storeplayers[50];
 	players playerinfo[60];
-	groups  group[8];
+	groups  group_stand[8];
 } teams;
 
 
