@@ -11,7 +11,10 @@ void print_players();
 void playerSkill();
 void chooseMainPlayer();
 void chooseStorePlayer();
+<<<<<<< HEAD
 void sortByPost();
+=======
+>>>>>>> dc6c6c914653cc81ef3d86e95a208d8430836406
 
 
 typedef struct teamplayer{
@@ -481,6 +484,7 @@ void lineup()
 		print_players();
 
 	}
+<<<<<<< HEAD
 	
 	else if(num == 2){
 		change();
@@ -488,6 +492,15 @@ void lineup()
 
 	}
 	
+=======
+	
+	else if(num == 2){
+		change();
+		print_players();
+
+	}
+	
+>>>>>>> dc6c6c914653cc81ef3d86e95a208d8430836406
 	else if(num == 3){
 		break;
 	}
@@ -895,7 +908,7 @@ int main(){
 				proceedNum = 1;
 			}
 			
-			printf("%d\n", proceedNum);
+			printf("%d\n", proceedNum);*/
 
 				
 		
@@ -906,10 +919,23 @@ int main(){
 
 
 
+<<<<<<< HEAD
 	}
 	
 
 }
+=======
+	
+	
+
+
+
+	
+	
+
+
+
+>>>>>>> dc6c6c914653cc81ef3d86e95a208d8430836406
 
 	
 	
