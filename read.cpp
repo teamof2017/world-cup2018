@@ -13,7 +13,6 @@ void chooseMainPlayer();
 void chooseStorePlayer();
 void sortByPost();
 
-
 typedef struct teamplayer{
 	char groupName;
 	char playername[40];
@@ -36,6 +35,7 @@ typedef struct group_stage{
 } groups;
 
 groups  groups_array[8];
+
 
 
 typedef struct infoteams{
@@ -466,7 +466,6 @@ void change()
 	team_array[team_number - 1].mainplayers[main_player_element] = team_array[team_number - 1].storeplayers[store_player_element];
 	team_array[team_number - 1].storeplayers[store_player_element] = tmp;
 	
-
 	tmp.post = team_array[team_number - 1].mainplayers[main_player_element].post;
 	team_array[team_number - 1].mainplayers[main_player_element].post = team_array[team_number - 1].storeplayers[store_player_element].post;
 	team_array[team_number - 1].storeplayers[store_player_element].post = tmp.post;
@@ -625,7 +624,6 @@ int searchByPost(char post,int j){
 	return tedad;
 }
 
-
 void sortByPost(){
 	for(int j=0;j<32;j++){
 		int sum=0;
@@ -676,7 +674,6 @@ void sortByPost(){
 	}
 	
 }
-
 
 void playerSkill(){
 	float sum=0;
@@ -922,18 +919,14 @@ int main(){
 			}
 			
 
-				
 		
 		if(!strcmp(input , "exit")){
 			return 0;
 		}
 
-
-
-
-	}
-	
+}
 
 }
+
 
 
