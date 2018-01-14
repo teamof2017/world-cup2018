@@ -10,6 +10,7 @@ void print_players();
 void playerSkill();
 void chooseMainPlayer();
 void chooseStorePlayer();
+void sortByPost();
 
 
 typedef struct teamplayer{
