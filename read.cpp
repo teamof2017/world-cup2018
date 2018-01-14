@@ -427,20 +427,17 @@ void change()
 	int main_player_element = search_player(main_player, 1);
 	int store_player_element = search_player(store_player, 2);
 	
-	teams tmp;
+	players tmp;
 	
 	//changing players
-	tmp.mainplayers[main_player_element] = team_array[team_number - 1].mainplayers[main_player_element];
+	tmp = team_array[team_number - 1].mainplayers[main_player_element];
 	team_array[team_number - 1].mainplayers[main_player_element] = team_array[team_number - 1].storeplayers[store_player_element];
-	team_array[team_number - 1].storeplayers[store_player_element] = tmp.mainplayers[main_player_element];
+	team_array[team_number - 1].storeplayers[store_player_element] = tmp;
 	
-	tmp.mainplayers[main_player_element].mainpost = team_array[team_number - 1].mainplayers[main_player_element].mainpost;
-	team_array[team_number - 1].mainplayers[main_player_element].mainpost = team_array[team_number - 1].storeplayers[store_player_element].mainpost;
-	team_array[team_number - 1].storeplayers[store_player_element].mainpost = tmp.mainplayers[main_player_element].mainpost;
-	
-	strcpy(tmp.mainplayers[main_player_element].playername, team_array[team_number - 1].mainplayers[main_player_element].playername);
-	strcpy(team_array[team_number - 1].mainplayers[main_player_element].playername, team_array[team_number - 1].storeplayers[store_player_element].playername);
-	strcpy(team_array[team_number - 1].storeplayers[store_player_element].playername, tmp.mainplayers[main_player_element].playername);
+	tmp.post = team_array[team_number - 1].mainplayers[main_player_element].post;
+	team_array[team_number - 1].mainplayers[main_player_element].post = team_array[team_number - 1].storeplayers[store_player_element].post;
+	team_array[team_number - 1].storeplayers[store_player_element].post = tmp.post;
+
 }
 
 void typeInConsole(char sentence[])
@@ -568,13 +565,8 @@ void sortByPost(){
 			if(team_array[j].playerinfo[i].avg<team_array[j].playerinfo[i+1].avg){
 				players tmp;
 				tmp=team_array[j].playerinfo[i];
-				strcpy(tmp.playername,team_array[j].playerinfo[i].playername);
-				printf("1.%s \n  tmp=%s\n2.%s \n\n\n\n ",team_array[j].playerinfo[i].playername,tmp.playername,team_array[j].playerinfo[i+1].playername);
 				team_array[j].playerinfo[i]=team_array[j].playerinfo[i+1];
-				strcpy(team_array[j].playerinfo[i].playername,team_array[j].playerinfo[i+1].playername);
 				team_array[j].playerinfo[i+1]=tmp;
-				strcpy(team_array[j].playerinfo[i+1].playername,tmp.playername);
-				printf("1.%s \n  tmp=%s\n2.%s \n\n\n\n ",team_array[j].playerinfo[i].playername,tmp.playername,team_array[j].playerinfo[i+1].playername);
 			}
 			}
 		}
@@ -583,13 +575,8 @@ void sortByPost(){
 			if(team_array[j].playerinfo[i].avg<team_array[j].playerinfo[i+1].avg){	
 				players tmp;
 				tmp=team_array[j].playerinfo[i];
-				strcpy(tmp.playername,team_array[j].playerinfo[i].playername);
-				printf("1.%s \n  tmp=%s\n2.%s \n\n\n\n ",team_array[j].playerinfo[i].playername,tmp.playername,team_array[j].playerinfo[i+1].playername);
 				team_array[j].playerinfo[i]=team_array[j].playerinfo[i+1];
-				strcpy(team_array[j].playerinfo[i].playername,team_array[j].playerinfo[i+1].playername);
-				team_array[j].playerinfo[x+1]=tmp;
-				strcpy(team_array[j].playerinfo[i+1].playername,tmp.playername);
-				printf("1.%s \n  tmp=%s\n2.%s \n\n\n\n ",team_array[j].playerinfo[i].playername,tmp.playername,team_array[j].playerinfo[i+1].playername);
+				team_array[j].playerinfo[i+1]=tmp;
 			}
 			}
 		}
@@ -599,13 +586,8 @@ void sortByPost(){
 			if(team_array[j].playerinfo[i].avg<team_array[j].playerinfo[i+1].avg){
 				players tmp;
 				tmp=team_array[j].playerinfo[i];
-				strcpy(tmp.playername,team_array[j].playerinfo[i].playername);
-				printf("1.%s \n  tmp=%s\n2.%s \n\n\n\n ",team_array[j].playerinfo[i].playername,tmp.playername,team_array[j].playerinfo[i+1].playername);
 				team_array[j].playerinfo[i]=team_array[j].playerinfo[i+1];
-				strcpy(team_array[j].playerinfo[i].playername,team_array[j].playerinfo[i+1].playername);
 				team_array[j].playerinfo[i+1]=tmp;
-				strcpy(team_array[j].playerinfo[i+1].playername,tmp.playername);
-				printf("1.%s \n  tmp=%s\n2.%s \n\n\n\n ",team_array[j].playerinfo[i].playername,tmp.playername,team_array[j].playerinfo[i+1].playername);
 			}
 			}
 		}
@@ -615,13 +597,8 @@ void sortByPost(){
 			if(team_array[j].playerinfo[i].avg<team_array[j].playerinfo[i+1].avg){
 				players tmp;
 				tmp=team_array[j].playerinfo[i];
-				strcpy(tmp.playername,team_array[j].playerinfo[i].playername);
-				printf("1.%s \n  tmp=%s\n2.%s \n\n\n\n ",team_array[j].playerinfo[i].playername,tmp.playername,team_array[j].playerinfo[i+1].playername);
 				team_array[j].playerinfo[i]=team_array[j].playerinfo[i+1];
-				strcpy(team_array[j].playerinfo[i].playername,team_array[j].playerinfo[i+1].playername);
 				team_array[j].playerinfo[i+1]=tmp;
-				strcpy(team_array[j].playerinfo[i+1].playername,tmp.playername);
-				printf("1.%s \n  tmp=%s\n2.%s \n\n\n\n ",team_array[j].playerinfo[i].playername,tmp.playername,team_array[j].playerinfo[i+1].playername);
 			}
 			}
 		}
@@ -667,9 +644,6 @@ void chooseMainPlayer(){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
 				strcpy(team_array[j].mainplayers[i].playername,team_array[j].playerinfo[sum].playername);	
 				}
-
-				//i--;
-
 				sum=searchByPost('G',j) + searchByPost('D',j);
 				for(int z=0;z<midle;i++,z++,sum++){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
@@ -789,7 +763,7 @@ int main(){
 
 	playerSkill();
 	i=game_start();
-
+	sortByPost();
 	systemOfTeam();
 //	sortByPost();
 	chooseMainPlayer();
@@ -813,16 +787,16 @@ int main(){
 
 	
 
-/*	for(int j=0;j<team_array[i-1].numberOfPlayer;j++){
+	for(int j=0;j<team_array[i-1].numberOfPlayer;j++){
 	printf("%d. %-16s   mainpost=%c    avg=%-5f\n",j+1,team_array[i-1].playerinfo[j].playername,team_array[i-1].playerinfo[j].mainpost,team_array[i-1].playerinfo[j].avg );
-	}*/
-			/*for(int z=0;z<11;z++){
+	}
+			for(int z=0;z<11;z++){
 				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].mainplayers[z].playername,team_array[i-1].mainplayers[z].skill,team_array[i-1].mainplayers[z].mainpost,team_array[i-1].system);
 			}
 
 		for(int z=0;z<team_array[i-1].numberOfPlayer-11;z++){
 				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].storeplayers[z].playername,team_array[i-1].storeplayers[z].skill,team_array[i-1].storeplayers[z].mainpost,team_array[i-1].system);
-			}*/
+			}
 
 
 
@@ -833,12 +807,8 @@ int main(){
 	print_players();
 
 
-/*	while(1){
-=======
-	while(1){
->>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
 	
-	void *input;
+/*	void *input;
 	input = calloc(15 , sizeof(char));
 
 	while(1){
@@ -878,7 +848,7 @@ int main(){
 			scanf("%d" , &proceedNum);
 	}
 		
-			/*else{
+			else{
 				proceedNum = 1;
 			}
 			
@@ -889,9 +859,9 @@ int main(){
 		if(!strcmp(input , "exit")){
 			return 0;
 		}
-<<<<<<< HEAD
-	}
-*/
+
+	}*/
+
 
 
 
