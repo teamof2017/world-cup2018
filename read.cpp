@@ -12,9 +12,10 @@ void playerSkill();
 void chooseMainPlayer();
 void chooseStorePlayer();
 void sortByPost();
-void sortByPost();
+
 
 typedef struct teamplayer{
+	char groupName;
 	char playername[40];
 	int form;
 	int fitness;
@@ -36,6 +37,15 @@ typedef struct group_stage{
 
 groups  groups_array[8];
 
+typedef struct group_stage{
+		char teams[4][20];
+		int goals;
+		int win;
+		int lose;
+		int draw;
+		int placeINgroup;
+		int score;
+} groups;
 
 
 typedef struct infoteams{
@@ -53,24 +63,9 @@ typedef struct infoteams{
 	players storeplayers[50];
 	players playerinfo[60];
 
-	groups  group_stand;
-
-	int goals;
-	int win;
-	int lose;
-	int draw;
-	int placeINgroup;
-	int score;
-
-
 } teams;
 
-	groups group_stand;
-
-} teams;
-
-
-
+	
 
 
 teams team_array[32];
@@ -185,8 +180,9 @@ void ReadFromFilePlayerinfo(void){
   			team_array[count].playerinfo[i].num = num;
 	  		strcpy(team_array[count].playerinfo[i].playername , name);
   			team_array[count].playerinfo[i].age = age;
+
   			team_array[count].playerinfo[i].mainpost = mainpost; 
-			team_array[count].playerinfo[i].post = mainpost; 
+	  		team_array[count].playerinfo[i].post = mainpost; 
 		}
 		team_array[count].numberOfPlayer = i;
 		fclose(fpo);
@@ -398,29 +394,34 @@ void print_seed(){
 
 
 void printBall(){
-	puts("                                        ******************");
-	puts("                                       ********************");
-	puts("                                      **********************");
-	puts("                                     ************************");
+	puts("                                             **********");
+	puts("                                            *          *");
+	puts("                                           * ****  ******");
+	puts("                                          ** ****  ******");
+	puts("                                         ****          ***");
+	puts("                                        *******************");
+	puts("                                       **** *********** ****");
+	puts("                                      *****             *****");
+	puts("                                     ****** *********** ******");
+	puts("                                    ***************************");
+	puts("                                   ******** ****** *** *********");
+	puts("                                  ********* **** ****** *********");
+	puts("                                 ***********   *****   ***********");
+	puts("                                ***********************************");
+	puts("                               ************** ****** ***************");
+	puts("                              ************* ****** *** **************");
+	puts("                              ************* **** ****** *************");
+	puts("                              **************   *****   **************");
+	puts("                               *************************************");
+	puts("                                ***********          *************");
+	puts("                                 ********************* **********");
+	puts("                                  *******************  *********");
+	puts("                                   ********          **********");
 	puts("                                    **************************");
-	puts("                                   ****************************");
-	puts("                                  ******************************");
-	puts("                                 ********************************");
-	puts("                                **********************************");
-	puts("                               ************************************");
-	puts("                              **************************************");
-	puts("                              **************************************");
-	puts("                              **************************************");
-	puts("                               ************************************");
-	puts("                                **********************************");
-	puts("                                 ********************************");
-	puts("                                  ******************************");
-	puts("                                   ****************************");
-	puts("                                    **************************");
-	puts("                                     ************************");
-	puts("                                      *********************");
-	puts("                                       *******************");
-	puts("                                        *****************");
+	puts("                                     *******    **** ********");
+	puts("                                      ***** **** ** *******");
+	puts("                                       **** ***** ********");
+	puts("                                        ***          ****");
 	puts("                                         ***************");
 	puts("                                          *************");
 	puts("                                           ***********");
@@ -475,6 +476,7 @@ void change()
 	team_array[team_number - 1].mainplayers[main_player_element] = team_array[team_number - 1].storeplayers[store_player_element];
 	team_array[team_number - 1].storeplayers[store_player_element] = tmp;
 	
+
 	tmp.post = team_array[team_number - 1].mainplayers[main_player_element].post;
 	team_array[team_number - 1].mainplayers[main_player_element].post = team_array[team_number - 1].storeplayers[store_player_element].post;
 	team_array[team_number - 1].storeplayers[store_player_element].post = tmp.post;
@@ -510,13 +512,13 @@ void lineup()
 		print_players();
 
 	}
-	
-	
+
 	
 	else if(num == 3){
 		break;
 	}
 	
+
 
 }
 	
@@ -528,6 +530,7 @@ int  game_start()
 
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
+
 	print_group();
 
    	playerSkill();
@@ -537,6 +540,7 @@ int  game_start()
 	chooseStorePlayer();
 
 	
+
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -631,6 +635,7 @@ int searchByPost(char post,int j){
 	return tedad;
 }
 
+
 void sortByPost(){
 	for(int j=0;j<32;j++){
 		int sum=0;
@@ -682,6 +687,7 @@ void sortByPost(){
 	
 }
 
+
 void playerSkill(){
 	float sum=0;
 	srand( time (NULL));
@@ -724,7 +730,6 @@ void chooseMainPlayer(){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
 				strcpy(team_array[j].mainplayers[i].playername,team_array[j].playerinfo[sum].playername);	
 				}
-				//i--;
 				sum=searchByPost('M',j)+searchByPost('G',j) + searchByPost('D',j);
 				for(int z=0 ;z<attack;i++,z++,sum++){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
@@ -931,8 +936,7 @@ int main(){
 		if(!strcmp(input , "exit")){
 			return 0;
 		}
-}
-}
+
 
 
 
@@ -940,7 +944,5 @@ int main(){
 	
 
 }
-	}
-	
 
-}
+
