@@ -161,6 +161,7 @@ void ReadFromFilePlayerinfo(void){
 	  		strcpy(team_array[count].playerinfo[i].playername , name);
   			team_array[count].playerinfo[i].age = age;
   			team_array[count].playerinfo[i].mainpost = mainpost; 
+			team_array[count].playerinfo[i].post = mainpost; 
 		}
 		team_array[count].numberOfPlayer = i;
 		fclose(fpo);
