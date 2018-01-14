@@ -825,7 +825,7 @@ int main(){
 				proceedNum = 1;
 			}
 			
-			printf("%d\n", proceedNum);*/
+			printf("%d\n", proceedNum);
 
 				
 		
