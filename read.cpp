@@ -159,8 +159,7 @@ void ReadFromFilePlayerinfo(void){
   			team_array[count].playerinfo[i].num = num;
 	  		strcpy(team_array[count].playerinfo[i].playername , name);
   			team_array[count].playerinfo[i].age = age;
-  			team_array[count].playerinfo[i].mainpost = mainpost;
-			team_array[count].playerinfo[i].post = mainpost;
+  			team_array[count].playerinfo[i].mainpost = mainpost; 
 		}
 		team_array[count].numberOfPlayer = i;
 		fclose(fpo);
@@ -362,6 +361,7 @@ void print_seed(){
 		}
 }
 
+
 void printBall(){
 	puts("                                        ******************");
 	puts("                                       ********************");
@@ -440,28 +440,12 @@ void change()
 	team_array[team_number - 1].mainplayers[main_player_element] = team_array[team_number - 1].storeplayers[store_player_element];
 	team_array[team_number - 1].storeplayers[store_player_element] = tmp;
 	
-<<<<<<< HEAD
-	tmp.mainplayers[main_player_element].mainpost = team_array[team_number - 1].mainplayers[main_player_element].mainpost;
-	team_array[team_number - 1].mainplayers[main_player_element].mainpost = team_array[team_number - 1].storeplayers[store_player_element].mainpost;
-	team_array[team_number - 1].storeplayers[store_player_element].mainpost = tmp.mainplayers[main_player_element].mainpost;
 
-	printf("\n%s\n" , team_array[team_number - 1].mainplayers[main_player_element].playername);
-	printf("\n%s\n" , team_array[team_number - 1].storeplayers[store_player_element].playername);
-	
-/*	strcpy(tmp.mainplayers[main_player_element].playername, team_array[team_number - 1].mainplayers[main_player_element].playername);
-	strcpy(team_array[team_number - 1].mainplayers[main_player_element].playername, team_array[team_number - 1].storeplayers[store_player_element].playername);
-	strcpy(team_array[team_number - 1].storeplayers[store_player_element].playername, tmp.mainplayers[main_player_element].playername);
-*/	
-	printf("\n%s\n" , team_array[team_number - 1].mainplayers[main_player_element].playername);
-	printf("\n%s\n" , team_array[team_number - 1].storeplayers[store_player_element].playername);
-=======
 	tmp.post = team_array[team_number - 1].mainplayers[main_player_element].post;
 	team_array[team_number - 1].mainplayers[main_player_element].post = team_array[team_number - 1].storeplayers[store_player_element].post;
 	team_array[team_number - 1].storeplayers[store_player_element].post = tmp.post;
 
->>>>>>> 3cb172242ce406ce06cdfcfbb20e0ae0248eb40b
 }
-
 
 
 void typeInConsole(char sentence[])
@@ -503,17 +487,16 @@ void lineup()
 	
 }
 
-void game_start()
+int  game_start()
 {
+
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
-   	playerSkill();
-   	systemOfTeam(0);
-
+ 	playerSkill();
+  systemOfTeam(0);
+  sortByPost();
 	chooseMainPlayer();
 	chooseStorePlayer();
-
-
 
 	//printBall();
 	char username[100];
@@ -581,7 +564,7 @@ void game_start()
 		//scanf("%d", &team_number);
 		//system("cls");
 		showTeamList();
-			//return team_number;
+			return team_number;
 
 	}
 	
@@ -609,10 +592,7 @@ int searchByPost(char post,int j){
 	return tedad;
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
+
 void sortByPost(){
 	for(int j=0;j<32;j++){
 		int sum=0;
@@ -656,13 +636,14 @@ void sortByPost(){
 				tmp=team_array[j].playerinfo[i];
 				team_array[j].playerinfo[i]=team_array[j].playerinfo[i+1];
 				team_array[j].playerinfo[i+1]=tmp;
+
 			}
 			}
 		}
 	}
 	
 }
->>>>>>> 3cb172242ce406ce06cdfcfbb20e0ae0248eb40b
+
 
 void playerSkill(){
 	float sum=0;
@@ -701,26 +682,15 @@ void chooseMainPlayer(){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
 				strcpy(team_array[j].mainplayers[i].playername,team_array[j].playerinfo[sum].playername);	
 				}
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 3cb172242ce406ce06cdfcfbb20e0ae0248eb40b
-				//i--;
 
-				//i--;
 
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/master
->>>>>>> ea6d1e0c72d44ab4b327c44c927a2ef532f60abe
->>>>>>> 3cb172242ce406ce06cdfcfbb20e0ae0248eb40b
+
 				sum=searchByPost('G',j) + searchByPost('D',j);
 				for(int z=0;z<midle;i++,z++,sum++){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
 				strcpy(team_array[j].mainplayers[i].playername,team_array[j].playerinfo[sum].playername);	
 				}
+				//i--;
 				sum=searchByPost('M',j)+searchByPost('G',j) + searchByPost('D',j);
 				for(int z=0 ;z<attack;i++,z++,sum++){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
@@ -751,12 +721,6 @@ void chooseStorePlayer(){
 		}
 	}
 }
-
-
-
-
-
-
 
 void print_players(){
 	
@@ -823,132 +787,13 @@ void save(){
 	
 
 int main(){
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/master
-	int i=0;
-	ReadFromFileTeaminfo();
-	ReadFromFilePlayerinfo();
-=======
->>>>>>> 8cae025f5210ef21619e3ff9d1795a023c1f7220
-
-<<<<<<< HEAD
-=======
-	playerSkill();
-<<<<<<< HEAD
 	game_start();
-	systemOfTeam();
 	
-=======
-	i=game_start();
-	sortByPost();
-	systemOfTeam();
-//	sortByPost();
->>>>>>> refs/remotes/origin/master
-	chooseMainPlayer();
-	chooseStorePlayer();
-<<<<<<< HEAD
-	print_players();
-
-<<<<<<< HEAD
-	
-	
-
-
-=======
-
-
->>>>>>> refs/remotes/origin/master
-	//i = game_start();
-=======
->>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
->>>>>>> 3cb172242ce406ce06cdfcfbb20e0ae0248eb40b
-	
-	game_start();
-<<<<<<< HEAD
-=======
-   	playerSkill();
-	chooseMainPlayer();
-	chooseStorePlayer();
-	systemOfTeam();
-	print_players();
-
->>>>>>> 8cae025f5210ef21619e3ff9d1795a023c1f7220
-	//systemOfTeam(i);
-	/*for(int cnt = 0 ; cnt <32 ; cnt++)
-		printf("%d\n",team_array[cnt].system);
-*/
-	//print_seed();
-	//print_seed();
-//	int n=0;
-	//print_seed();
-	//print_group();
-
-	
-
-	
-
-	for(int j=0;j<team_array[i-1].numberOfPlayer;j++){
-	printf("%d. %-16s   mainpost=%c    avg=%-5f\n",j+1,team_array[i-1].playerinfo[j].playername,team_array[i-1].playerinfo[j].mainpost,team_array[i-1].playerinfo[j].avg );
-	}
-			for(int z=0;z<11;z++){
-				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].mainplayers[z].playername,team_array[i-1].mainplayers[z].skill,team_array[i-1].mainplayers[z].mainpost,team_array[i-1].system);
-			}
-<<<<<<< HEAD
-		for(int z=0;z<team_array[i-1].numberOfPlayer-11;z++){
-				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].storeplayers[z].playername,team_array[i-1].storeplayers[z].skill,team_array[i-1].storeplayers[z].mainpost,team_array[i-1].system);
-			}
-*/		
-=======
-
-		for(int z=0;z<team_array[i-1].numberOfPlayer-11;z++){
-				printf("%d. %s  skill=%d  mainpost=%c system=%d\n",z+1,team_array[i-1].storeplayers[z].playername,team_array[i-1].storeplayers[z].skill,team_array[i-1].storeplayers[z].mainpost,team_array[i-1].system);
-			}
-
-
-
-
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/master
-=======
-<<<<<<< HEAD
-	
-
-=======
->>>>>>> 8000fa7ab3a09ae62d87725820695d78fd10558b
->>>>>>> 8cae025f5210ef21619e3ff9d1795a023c1f7220
->>>>>>> 3cb172242ce406ce06cdfcfbb20e0ae0248eb40b
-	
-
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-	
-/*	void *input;
+	void *input;
 	input = calloc(15 , sizeof(char));
-=======
-<<<<<<< HEAD
-=======
-/*	while(1){
-=======
-	while(1){
->>>>>>> d2dc83caa6e23e4a4a925d560816c5b90c33afae
->>>>>>> refs/remotes/origin/master
-	
->>>>>>> ea6d1e0c72d44ab4b327c44c927a2ef532f60abe
 
-<<<<<<< HEAD
-	
-	
-	
-=======
->>>>>>> refs/remotes/origin/master
->>>>>>> 3cb172242ce406ce06cdfcfbb20e0ae0248eb40b
+
 	while(1){
 	int proceedNum = 0;
 	char *input;
@@ -987,35 +832,18 @@ int main(){
 		if(!strcmp(input , "exit")){
 			return 0;
 		}
-<<<<<<< HEAD
-}
-=======
-<<<<<<< HEAD
 
-	}*/
 
-=======
-<<<<<<< HEAD
-	
->>>>>>> 3cb172242ce406ce06cdfcfbb20e0ae0248eb40b
 
 
 	
 	
 
-}
-<<<<<<< HEAD
+
+
 	
-=======
-=======
-<<<<<<< HEAD
-	}
-*/
->>>>>>> ea6d1e0c72d44ab4b327c44c927a2ef532f60abe
+	
 
 
-
-
->>>>>>> 3cb172242ce406ce06cdfcfbb20e0ae0248eb40b
 
 
