@@ -14,7 +14,6 @@ void chooseStorePlayer();
 void sortByPost();
 void sortByPost();
 
-
 typedef struct teamplayer{
 	char playername[40];
 	int form;
@@ -31,9 +30,12 @@ typedef struct teamplayer{
 typedef struct group_stage{
 	char groupname;
 	char teams[4][20];
+
+	
 } groups;
 
-groups groups_array[8];
+groups  groups_array[8];
+
 
 
 typedef struct infoteams{
@@ -50,16 +52,21 @@ typedef struct infoteams{
 	players mainplayers[11];
 	players storeplayers[50];
 	players playerinfo[60];
-	groups group_stand;
+
+	groups  group_stand;
+
 	int goals;
 	int win;
 	int lose;
 	int draw;
 	int placeINgroup;
 	int score;
+
+
 } teams;
 
 	groups group_stand;
+
 } teams;
 
 
@@ -190,7 +197,15 @@ void ReadFromFilePlayerinfo(void){
 
 
 void print_group(){
-	
+	groups_array[0].groupName = 'A';
+	groups_array[1].groupName = 'B';
+	groups_array[2].groupName = 'C';
+	groups_array[3].groupName = 'D';
+	groups_array[4].groupName = 'E';
+	groups_array[5].groupName = 'F';
+	groups_array[6].groupName = 'G';
+	groups_array[7].groupName = 'H';
+
 	
 	puts("\n\n GROUPS OF WORLD CUP 2018\n\n");
 	
@@ -211,7 +226,7 @@ void print_group(){
 			  break;
 			
 		if(team_array[i].group == groupName){
-
+			strcpy(groups_array[(int)groupName - 65].teams[j] , team_array[i].name);
 			strcpy(x , (team_array[i].name )) ;
 			j++;
 			printf("\t%s\n", x);
@@ -460,7 +475,6 @@ void change()
 	team_array[team_number - 1].mainplayers[main_player_element] = team_array[team_number - 1].storeplayers[store_player_element];
 	team_array[team_number - 1].storeplayers[store_player_element] = tmp;
 	
-
 	tmp.post = team_array[team_number - 1].mainplayers[main_player_element].post;
 	team_array[team_number - 1].mainplayers[main_player_element].post = team_array[team_number - 1].storeplayers[store_player_element].post;
 	team_array[team_number - 1].storeplayers[store_player_element].post = tmp.post;
@@ -498,11 +512,6 @@ void lineup()
 	}
 	
 	
-	else if(num == 2){
-		change();
-		print_players();
-
-	}
 	
 	else if(num == 3){
 		break;
@@ -519,12 +528,15 @@ int  game_start()
 
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
- 	playerSkill();
-  systemOfTeam(0);
-  sortByPost();
-	chooseMainPlayer();
+	print_group();
+
+   	playerSkill();
+   	systemOfTeam(0);
+	sortByPost();
+  	chooseMainPlayer();
 	chooseStorePlayer();
 
+	
 	//printBall();
 	char username[100];
 	system("color 0E");
@@ -619,7 +631,6 @@ int searchByPost(char post,int j){
 	return tedad;
 }
 
-
 void sortByPost(){
 	for(int j=0;j<32;j++){
 		int sum=0;
@@ -671,7 +682,6 @@ void sortByPost(){
 	
 }
 
-
 void playerSkill(){
 	float sum=0;
 	srand( time (NULL));
@@ -709,9 +719,6 @@ void chooseMainPlayer(){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
 				strcpy(team_array[j].mainplayers[i].playername,team_array[j].playerinfo[sum].playername);	
 				}
-
-
-
 				sum=searchByPost('G',j) + searchByPost('D',j);
 				for(int z=0;z<midle;i++,z++,sum++){
 				team_array[j].mainplayers[i]=team_array[j].playerinfo[sum];
@@ -866,6 +873,13 @@ void save(){
 }
 
 
+int determineWiner(teams team1 , teams team2){
+	int defensiveavg1 = 0;
+	int defensiveavg2 = 0;
+	for(cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
+		if(team1.playerinfo[cnt].mainpost)
+	}
+}
 
 
 
@@ -911,14 +925,14 @@ int main(){
 				proceedNum = 1;
 			}
 			
-			printf("%d\n", proceedNum);
 
 				
 		
 		if(!strcmp(input , "exit")){
 			return 0;
 		}
-
+}
+}
 
 
 
