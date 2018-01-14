@@ -473,10 +473,10 @@ void lineup()
 {  
 	int num;
 	while(1){
-	print_players();
 	puts("Enter the number for each statement: ");
 	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Exit lineup.\n");
 	scanf("%d",& num);
+	print_players();
 	if(num == 1){
 		systemOfTeam(1);
 		print_players();
