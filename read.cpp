@@ -885,7 +885,7 @@ int determineWiner(teams team1 , teams team2){
 int main(){
 
 	game_start();
-	
+	schedule();
 	void *input;
 	input = calloc(15 , sizeof(char));
 
