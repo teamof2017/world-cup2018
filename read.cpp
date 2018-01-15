@@ -69,7 +69,6 @@ typedef struct infoteams{
 
 } teams;
 
-	
 
 int determineWiner(teams team1 , teams team2);
 
@@ -1074,7 +1073,10 @@ int determineWiner(teams team1 , teams team2){
 int main(){
 
 	game_start();
+
 	schedule();
+
+	
 
 	saveResultGames();
 for(int i=0;i<8;i++){
@@ -1127,6 +1129,4 @@ for(int i=0;i<8;i++){
 }
 
 }
-
-
 
