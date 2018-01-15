@@ -35,6 +35,7 @@ typedef struct group_stage{
 	char groupname;
 	char teams[4][20];
 	int result[3][2]; //result[round][game Number]
+
 } groups;
 
 
@@ -71,8 +72,10 @@ typedef struct infoteams{
 	
 
 int determineWiner(teams team1 , teams team2);
+
 groups  groups_array[8];
 teams team_array[32];
+
 
 
 
@@ -978,6 +981,7 @@ int determineWiner(teams team1 , teams team2){
 	}
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
+
 		if(team2.mainplayers[cnt].mainpost == 'D'){
 			defensiveavg2 += team2.playerinfo[cnt].avg;
 		}
@@ -1006,8 +1010,9 @@ int determineWiner(teams team1 , teams team2){
 			attackavg2 += team2.playerinfo[cnt].avg;
 
 	for(cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
-		if(team1.playerinfo[cnt].mainpost){
 
+		if(team1.playerinfo[cnt].mainpost){
+            
 		}
 	}
 	
@@ -1019,7 +1024,9 @@ int determineWiner(teams team1 , teams team2){
 	defensiveavg2 /= ((team2.system) / 100 % 10) + 1;
 	
 	
-	int resault = ((attackavg1 + middleavg1 - defensiveavg2 - 70) / 10) * 10 + ((attackavg2 + middleavg2 - defensiveavg1 - 70) / 10);
+
+	int resault = ((attackavg1 + middleavg1 - defensiveavg2 - 50) / 10) * 10 + ((attackavg2 + middleavg2 - defensiveavg1 - 50) / 10);
+
 	
 	return  resault; 
 	
@@ -1068,6 +1075,15 @@ int main(){
 
 	game_start();
 	schedule();
+
+	saveResultGames();
+for(int i=0;i<8;i++){
+	for(int j=0;j<3;j++){
+		for(int z=0;z<2;z++){
+			printf("  %d   \n",groups_array[i].result[j][z]);
+		}
+	}
+}
 
 	
 
