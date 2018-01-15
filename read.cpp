@@ -57,7 +57,6 @@ typedef struct infoteams{
 	int win;
 	int lose;
 	int draw;
-	int placeINgroup;
 	int score;
 
 
