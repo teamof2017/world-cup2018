@@ -992,7 +992,8 @@ void schedule()
 
 void table() {
 	int cnt = 0, count = 0;
-	for (cnt = 0, char group = 'A'; cnt < 8; cnt++, group++) {
+	char group = 'A';
+	for (cnt = 0; cnt < 8; cnt++, group++) {
 		int firstTeam, secTeam, thirdTeam, fourthTeam;
 		
 		firstTeam = searchByName(groups_array[cnt].teams[0]);
@@ -1018,7 +1019,7 @@ void table() {
 		int firstTeamWon = team_array[firstTeam].stand.win;
 		int secTeamWon = team_array[secTeam].stand.win;
 		int thirdTeamWon = team_array[thirdTeam].stand.win;
-		int fourhTeamWon = team_array[fourthTeam].stand.win;
+		int fourthTeamWon = team_array[fourthTeam].stand.win;
 		
 		int firstTeamDraw = team_array[firstTeam].stand.draw;
 		int secTeamDraw = team_array[secTeam].stand.draw;
