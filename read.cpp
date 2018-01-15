@@ -35,10 +35,7 @@ typedef struct group_stage{
 	char groupname;
 	char teams[4][20];
 	int result[3][2]; //result[round][game Number]
-<<<<<<< HEAD
 
-=======
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
 } groups;
 
 
@@ -75,12 +72,10 @@ typedef struct infoteams{
 	
 
 int determineWiner(teams team1 , teams team2);
-<<<<<<< HEAD
-=======
+
 groups  groups_array[8];
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
 teams team_array[32];
-groups  groups_array[8];
+
 
 
 
@@ -985,11 +980,8 @@ int determineWiner(teams team1 , teams team2){
 		}
 	}
 	
-<<<<<<< HEAD
-	for( cnt=0 ; cnt< 11 ; cnt++){
-=======
 	for(cnt=0 ; cnt< 11 ; cnt++){
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
+
 		if(team2.mainplayers[cnt].mainpost == 'D'){
 			defensiveavg2 += team2.playerinfo[cnt].avg;
 		}
@@ -1017,13 +1009,10 @@ int determineWiner(teams team1 , teams team2){
 		if(team2.mainplayers[cnt].mainpost == 'A'){
 			attackavg2 += team2.playerinfo[cnt].avg;
 
-<<<<<<< HEAD
-	for( cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
-=======
 	for(cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
-		if(team1.playerinfo[cnt].mainpost){
 
+		if(team1.playerinfo[cnt].mainpost){
+            
 		}
 	}
 	
@@ -1035,11 +1024,9 @@ int determineWiner(teams team1 , teams team2){
 	defensiveavg2 /= ((team2.system) / 100 % 10) + 1;
 	
 	
-<<<<<<< HEAD
+
 	int resault = ((attackavg1 + middleavg1 - defensiveavg2 - 50) / 10) * 10 + ((attackavg2 + middleavg2 - defensiveavg1 - 50) / 10);
-=======
-	int resault = ((attackavg1 + middleavg1 - defensiveavg2 - 70) / 10) * 10 + ((attackavg2 + middleavg2 - defensiveavg1 - 70) / 10);
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
+
 	
 	return  resault; 
 	
@@ -1088,7 +1075,7 @@ int main(){
 
 	game_start();
 	schedule();
-<<<<<<< HEAD
+
 	saveResultGames();
 for(int i=0;i<8;i++){
 	for(int j=0;j<3;j++){
@@ -1097,9 +1084,7 @@ for(int i=0;i<8;i++){
 		}
 	}
 }
-=======
 
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
 	
 
 	while(1){
