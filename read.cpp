@@ -35,17 +35,15 @@ typedef struct group_stage{
 	char groupname;
 	char teams[4][20];
 	int result[3][2]; //result[round][game Number]
-<<<<<<< HEAD
 
-=======
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
 } groups;
 
 
 
 
 typedef struct team_Result_In_group_stage{
-	int goals;
+	int goalsF;
+	int goalsA;
 	int win;
 	int lose;
 	int draw;
@@ -72,15 +70,12 @@ typedef struct infoteams{
 
 } teams;
 
-	
 
 int determineWiner(teams team1 , teams team2);
-<<<<<<< HEAD
-=======
+
 groups  groups_array[8];
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
 teams team_array[32];
-groups  groups_array[8];
+
 
 
 
@@ -466,7 +461,81 @@ int search_player(int player_number, int x)
 	}
 }
 
-
+void sortForTable(){
+	int firstTeam=0,secTeam=0,thirdTeam=0,fourthTeam=0,flag=0,scoreTeams[1][4];
+	for(int z=0;z<8;z++){
+	firstTeam=searchByName(groups_array[z].teams[0]);
+	secTeam=searchByName(groups_array[z].teams[1]);
+	thirdTeam=searchByName(groups_array[z].teams[1]);
+	fourthTeam=searchByName(groups_array[z].teams[1]);
+	scoreTeams[0][0]=team_array[firstTeam].stand.score;
+	scoreTeams[0][1]=team_array[secTeam].stand.score;
+	scoreTeams[0][2]=team_array[thirdTeam].stand.score;
+	scoreTeams[0][3]=team_array[fourthTeam].stand.score;
+		for(char i='A'; x != 'H',i++){
+			for(int j=0;j<4;j++){
+				for(int i=0;i<3;i++){
+					if(sorceTeams[0][i+1]>sorceTeams[0][i]){
+						char tmp[20];
+						strcpy(tmp,groups_array[z].teams[i]);
+						strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
+						strcpy(groups_array[z].teams[i+1],tmp);
+					}
+				}
+			}
+		}
+		for(int i=0;i<3;i++){
+			if(scoreTeams[0][i]==scoreTeams[0][i+1]){
+				flag=1;
+			}
+		}
+			int difference[0][4];
+			difference[0][0]=team_array[firstTeam].stand.goalsF-team_array[firstTeam].stand.goalsA;
+			difference[0][1]=team_array[secTeam].stand.goalsF-team_array[secTeam].stand.goalsA;
+			difference[0][2]=team_array[thirdTeam].stand.goalsF-team_array[thirdTeam].stand.goalsA;
+			difference[0][3]=team_array[fourthTeam].stand.goalsF-team_array[fourthTeam].stand.goalsA;
+		if(flag==1){
+				for(char i='A'; x != 'H',i++){
+					for(int j=0;j<4;j++){
+						for(int i=0;i<3;i++){
+							if(difference[0][i]>difference[0][i+1]){
+								char tmp[20];
+								strcpy(tmp,groups_array[z].teams[i]);
+								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
+								strcpy(groups_array[z].teams[i+1],tmp);
+							}
+						}
+					}
+				}
+		}
+		flag=0;
+		for(int i=0;i<3;i++){
+			if(difference[0][i]==difference[0][i+1]){
+				flag=1;
+			}
+		}
+		if(flag==1){
+			int goalsF[0][4];
+			goalsF[0][0]=team_array[firstTeam].stand.goalsF;
+			goalsF[0][1]=team_array[secTeam].stand.goalsF;
+			goalsF[0][2]=team_array[thirdTeam].stand.goalsF;
+			goalsF[0][3]=team_array[fourthTeam].stand.goalsF;
+			
+				for(char i='A'; x != 'H',i++){
+					for(int j=0;j<4;j++){
+						for(int i=0;i<3;i++){
+							if(goalsF[0][i]>goalsF[0][i+1]){
+								char tmp[20];
+								strcpy(tmp,groups_array[z].teams[i]);
+								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
+								strcpy(groups_array[z].teams[i+1],tmp);
+							}
+						}
+					}
+				}
+		}
+	}
+}
 
 
 void change() 
@@ -703,7 +772,7 @@ void playerSkill(){
 	for(int i=0; i<32 ;i++){
 		for(int j=0 ; j<team_array[i].numberOfPlayer ; j++){
 			
-			team_array[i].playerinfo[j].skill = rand() % 50 + 50;
+			team_array[i].playerinfo[j].skill = rand() % 40 + 60;
 			team_array[i].playerinfo[j].form = rand() % 10 + 90;
 			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
 			team_array[i].playerinfo[j].avg=(team_array[i].playerinfo[j].skill+team_array[i].playerinfo[j].form+team_array[i].playerinfo[j].fitness)/3;
@@ -985,11 +1054,8 @@ int determineWiner(teams team1 , teams team2){
 		}
 	}
 	
-<<<<<<< HEAD
-	for( cnt=0 ; cnt< 11 ; cnt++){
-=======
 	for(cnt=0 ; cnt< 11 ; cnt++){
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
+
 		if(team2.mainplayers[cnt].mainpost == 'D'){
 			defensiveavg2 += team2.playerinfo[cnt].avg;
 		}
@@ -1017,13 +1083,10 @@ int determineWiner(teams team1 , teams team2){
 		if(team2.mainplayers[cnt].mainpost == 'A'){
 			attackavg2 += team2.playerinfo[cnt].avg;
 
-<<<<<<< HEAD
-	for( cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
-=======
 	for(cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
-		if(team1.playerinfo[cnt].mainpost){
 
+		if(team1.playerinfo[cnt].mainpost){
+            
 		}
 	}
 	
@@ -1035,11 +1098,9 @@ int determineWiner(teams team1 , teams team2){
 	defensiveavg2 /= ((team2.system) / 100 % 10) + 1;
 	
 	
-<<<<<<< HEAD
+
 	int resault = ((attackavg1 + middleavg1 - defensiveavg2 - 50) / 10) * 10 + ((attackavg2 + middleavg2 - defensiveavg1 - 50) / 10);
-=======
-	int resault = ((attackavg1 + middleavg1 - defensiveavg2 - 70) / 10) * 10 + ((attackavg2 + middleavg2 - defensiveavg1 - 70) / 10);
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
+
 	
 	return  resault; 
 	
@@ -1087,8 +1148,11 @@ int determineWiner(teams team1 , teams team2){
 int main(){
 
 	game_start();
+
 	schedule();
-<<<<<<< HEAD
+
+	
+
 	saveResultGames();
 for(int i=0;i<8;i++){
 	for(int j=0;j<3;j++){
@@ -1097,9 +1161,7 @@ for(int i=0;i<8;i++){
 		}
 	}
 }
-=======
 
->>>>>>> e16a8b51c469dda212baf5c5d69a1385764cd9a0
 	
 
 	while(1){
@@ -1142,6 +1204,4 @@ for(int i=0;i<8;i++){
 }
 
 }
-
-
 
