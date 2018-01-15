@@ -52,25 +52,15 @@ typedef struct infoteams{
 	players mainplayers[11];
 	players storeplayers[50];
 	players playerinfo[60];
-<<<<<<< HEAD
-=======
-
-	groups  group_stand;
-
->>>>>>> d7f1d2d1073f819240ba5bf55fab5aa7f37b5653
 	int goals;
 	int win;
 	int lose;
 	int draw;
-	int placeINgroup;
 	int score;
 
 
 } teams;
 
-	groups group_stand;
-
-} teams;
 
 
 
@@ -200,14 +190,14 @@ void ReadFromFilePlayerinfo(void){
 
 
 void print_group(){
-	groups_array[0].groupName = 'A';
-	groups_array[1].groupName = 'B';
-	groups_array[2].groupName = 'C';
-	groups_array[3].groupName = 'D';
-	groups_array[4].groupName = 'E';
-	groups_array[5].groupName = 'F';
-	groups_array[6].groupName = 'G';
-	groups_array[7].groupName = 'H';
+	groups_array[0].groupname = 'A';
+	groups_array[1].groupname = 'B';
+	groups_array[2].groupname = 'C';
+	groups_array[3].groupname = 'D';
+	groups_array[4].groupname = 'E';
+	groups_array[5].groupname = 'F';
+	groups_array[6].groupname = 'G';
+	groups_array[7].groupname = 'H';
 
 	
 	puts("\n\n GROUPS OF WORLD CUP 2018\n\n");
@@ -884,7 +874,7 @@ int determineWiner(teams team1 , teams team2){
 	int attackavg1 = 0;
 	int attackavg2 = 0;
 	int cnt=0;
-	for(int cnt=0 ; cnt< 11 ; cnt++){
+	for( cnt=0 ; cnt< 11 ; cnt++){
 		if(team1.mainplayers[cnt].mainpost == 'G'){
 			defensiveavg1 += team1.playerinfo[cnt].avg;
 		}
@@ -990,8 +980,6 @@ int main(){
 
 	game_start();
 	printf("%d" , determineWiner(team_array[16] , team_array[13]));
-	void *input;
-	input = calloc(15 , sizeof(char));
 
 
 	while(1){
@@ -1036,11 +1024,4 @@ int main(){
 
 
 
-	}
-	
 
-}
-	}
-	
-
-}
