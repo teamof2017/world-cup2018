@@ -12,6 +12,7 @@ void playerSkill();
 void chooseMainPlayer();
 void chooseStorePlayer();
 void sortByPost();
+void printBall();
 
 typedef struct teamplayer{
 	char groupName;
