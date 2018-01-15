@@ -1036,11 +1036,12 @@ void table() {
 		int thirdTeamDif = thirdTeamGF - thirdTeamGA;
 		int fourthTeamDif = fourthTeamGF - fourthTeamGA;
 		
-		printf("GROUP %c\n\n\n", group);
-		printf("%s	%d	%d	%d	%d	%d	%d\n", groups_array[cnt].teams[0], firstTeamScore, firstTeamWon, firstTeamDraw, firstTeamLose, firstTeamGF, firstTeamGA, firstTeamDif);
-		printf("\n%s	%d	%d	%d	%d	%d	%d\n", groups_array[cnt].teams[1], secTeamScore, secTeamWon, secTeamDraw, secTeamLose, secTeamGF, secTeamGA, secTeamDif);
-		printf("\n%s	%d	%d	%d	%d	%d	%d\n", groups_array[cnt].teams[2], thirdTeamScore, thirdTeamWon, thirdTeamDraw, thirdTeamLose, thirdTeamGF, thirdTeamGA, thirdTeamDif);
-		printf("\n%s	%d	%d	%d	%d	%d	%d\n\n\n", groups_array[cnt].teams[3], fourthTeamScore, fourthTeamWon, fourthTeamDraw, fourthTeamLose, fourthTeamGF, fourthTeamGA, fourthTeamDif);
+		printf("GROUP %c\n", group);
+		printf("		Pts	W	D	L	GF	GA	GD\n\n");
+		printf("%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[0], firstTeamScore, firstTeamWon, firstTeamDraw, firstTeamLose, firstTeamGF, firstTeamGA, firstTeamDif);
+		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[1], secTeamScore, secTeamWon, secTeamDraw, secTeamLose, secTeamGF, secTeamGA, secTeamDif);
+		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[2], thirdTeamScore, thirdTeamWon, thirdTeamDraw, thirdTeamLose, thirdTeamGF, thirdTeamGA, thirdTeamDif);
+		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n\n\n\n\n", groups_array[cnt].teams[3], fourthTeamScore, fourhTeamWon, fourthTeamDraw, fourthTeamLose, fourthTeamGF, fourthTeamGA, fourthTeamDif);
 	}
 }
 
@@ -1204,10 +1205,12 @@ int main(){
 	game_start();
 
 	schedule();
+	
+	table();
 
 	
 
-	saveResultGames();
+	//saveResultGames();
 for(int i=0;i<8;i++){
 	for(int j=0;j<3;j++){
 		for(int z=0;z<2;z++){
