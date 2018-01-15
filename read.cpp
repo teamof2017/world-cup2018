@@ -472,10 +472,10 @@ void sortForTable(){
 	scoreTeams[0][1]=team_array[secTeam].stand.score;
 	scoreTeams[0][2]=team_array[thirdTeam].stand.score;
 	scoreTeams[0][3]=team_array[fourthTeam].stand.score;
-		for(char i='A'; x != 'H',i++){
+		for(char x='A'; x != 'H';x++){
 			for(int j=0;j<4;j++){
 				for(int i=0;i<3;i++){
-					if(sorceTeams[0][i+1]>sorceTeams[0][i]){
+					if(scoreTeams[0][i+1]>scoreTeams[0][i]){
 						char tmp[20];
 						strcpy(tmp,groups_array[z].teams[i]);
 						strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
@@ -495,7 +495,7 @@ void sortForTable(){
 			difference[0][2]=team_array[thirdTeam].stand.goalsF-team_array[thirdTeam].stand.goalsA;
 			difference[0][3]=team_array[fourthTeam].stand.goalsF-team_array[fourthTeam].stand.goalsA;
 		if(flagForScore==1){
-				for(char i='A'; x != 'H',i++){
+				for(char x='A'; x != 'H';x++){
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
 							if(difference[0][i]>difference[0][i+1]){
@@ -520,7 +520,7 @@ void sortForTable(){
 			goalsF[0][2]=team_array[thirdTeam].stand.goalsF;
 			goalsF[0][3]=team_array[fourthTeam].stand.goalsF;
 			
-				for(char i='A'; x != 'H',i++){
+				for(char x='A'; x != 'H';x++){
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
 							if(goalsF[0][i]>goalsF[0][i+1]){
@@ -992,7 +992,8 @@ void schedule()
 
 void table() {
 	int cnt = 0, count = 0;
-	for (cnt = 0, char group = 'A'; cnt < 8; cnt++, group++) {
+	char group = 'A';
+	for (cnt = 0; cnt < 8; cnt++, group++) {
 		int firstTeam, secTeam, thirdTeam, fourthTeam;
 		
 		firstTeam = searchByName(groups_array[cnt].teams[0]);
@@ -1018,7 +1019,7 @@ void table() {
 		int firstTeamWon = team_array[firstTeam].stand.win;
 		int secTeamWon = team_array[secTeam].stand.win;
 		int thirdTeamWon = team_array[thirdTeam].stand.win;
-		int fourhTeamWon = team_array[fourthTeam].stand.win;
+		int fourthTeamWon = team_array[fourthTeam].stand.win;
 		
 		int firstTeamDraw = team_array[firstTeam].stand.draw;
 		int secTeamDraw = team_array[secTeam].stand.draw;
