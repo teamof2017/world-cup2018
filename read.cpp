@@ -523,12 +523,11 @@ void lineup()
 
 int  game_start()
 {
-
+	
+	printBall();
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
-
-	//print_group();
-
+	print_group();
    	playerSkill();
    	systemOfTeam(0);
 	sortByPost();
@@ -537,7 +536,7 @@ int  game_start()
 
 	
 
-	//printBall();
+	
 	char username[100];
 	system("color 0E");
 	Sleep(2000);
