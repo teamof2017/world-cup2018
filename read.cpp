@@ -697,7 +697,7 @@ void playerSkill(){
 	for(int i=0; i<32 ;i++){
 		for(int j=0 ; j<team_array[i].numberOfPlayer ; j++){
 			
-			team_array[i].playerinfo[j].skill = rand() % 50 + 50;
+			team_array[i].playerinfo[j].skill = rand() % 40 + 60;
 			team_array[i].playerinfo[j].form = rand() % 10 + 90;
 			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
 			team_array[i].playerinfo[j].avg=(team_array[i].playerinfo[j].skill+team_array[i].playerinfo[j].form+team_array[i].playerinfo[j].fitness)/3;
