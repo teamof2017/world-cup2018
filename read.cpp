@@ -462,7 +462,7 @@ int search_player(int player_number, int x)
 }
 
 void sortForTable(){
-	int firstTeam=0,secTeam=0,thirdTeam=0,fourthTeam=0,flag=0,scoreTeams[1][4];
+	int firstTeam=0,secTeam=0,thirdTeam=0,fourthTeam=0,flagForScore=0,flagForDiffrence=0,scoreTeams[1][4];
 	for(int z=0;z<8;z++){
 	firstTeam=searchByName(groups_array[z].teams[0]);
 	secTeam=searchByName(groups_array[z].teams[1]);
@@ -486,7 +486,7 @@ void sortForTable(){
 		}
 		for(int i=0;i<3;i++){
 			if(scoreTeams[0][i]==scoreTeams[0][i+1]){
-				flag=1;
+				flagForScore=1;
 			}
 		}
 			int difference[0][4];
@@ -494,7 +494,7 @@ void sortForTable(){
 			difference[0][1]=team_array[secTeam].stand.goalsF-team_array[secTeam].stand.goalsA;
 			difference[0][2]=team_array[thirdTeam].stand.goalsF-team_array[thirdTeam].stand.goalsA;
 			difference[0][3]=team_array[fourthTeam].stand.goalsF-team_array[fourthTeam].stand.goalsA;
-		if(flag==1){
+		if(flagForScore==1){
 				for(char i='A'; x != 'H',i++){
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
@@ -508,13 +508,12 @@ void sortForTable(){
 					}
 				}
 		}
-		flag=0;
 		for(int i=0;i<3;i++){
 			if(difference[0][i]==difference[0][i+1]){
-				flag=1;
+				flagForDiffrence=1;
 			}
 		}
-		if(flag==1){
+		if(flagForScore==1&&flagForDiffrence==1){
 			int goalsF[0][4];
 			goalsF[0][0]=team_array[firstTeam].stand.goalsF;
 			goalsF[0][1]=team_array[secTeam].stand.goalsF;
