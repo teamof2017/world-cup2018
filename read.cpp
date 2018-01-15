@@ -42,6 +42,7 @@ typedef struct group_stage{
 
 
 typedef struct team_Result_In_group_stage{
+
 	int goalsF;
 	int goalsA;
 	int win;
@@ -771,7 +772,8 @@ void playerSkill(){
 	for(int i=0; i<32 ;i++){
 		for(int j=0 ; j<team_array[i].numberOfPlayer ; j++){
 			
-			team_array[i].playerinfo[j].skill = rand() % 40 + 60;
+
+			team_array[i].playerinfo[j].skill = rand() % 30 + 70;
 			team_array[i].playerinfo[j].form = rand() % 10 + 90;
 			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
 			team_array[i].playerinfo[j].avg=(team_array[i].playerinfo[j].skill+team_array[i].playerinfo[j].form+team_array[i].playerinfo[j].fitness)/3;
@@ -990,6 +992,7 @@ void schedule()
 }
 
 
+
 void table() {
 	int cnt = 0, count = 0;
 	char group = 'A';
@@ -1041,9 +1044,10 @@ void table() {
 		printf("%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[0], firstTeamScore, firstTeamWon, firstTeamDraw, firstTeamLose, firstTeamGF, firstTeamGA, firstTeamDif);
 		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[1], secTeamScore, secTeamWon, secTeamDraw, secTeamLose, secTeamGF, secTeamGA, secTeamDif);
 		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[2], thirdTeamScore, thirdTeamWon, thirdTeamDraw, thirdTeamLose, thirdTeamGF, thirdTeamGA, thirdTeamDif);
-		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n\n\n\n\n", groups_array[cnt].teams[3], fourthTeamScore, fourhTeamWon, fourthTeamDraw, fourthTeamLose, fourthTeamGF, fourthTeamGA, fourthTeamDif);
+		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n\n\n\n\n", groups_array[cnt].teams[3], fourthTeamScore, fourthTeamWon, fourthTeamDraw, fourthTeamLose, fourthTeamGF, fourthTeamGA, fourthTeamDif);
 	}
 }
+
 
 
 
@@ -1092,69 +1096,70 @@ int determineWiner(teams team1 , teams team2){
 	int cnt=0;
 	for(cnt=0 ; cnt< 11 ; cnt++){
 		if(team1.mainplayers[cnt].mainpost == 'G'){
-			defensiveavg1 += team1.playerinfo[cnt].avg;
+			defensiveavg1 += team1.mainplayers[cnt].avg;
 		}
 	}
 	
 	for( cnt=0 ; cnt< 11 ; cnt++){
 		if(team2.mainplayers[cnt].mainpost == 'G'){
-			defensiveavg2 += team2.playerinfo[cnt].avg;
+			defensiveavg2 += team2.mainplayers[cnt].avg;
 		}
 	}
 	
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
 		if(team1.mainplayers[cnt].mainpost == 'D'){
-			defensiveavg1 += team1.playerinfo[cnt].avg;
+			defensiveavg1 += team1.mainplayers[cnt].avg;
 		}
 	}
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
 
 		if(team2.mainplayers[cnt].mainpost == 'D'){
-			defensiveavg2 += team2.playerinfo[cnt].avg;
+			defensiveavg2 += team2.mainplayers[cnt].avg;
 		}
 	}
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
 		if(team1.mainplayers[cnt].mainpost == 'M'){
-			middleavg1 += team1.playerinfo[cnt].avg;
+			middleavg1 += team1.mainplayers[cnt].avg;
 		}
 	}
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
 		if(team2.mainplayers[cnt].mainpost == 'M'){
-			middleavg2 += team2.playerinfo[cnt].avg;
+			middleavg2 += team2.mainplayers[cnt].avg;
 		}
 	}
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
 		if(team1.mainplayers[cnt].mainpost == 'A'){
-			attackavg1 += team1.playerinfo[cnt].avg;
+			attackavg1 += team1.mainplayers[cnt].avg;
 		}
 	}
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
 		if(team2.mainplayers[cnt].mainpost == 'A'){
-			attackavg2 += team2.playerinfo[cnt].avg;
 
-	for(cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
+			attackavg2 += team2.mainplayers[cnt].avg;
 
-		if(team1.playerinfo[cnt].mainpost){
-            
-		}
-	}
+  }
+
+}
+
 	
 	attackavg1 /= ((team1.system) % 10);
 	attackavg2 /= ((team2.system) % 10);
-	middleavg1 /= ((team1.system) / 10 % 10);
-	middleavg2 /= ((team2.system) / 10 % 10);
-	defensiveavg1 /= ((team1.system) / 100 % 10) + 1;
+	middleavg1 /= (((team1.system) / 10 )% 10);
+	middleavg2 /= (((team2.system) / 10 )% 10);
+	defensiveavg1 /= (((team1.system) / 100 )% 10) + 1;
 	defensiveavg2 /= ((team2.system) / 100 % 10) + 1;
 	
+
+	int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 4) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 4);
+
 	
 
-	int resault = ((attackavg1 + middleavg1 - defensiveavg2 - 50) / 10) * 10 + ((attackavg2 + middleavg2 - defensiveavg1 - 50) / 10);
 
 	
 	return  resault; 
@@ -1193,8 +1198,14 @@ int determineWiner(teams team1 , teams team2){
 		}
 	}
 	
+
 }
-}
+
+
+void proceed(int n){
+	int num = (int)n - 48;
+
+
 }
 
 
@@ -1203,23 +1214,12 @@ int determineWiner(teams team1 , teams team2){
 int main(){
 
 	game_start();
-
 	schedule();
 	
 	table();
 
 	
-
-	//saveResultGames();
-for(int i=0;i<8;i++){
-	for(int j=0;j<3;j++){
-		for(int z=0;z<2;z++){
-			printf("  %d   \n",groups_array[i].result[j][z]);
-		}
-	}
-}
-
-	
+	saveResultGames();
 
 	while(1){
 	int proceedNum = 0;
@@ -1244,15 +1244,21 @@ for(int i=0;i<8;i++){
 		
 
 		if(!strcmp(input , "proceed") ){
-			//if(fgets(input2 , 20 , stdin)!= NULL)
-			scanf("%d" , &proceedNum);
-	}
-		
-			else{
-				proceedNum = 1;
+			getchar();
+			int entrance = getchar();
+			
+			if(entrance == '\n'){
+				proceed('1');
+				
 			}
 			
-
+	
+		
+			else{
+				proceed(entrance);
+			}
+			
+}
 		
 		if(!strcmp(input , "exit")){
 			return 0;
@@ -1261,4 +1267,5 @@ for(int i=0;i<8;i++){
 }
 
 }
+
 
