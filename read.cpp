@@ -48,7 +48,6 @@ typedef struct infoteams{
 	players mainplayers[11];
 	players storeplayers[50];
 	players playerinfo[60];
-	groups  group_stand;
 	int goals;
 	int win;
 	int lose;
@@ -214,7 +213,7 @@ void print_group(){
 			  break;
 			
 		if(team_array[i].group == groupName){
-			strcpy(groups_array[(int)groupName - 65].teams[j] , team_array[i].name);
+			strcpy(groups_array[(int)groupName - 65].teams[team_array[i].placeInGroup-1] , team_array[i].name);
 			strcpy(x , (team_array[i].name )) ;
 			j++;
 			printf("\t%s\n", x);
@@ -803,9 +802,106 @@ void save(){
 int determineWiner(teams team1 , teams team2){
 	int defensiveavg1 = 0;
 	int defensiveavg2 = 0;
-	for(cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
-		if(team1.playerinfo[cnt].mainpost)
+	int middleavg1 = 0;
+	int middleavg2 = 0;
+	int attackavg1 = 0;
+	int attackavg2 = 0;
+	int cnt=0;
+	for(int cnt=0 ; cnt< 11 ; cnt++){
+		if(team1.mainplayers[cnt].mainpost == 'G'){
+			defensiveavg1 += team1.playerinfo[cnt].avg;
+		}
 	}
+	
+	for( cnt=0 ; cnt< 11 ; cnt++){
+		if(team2.mainplayers[cnt].mainpost == 'G'){
+			defensiveavg2 += team2.playerinfo[cnt].avg;
+		}
+	}
+	
+	
+	for(cnt=0 ; cnt< 11 ; cnt++){
+		if(team1.mainplayers[cnt].mainpost == 'D'){
+			defensiveavg1 += team1.playerinfo[cnt].avg;
+		}
+	}
+	
+	for(int cnt=0 ; cnt< 11 ; cnt++){
+		if(team2.mainplayers[cnt].mainpost == 'D'){
+			defensiveavg2 += team2.playerinfo[cnt].avg;
+		}
+	}
+	
+	for(cnt=0 ; cnt<11 ;cnt++){
+		if(team1.mainplayers[cnt].mainpost == 'M'){
+			middleavg1 += team1.playerinfo[cnt].avg;
+		}
+	}
+	
+	for(cnt=0 ; cnt<11 ;cnt++){
+		if(team2.mainplayers[cnt].mainpost == 'M'){
+			middleavg2 += team2.playerinfo[cnt].avg;
+		}
+	}
+	
+	for(cnt=0 ; cnt<11 ;cnt++){
+		if(team1.mainplayers[cnt].mainpost == 'A'){
+			attackavg1 += team1.playerinfo[cnt].avg;
+		}
+	}
+	
+	for(cnt=0 ; cnt<11 ;cnt++){
+		if(team2.mainplayers[cnt].mainpost == 'A'){
+			attackavg2 += team2.playerinfo[cnt].avg;
+		}
+	}
+	
+	attackavg1 /= ((team1.system) % 10);
+	attackavg2 /= ((team2.system) % 10);
+	middleavg1 /= ((team1.system) / 10 % 10);
+	middleavg2 /= ((team2.system) / 10 % 10);
+	defensiveavg1 /= ((team1.system) / 100 % 10) + 1;
+	defensiveavg2 /= ((team2.system) / 100 % 10) + 1;
+	
+	
+	int resault = ((attackavg1 + middleavg1 - defensiveavg2 - 70) / 10) * 10 + ((attackavg2 + middleavg2 - defensiveavg1 - 70) / 10);
+	
+	return  resault; 
+	
+	
+	for( cnt =0 ; cnt < 11 ; cnt++){
+		team1.mainplayers[cnt].fitness -= 2;
+	}
+	
+	for( cnt =0 ; cnt < 11 ; cnt++){
+		team2.mainplayers[cnt].fitness -= 2;
+	}
+		//team1 win
+	if( (resault/10) > (resault%10)){
+		for(cnt=0 ; cnt<11 ; cnt++){
+			if(team1.mainplayers[cnt].mainpost == 'A'){
+				team1.mainplayers[cnt].form += 3;
+			}
+			
+			if(team2.mainplayers[cnt].mainpost == 'D'){
+				team2.mainplayers[cnt].form -= 3;
+			}
+		}
+	}
+	
+		//team2 win
+	if( (resault/10) < (resault%10)){
+		for(cnt=0 ; cnt<11 ; cnt++){
+			if(team2.mainplayers[cnt].mainpost == 'A'){
+				team2.mainplayers[cnt].form += 3;
+			}
+			
+			if(team1.mainplayers[cnt].mainpost == 'D'){
+				team1.mainplayers[cnt].form -= 3;
+			}
+		}
+	}
+	
 }
 
 
@@ -819,7 +915,7 @@ int main(){
 
 
 	game_start();
-	
+	printf("%d" , determineWiner(team_array[16] , team_array[13]));
 	void *input;
 	input = calloc(15 , sizeof(char));
 
