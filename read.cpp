@@ -42,12 +42,9 @@ typedef struct group_stage{
 
 
 typedef struct team_Result_In_group_stage{
-<<<<<<< HEAD
-	int goals;
-=======
+
 	int goalsF;
 	int goalsA;
->>>>>>> f4343b0599ba1fb60b1b42f65674f461fe1fac02
 	int win;
 	int lose;
 	int draw;
@@ -775,11 +772,8 @@ void playerSkill(){
 	for(int i=0; i<32 ;i++){
 		for(int j=0 ; j<team_array[i].numberOfPlayer ; j++){
 			
-<<<<<<< HEAD
+
 			team_array[i].playerinfo[j].skill = rand() % 30 + 70;
-=======
-			team_array[i].playerinfo[j].skill = rand() % 40 + 60;
->>>>>>> f4343b0599ba1fb60b1b42f65674f461fe1fac02
 			team_array[i].playerinfo[j].form = rand() % 10 + 90;
 			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
 			team_array[i].playerinfo[j].avg=(team_array[i].playerinfo[j].skill+team_array[i].playerinfo[j].form+team_array[i].playerinfo[j].fitness)/3;
@@ -998,8 +992,7 @@ void schedule()
 }
 
 
-<<<<<<< HEAD
-=======
+
 void table() {
 	int cnt = 0, count = 0;
 	char group = 'A';
@@ -1046,16 +1039,17 @@ void table() {
 		int thirdTeamDif = thirdTeamGF - thirdTeamGA;
 		int fourthTeamDif = fourthTeamGF - fourthTeamGA;
 		
-		printf("GROUP %c\n\n\n", group);
-		printf("%s	%d	%d	%d	%d	%d	%d\n", groups_array[cnt].teams[0], firstTeamScore, firstTeamWon, firstTeamDraw, firstTeamLose, firstTeamGF, firstTeamGA, firstTeamDif);
-		printf("\n%s	%d	%d	%d	%d	%d	%d\n", groups_array[cnt].teams[1], secTeamScore, secTeamWon, secTeamDraw, secTeamLose, secTeamGF, secTeamGA, secTeamDif);
-		printf("\n%s	%d	%d	%d	%d	%d	%d\n", groups_array[cnt].teams[2], thirdTeamScore, thirdTeamWon, thirdTeamDraw, thirdTeamLose, thirdTeamGF, thirdTeamGA, thirdTeamDif);
-		printf("\n%s	%d	%d	%d	%d	%d	%d\n\n\n", groups_array[cnt].teams[3], fourthTeamScore, fourthTeamWon, fourthTeamDraw, fourthTeamLose, fourthTeamGF, fourthTeamGA, fourthTeamDif);
+		printf("GROUP %c\n", group);
+		printf("		Pts	W	D	L	GF	GA	GD\n\n");
+		printf("%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[0], firstTeamScore, firstTeamWon, firstTeamDraw, firstTeamLose, firstTeamGF, firstTeamGA, firstTeamDif);
+		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[1], secTeamScore, secTeamWon, secTeamDraw, secTeamLose, secTeamGF, secTeamGA, secTeamDif);
+		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[2], thirdTeamScore, thirdTeamWon, thirdTeamDraw, thirdTeamLose, thirdTeamGF, thirdTeamGA, thirdTeamDif);
+		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n\n\n\n\n", groups_array[cnt].teams[3], fourthTeamScore, fourthTeamWon, fourthTeamDraw, fourthTeamLose, fourthTeamGF, fourthTeamGA, fourthTeamDif);
 	}
 }
 
 
->>>>>>> f4343b0599ba1fb60b1b42f65674f461fe1fac02
+
 
 void save(){
 	
@@ -1146,20 +1140,12 @@ int determineWiner(teams team1 , teams team2){
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
 		if(team2.mainplayers[cnt].mainpost == 'A'){
-<<<<<<< HEAD
+
 			attackavg2 += team2.mainplayers[cnt].avg;
 
+  }
+
 }
-=======
-			attackavg2 += team2.playerinfo[cnt].avg;
-
-	for(cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
-
-		if(team1.playerinfo[cnt].mainpost){
-            
-		}
->>>>>>> f4343b0599ba1fb60b1b42f65674f461fe1fac02
-	}
 
 	
 	attackavg1 /= ((team1.system) % 10);
@@ -1169,15 +1155,11 @@ int determineWiner(teams team1 , teams team2){
 	defensiveavg1 /= (((team1.system) / 100 )% 10) + 1;
 	defensiveavg2 /= ((team2.system) / 100 % 10) + 1;
 	
-<<<<<<< HEAD
-//	if((attackavg1 + middleavg1 - defensiveavg2 - 70) < 0)
-	printf("%d--%d\n" , attackavg1 + middleavg1 - defensiveavg2-80 ,attackavg2 + middleavg2 - defensiveavg1 -80 );
+
 	int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 4) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 4);
-=======
+
 	
 
-	int resault = ((attackavg1 + middleavg1 - defensiveavg2 - 50) / 10) * 10 + ((attackavg2 + middleavg2 - defensiveavg1 - 50) / 10);
->>>>>>> f4343b0599ba1fb60b1b42f65674f461fe1fac02
 
 	
 	return  resault; 
@@ -1218,14 +1200,12 @@ int determineWiner(teams team1 , teams team2){
 	
 
 }
-<<<<<<< HEAD
+
 
 void proceed(int n){
 	int num = (int)n - 48;
 
-=======
-}
->>>>>>> f4343b0599ba1fb60b1b42f65674f461fe1fac02
+
 }
 
 
@@ -1233,34 +1213,13 @@ void proceed(int n){
 
 int main(){
 
-<<<<<<< HEAD
-//	game_start();
-=======
 	game_start();
->>>>>>> f4343b0599ba1fb60b1b42f65674f461fe1fac02
-
-//	schedule();
+	schedule();
+	
+	table();
 
 	
-
-<<<<<<< HEAD
-/*	saveResultGames();
-=======
 	saveResultGames();
->>>>>>> f4343b0599ba1fb60b1b42f65674f461fe1fac02
-for(int i=0;i<8;i++){
-	for(int j=0;j<3;j++){
-		for(int z=0;z<2;z++){
-			printf("  %d   \n",groups_array[i].result[j][z]);
-		}
-	}
-}
-
-<<<<<<< HEAD
-*/	
-=======
-	
->>>>>>> f4343b0599ba1fb60b1b42f65674f461fe1fac02
 
 	while(1){
 	int proceedNum = 0;
@@ -1309,7 +1268,4 @@ for(int i=0;i<8;i++){
 
 }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> f4343b0599ba1fb60b1b42f65674f461fe1fac02
