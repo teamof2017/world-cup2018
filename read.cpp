@@ -42,7 +42,8 @@ typedef struct group_stage{
 
 
 typedef struct team_Result_In_group_stage{
-	int goals;
+	int goalsF;
+	int goalsA;
 	int win;
 	int lose;
 	int draw;
@@ -460,7 +461,80 @@ int search_player(int player_number, int x)
 	}
 }
 
-
+void sortForTable(){
+	int firstTeam=0,secTeam=0,thirdTeam=0,fourthTeam=0,flagForScore=0,flagForDiffrence=0,scoreTeams[1][4];
+	for(int z=0;z<8;z++){
+	firstTeam=searchByName(groups_array[z].teams[0]);
+	secTeam=searchByName(groups_array[z].teams[1]);
+	thirdTeam=searchByName(groups_array[z].teams[1]);
+	fourthTeam=searchByName(groups_array[z].teams[1]);
+	scoreTeams[0][0]=team_array[firstTeam].stand.score;
+	scoreTeams[0][1]=team_array[secTeam].stand.score;
+	scoreTeams[0][2]=team_array[thirdTeam].stand.score;
+	scoreTeams[0][3]=team_array[fourthTeam].stand.score;
+		for(char x='A'; x != 'H';x++){
+			for(int j=0;j<4;j++){
+				for(int i=0;i<3;i++){
+					if(scoreTeams[0][i+1]>scoreTeams[0][i]){
+						char tmp[20];
+						strcpy(tmp,groups_array[z].teams[i]);
+						strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
+						strcpy(groups_array[z].teams[i+1],tmp);
+					}
+				}
+			}
+		}
+		for(int i=0;i<3;i++){
+			if(scoreTeams[0][i]==scoreTeams[0][i+1]){
+				flagForScore=1;
+			}
+		}
+			int difference[0][4];
+			difference[0][0]=team_array[firstTeam].stand.goalsF-team_array[firstTeam].stand.goalsA;
+			difference[0][1]=team_array[secTeam].stand.goalsF-team_array[secTeam].stand.goalsA;
+			difference[0][2]=team_array[thirdTeam].stand.goalsF-team_array[thirdTeam].stand.goalsA;
+			difference[0][3]=team_array[fourthTeam].stand.goalsF-team_array[fourthTeam].stand.goalsA;
+		if(flagForScore==1){
+				for(char x='A'; x != 'H';x++){
+					for(int j=0;j<4;j++){
+						for(int i=0;i<3;i++){
+							if(difference[0][i]>difference[0][i+1]){
+								char tmp[20];
+								strcpy(tmp,groups_array[z].teams[i]);
+								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
+								strcpy(groups_array[z].teams[i+1],tmp);
+							}
+						}
+					}
+				}
+		}
+		for(int i=0;i<3;i++){
+			if(difference[0][i]==difference[0][i+1]){
+				flagForDiffrence=1;
+			}
+		}
+		if(flagForScore==1&&flagForDiffrence==1){
+			int goalsF[0][4];
+			goalsF[0][0]=team_array[firstTeam].stand.goalsF;
+			goalsF[0][1]=team_array[secTeam].stand.goalsF;
+			goalsF[0][2]=team_array[thirdTeam].stand.goalsF;
+			goalsF[0][3]=team_array[fourthTeam].stand.goalsF;
+			
+				for(char x='A'; x != 'H';x++){
+					for(int j=0;j<4;j++){
+						for(int i=0;i<3;i++){
+							if(goalsF[0][i]>goalsF[0][i+1]){
+								char tmp[20];
+								strcpy(tmp,groups_array[z].teams[i]);
+								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
+								strcpy(groups_array[z].teams[i+1],tmp);
+							}
+						}
+					}
+				}
+		}
+	}
+}
 
 
 void change() 
@@ -697,7 +771,7 @@ void playerSkill(){
 	for(int i=0; i<32 ;i++){
 		for(int j=0 ; j<team_array[i].numberOfPlayer ; j++){
 			
-			team_array[i].playerinfo[j].skill = rand() % 50 + 50;
+			team_array[i].playerinfo[j].skill = rand() % 40 + 60;
 			team_array[i].playerinfo[j].form = rand() % 10 + 90;
 			team_array[i].playerinfo[j].fitness = rand() % 30 +70;
 			team_array[i].playerinfo[j].avg=(team_array[i].playerinfo[j].skill+team_array[i].playerinfo[j].form+team_array[i].playerinfo[j].fitness)/3;
@@ -913,6 +987,61 @@ void schedule()
 	printf("%-10s		VS		%-10s\n", groups_array[cnt + 7].teams[count + 1], groups_array[cnt + 7].teams[count + 2]);
 	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count + 1], groups_array[cnt + 6].teams[count + 2]);
 	printf("%-10s		VS		%-10s\n\n\n", groups_array[cnt + 6].teams[count + 3], groups_array[cnt + 6].teams[count]);
+}
+
+
+void table() {
+	int cnt = 0, count = 0;
+	char group = 'A';
+	for (cnt = 0; cnt < 8; cnt++, group++) {
+		int firstTeam, secTeam, thirdTeam, fourthTeam;
+		
+		firstTeam = searchByName(groups_array[cnt].teams[0]);
+		secTeam = searchByName(groups_array[cnt].teams[1]);
+		thirdTeam = searchByName(groups_array[cnt].teams[2]);
+		fourthTeam = searchByName(groups_array[cnt].teams[3]);
+		
+		int firstTeamScore = team_array[firstTeam].stand.score;
+		int secTeamScore = team_array[secTeam].stand.score;
+		int thirdTeamScore = team_array[thirdTeam].stand.score;
+		int fourthTeamScore = team_array[fourthTeam].stand.score;
+		
+		int firstTeamGA = team_array[firstTeam].stand.goalsA;
+		int secTeamGA = team_array[secTeam].stand.goalsA;
+		int thirdTeamGA = team_array[thirdTeam].stand.goalsA;
+		int fourthTeamGA = team_array[fourthTeam].stand.goalsA;
+		
+		int firstTeamGF = team_array[firstTeam].stand.goalsF;
+		int secTeamGF = team_array[secTeam].stand.goalsF;
+		int thirdTeamGF = team_array[thirdTeam].stand.goalsF;
+		int fourthTeamGF = team_array[fourthTeam].stand.goalsF;
+		
+		int firstTeamWon = team_array[firstTeam].stand.win;
+		int secTeamWon = team_array[secTeam].stand.win;
+		int thirdTeamWon = team_array[thirdTeam].stand.win;
+		int fourthTeamWon = team_array[fourthTeam].stand.win;
+		
+		int firstTeamDraw = team_array[firstTeam].stand.draw;
+		int secTeamDraw = team_array[secTeam].stand.draw;
+		int thirdTeamDraw = team_array[thirdTeam].stand.draw;
+		int fourthTeamDraw = team_array[fourthTeam].stand.draw;
+		
+		int firstTeamLose = team_array[firstTeam].stand.lose;
+		int secTeamLose = team_array[secTeam].stand.lose;
+		int thirdTeamLose = team_array[thirdTeam].stand.lose;
+		int fourthTeamLose = team_array[fourthTeam].stand.lose;
+		
+		int firstTeamDif = firstTeamGF - firstTeamGA;
+		int secTeamDif = secTeamGF - secTeamGA;
+		int thirdTeamDif = thirdTeamGF - thirdTeamGA;
+		int fourthTeamDif = fourthTeamGF - fourthTeamGA;
+		
+		printf("GROUP %c\n\n\n", group);
+		printf("%s	%d	%d	%d	%d	%d	%d\n", groups_array[cnt].teams[0], firstTeamScore, firstTeamWon, firstTeamDraw, firstTeamLose, firstTeamGF, firstTeamGA, firstTeamDif);
+		printf("\n%s	%d	%d	%d	%d	%d	%d\n", groups_array[cnt].teams[1], secTeamScore, secTeamWon, secTeamDraw, secTeamLose, secTeamGF, secTeamGA, secTeamDif);
+		printf("\n%s	%d	%d	%d	%d	%d	%d\n", groups_array[cnt].teams[2], thirdTeamScore, thirdTeamWon, thirdTeamDraw, thirdTeamLose, thirdTeamGF, thirdTeamGA, thirdTeamDif);
+		printf("\n%s	%d	%d	%d	%d	%d	%d\n\n\n", groups_array[cnt].teams[3], fourthTeamScore, fourthTeamWon, fourthTeamDraw, fourthTeamLose, fourthTeamGF, fourthTeamGA, fourthTeamDif);
+	}
 }
 
 
