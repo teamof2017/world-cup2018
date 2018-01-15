@@ -993,9 +993,7 @@ int main(){
 
 	schedule();
 
-	void *input;
-	input = calloc(15 , sizeof(char));
-
+	
 
 	while(1){
 	int proceedNum = 0;
