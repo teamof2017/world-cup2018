@@ -13,6 +13,7 @@ void chooseMainPlayer();
 void chooseStorePlayer();
 void sortByPost();
 int searchByName(char *name);
+void printBall();
 
 
 typedef struct teamplayer{
@@ -29,18 +30,10 @@ typedef struct teamplayer{
 	
 }players;
 
-<<<<<<< HEAD
-=======
-typedef struct group_stage{
-	char groupname;
-	char teams[4][20];
-
-	
-} groups;
 
 groups  groups_array[8];
 
->>>>>>> d95486aff7b73faa8a43c0fd64ba8b2e62ef9ce4
+
 typedef struct group_stage{
 	char groupname;
 	char teams[4][20];
@@ -73,10 +66,7 @@ typedef struct infoteams{
 	players mainplayers[11];
 	players storeplayers[50];
 	players playerinfo[60];
-<<<<<<< HEAD
 	team_In_group	stand;
-=======
->>>>>>> d95486aff7b73faa8a43c0fd64ba8b2e62ef9ce4
 
 } teams;
 
@@ -208,7 +198,6 @@ void ReadFromFilePlayerinfo(void){
 
 
 void print_group(){
-<<<<<<< HEAD
 	groups_array[0].groupname = 'A';
 	groups_array[1].groupname = 'B';
 	groups_array[2].groupname = 'C';
@@ -216,19 +205,7 @@ void print_group(){
 	groups_array[4].groupname = 'E';
 	groups_array[5].groupname = 'F';
 	groups_array[6].groupname = 'G';
-	groups_array[7].groupname = 'H';
-=======
-	groups_array[0].groupName = 'A';
-	groups_array[1].groupName = 'B';
-	groups_array[2].groupName = 'C';
-	groups_array[3].groupName = 'D';
-	groups_array[4].groupName = 'E';
-	groups_array[5].groupName = 'F';
-	groups_array[6].groupName = 'G';
-	groups_array[7].groupName = 'H';
->>>>>>> d95486aff7b73faa8a43c0fd64ba8b2e62ef9ce4
-
-	
+	groups_array[7].groupname = 'H';	
 	puts("\n\n GROUPS OF WORLD CUP 2018\n\n");
 	
 	int i=0 , j=0;
@@ -248,7 +225,7 @@ void print_group(){
 			  break;
 			
 		if(team_array[i].group == groupName){
-			strcpy(groups_array[(int)groupName - 65].teams[j] , team_array[i].name);
+			strcpy(groups_array[(int)groupName - 65].teams[team_array[i].placeInGroup-1] , team_array[i].name);
 			strcpy(x , (team_array[i].name )) ;
 			j++;
 			printf("\t%s\n", x);
@@ -502,7 +479,6 @@ void change()
 	team_array[team_number - 1].mainplayers[main_player_element] = team_array[team_number - 1].storeplayers[store_player_element];
 	team_array[team_number - 1].storeplayers[store_player_element] = tmp;
 	
-
 	tmp.post = team_array[team_number - 1].mainplayers[main_player_element].post;
 	team_array[team_number - 1].mainplayers[main_player_element].post = team_array[team_number - 1].storeplayers[store_player_element].post;
 	team_array[team_number - 1].storeplayers[store_player_element].post = tmp.post;
@@ -556,29 +532,19 @@ void lineup()
 }
 
 int  game_start()
-{
-
+{	
 	printBall();
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
-
-<<<<<<< HEAD
-=======
 	print_group();
->>>>>>> d95486aff7b73faa8a43c0fd64ba8b2e62ef9ce4
-
-   	playerSkill();
-   	systemOfTeam(0);
+  playerSkill();
+  systemOfTeam(0);
 	sortByPost();
-  	chooseMainPlayer();
+  chooseMainPlayer();
 	chooseStorePlayer();
 
 	
-
-<<<<<<< HEAD
-=======
-	//printBall();
->>>>>>> d95486aff7b73faa8a43c0fd64ba8b2e62ef9ce4
+  
 	char username[100];
 	system("color 0E");
 	Sleep(2000);
@@ -673,7 +639,6 @@ int searchByPost(char post,int j){
 	return tedad;
 }
 
-
 void sortByPost(){
 	for(int j=0;j<32;j++){
 		int sum=0;
@@ -724,7 +689,6 @@ void sortByPost(){
 	}
 	
 }
-
 
 void playerSkill(){
 	float sum=0;
@@ -955,58 +919,58 @@ void schedule()
 	int cnt = 0, count = 0;
 	
 	printf("ROUND 1 STAGE\n\n");
-	printf("%s		VS		%s/n", groups_array[cnt].teams[count], groups_array[cnt].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt].teams[count + 2], groups_array[cnt].teams[count + 3]);
-	printf("%s		VS		%s/n", groups_array[cnt + 1].teams[count + 2], groups_array[cnt + 1].teams[count + 3]);
-	printf("%s		VS		%s/n", groups_array[cnt + 1].teams[count], groups_array[cnt + 1].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 2].teams[count], groups_array[cnt + 2].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 3].teams[count], groups_array[cnt + 3].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 2].teams[count + 2], groups_array[cnt + 2].teams[count + 3]);
-	printf("%s		VS		%s/n", groups_array[cnt + 3].teams[count + 2], groups_array[cnt + 3].teams[count + 3]);
-	printf("%s		VS		%s/n", groups_array[cnt + 4].teams[count + 2], groups_array[cnt + 4].teams[count + 3]);
-	printf("%s		VS		%s/n", groups_array[cnt + 5].teams[count], groups_array[cnt + 5].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 4].teams[count], groups_array[cnt + 4].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 5].teams[count + 2], groups_array[cnt + 5].teams[count + 3]);
-	printf("%s		VS		%s/n", groups_array[cnt + 6].teams[count], groups_array[cnt + 6].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 6].teams[count + 2], groups_array[cnt + 6].teams[count + 3]);
-	printf("%s		VS		%s/n", groups_array[cnt + 7].teams[count + 2], groups_array[cnt + 7].teams[count + 3]);
-	printf("%s		VS		%s/n/n/n", groups_array[cnt + 7].teams[count], groups_array[cnt + 7].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count], groups_array[cnt].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count + 2], groups_array[cnt].teams[count + 3]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count + 2], groups_array[cnt + 1].teams[count + 3]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count], groups_array[cnt + 1].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count], groups_array[cnt + 2].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count], groups_array[cnt + 3].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count + 2], groups_array[cnt + 2].teams[count + 3]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count + 2], groups_array[cnt + 3].teams[count + 3]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count + 2], groups_array[cnt + 4].teams[count + 3]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count], groups_array[cnt + 5].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count], groups_array[cnt + 4].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count + 2], groups_array[cnt + 5].teams[count + 3]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count], groups_array[cnt + 6].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count + 2], groups_array[cnt + 6].teams[count + 3]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 7].teams[count + 2], groups_array[cnt + 7].teams[count + 3]);
+	printf("%-10s		VS		%-10s\n\n\n", groups_array[cnt + 7].teams[count], groups_array[cnt + 7].teams[count + 1]);
 	
 	printf("ROUND 2 STAGE\n\n");
-	printf("%s		VS		%s/n", groups_array[cnt].teams[count], groups_array[cnt].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 1].teams[count], groups_array[cnt + 1].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt].teams[count + 3], groups_array[cnt + 1].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 1].teams[count + 3], groups_array[cnt + 1].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 2].teams[count + 3], groups_array[cnt + 2].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 2].teams[count], groups_array[cnt + 2].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 3].teams[count], groups_array[cnt + 3].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 4].teams[count], groups_array[cnt + 4].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 3].teams[count + 3], groups_array[cnt + 3].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 4].teams[count + 3], groups_array[cnt + 4].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 6].teams[count], groups_array[cnt + 6].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 5].teams[count + 3], groups_array[cnt + 5].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 5].teams[count], groups_array[cnt + 5].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 6].teams[count + 3], groups_array[cnt + 6].teams[count + 1]);
-	printf("%s		VS		%s/n", groups_array[cnt + 7].teams[count + 3], groups_array[cnt + 7].teams[count + 1]);
-	printf("%s		VS		%s/n/n/n", groups_array[cnt + 7].teams[count], groups_array[cnt + 7].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count], groups_array[cnt].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count], groups_array[cnt + 1].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count + 3], groups_array[cnt].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count + 3], groups_array[cnt + 1].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count + 3], groups_array[cnt + 2].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count], groups_array[cnt + 2].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count], groups_array[cnt + 3].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count], groups_array[cnt + 4].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count + 3], groups_array[cnt + 3].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count + 3], groups_array[cnt + 4].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count], groups_array[cnt + 6].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count + 3], groups_array[cnt + 5].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count], groups_array[cnt + 5].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count + 3], groups_array[cnt + 6].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 7].teams[count + 3], groups_array[cnt + 7].teams[count + 1]);
+	printf("%-10s		VS		%-10s\n\n\n", groups_array[cnt + 7].teams[count], groups_array[cnt + 7].teams[count + 2]);
 	
 	printf("ROUND 3 STAGE\n\n");
-	printf("%s		VS		%s/n", groups_array[cnt].teams[count + 3], groups_array[cnt].teams[count]);
-	printf("%s		VS		%s/n", groups_array[cnt].teams[count + 1], groups_array[cnt].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 1].teams[count + 3], groups_array[cnt + 1].teams[count]);
-	printf("%s		VS		%s/n", groups_array[cnt + 1].teams[count + 1], groups_array[cnt + 1].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 2].teams[count + 3], groups_array[cnt + 2].teams[count]);
-	printf("%s		VS		%s/n", groups_array[cnt + 2].teams[count + 1], groups_array[cnt + 2].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 3].teams[count + 3], groups_array[cnt + 3].teams[count]);
-	printf("%s		VS		%s/n", groups_array[cnt + 3].teams[count + 1], groups_array[cnt + 3].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 5].teams[count + 1], groups_array[cnt + 5].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 5].teams[count + 3], groups_array[cnt + 5].teams[count]);
-	printf("%s		VS		%s/n", groups_array[cnt + 4].teams[count + 3], groups_array[cnt + 4].teams[count]);
-	printf("%s		VS		%s/n", groups_array[cnt + 4].teams[count + 1], groups_array[cnt + 4].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 7].teams[count + 3], groups_array[cnt + 7].teams[count]);
-	printf("%s		VS		%s/n", groups_array[cnt + 7].teams[count + 1], groups_array[cnt + 7].teams[count + 2]);
-	printf("%s		VS		%s/n", groups_array[cnt + 6].teams[count + 1], groups_array[cnt + 6].teams[count + 2]);
-	printf("%s		VS		%s/n/n/n", groups_array[cnt + 6].teams[count + 3], groups_array[cnt + 6].teams[count]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count + 3], groups_array[cnt].teams[count]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count + 1], groups_array[cnt].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count + 3], groups_array[cnt + 1].teams[count]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count + 1], groups_array[cnt + 1].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count + 3], groups_array[cnt + 2].teams[count]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count + 1], groups_array[cnt + 2].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count + 3], groups_array[cnt + 3].teams[count]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count + 1], groups_array[cnt + 3].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count + 1], groups_array[cnt + 5].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count + 3], groups_array[cnt + 5].teams[count]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count + 3], groups_array[cnt + 4].teams[count]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count + 1], groups_array[cnt + 4].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 7].teams[count + 3], groups_array[cnt + 7].teams[count]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 7].teams[count + 1], groups_array[cnt + 7].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count + 1], groups_array[cnt + 6].teams[count + 2]);
+	printf("%-10s		VS		%-10s\n\n\n", groups_array[cnt + 6].teams[count + 3], groups_array[cnt + 6].teams[count]);
 }
 
 void save(){
@@ -1047,15 +1011,110 @@ void save(){
 int determineWiner(teams team1 , teams team2){
 	int defensiveavg1 = 0;
 	int defensiveavg2 = 0;
-<<<<<<< HEAD
+	int middleavg1 = 0;
+	int middleavg2 = 0;
+	int attackavg1 = 0;
+	int attackavg2 = 0;
+	int cnt=0;
+	for(int cnt=0 ; cnt< 11 ; cnt++){
+		if(team1.mainplayers[cnt].mainpost == 'G'){
+			defensiveavg1 += team1.playerinfo[cnt].avg;
+		}
+	}
+	
+	for( cnt=0 ; cnt< 11 ; cnt++){
+		if(team2.mainplayers[cnt].mainpost == 'G'){
+			defensiveavg2 += team2.playerinfo[cnt].avg;
+		}
+	}
+	
+	
+	for(cnt=0 ; cnt< 11 ; cnt++){
+		if(team1.mainplayers[cnt].mainpost == 'D'){
+			defensiveavg1 += team1.playerinfo[cnt].avg;
+		}
+	}
+	
+	for(int cnt=0 ; cnt< 11 ; cnt++){
+		if(team2.mainplayers[cnt].mainpost == 'D'){
+			defensiveavg2 += team2.playerinfo[cnt].avg;
+		}
+	}
+	
+	for(cnt=0 ; cnt<11 ;cnt++){
+		if(team1.mainplayers[cnt].mainpost == 'M'){
+			middleavg1 += team1.playerinfo[cnt].avg;
+		}
+	}
+	
+	for(cnt=0 ; cnt<11 ;cnt++){
+		if(team2.mainplayers[cnt].mainpost == 'M'){
+			middleavg2 += team2.playerinfo[cnt].avg;
+		}
+	}
+	
+	for(cnt=0 ; cnt<11 ;cnt++){
+		if(team1.mainplayers[cnt].mainpost == 'A'){
+			attackavg1 += team1.playerinfo[cnt].avg;
+		}
+	}
+	
+	for(cnt=0 ; cnt<11 ;cnt++){
+		if(team2.mainplayers[cnt].mainpost == 'A'){
+			attackavg2 += team2.playerinfo[cnt].avg;
+
 	for(int cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
 		if(team1.playerinfo[cnt].mainpost){
+
 		}
-=======
-	for(cnt=0 ; cnt< team1.numberOfPlayer ; cnt++){
-		if(team1.playerinfo[cnt].mainpost)
->>>>>>> d95486aff7b73faa8a43c0fd64ba8b2e62ef9ce4
 	}
+	
+	attackavg1 /= ((team1.system) % 10);
+	attackavg2 /= ((team2.system) % 10);
+	middleavg1 /= ((team1.system) / 10 % 10);
+	middleavg2 /= ((team2.system) / 10 % 10);
+	defensiveavg1 /= ((team1.system) / 100 % 10) + 1;
+	defensiveavg2 /= ((team2.system) / 100 % 10) + 1;
+	
+	
+	int resault = ((attackavg1 + middleavg1 - defensiveavg2 - 70) / 10) * 10 + ((attackavg2 + middleavg2 - defensiveavg1 - 70) / 10);
+	
+	return  resault; 
+	
+	
+	for( cnt =0 ; cnt < 11 ; cnt++){
+		team1.mainplayers[cnt].fitness -= 2;
+	}
+	
+	for( cnt =0 ; cnt < 11 ; cnt++){
+		team2.mainplayers[cnt].fitness -= 2;
+	}
+		//team1 win
+	if( (resault/10) > (resault%10)){
+		for(cnt=0 ; cnt<11 ; cnt++){
+			if(team1.mainplayers[cnt].mainpost == 'A'){
+				team1.mainplayers[cnt].form += 3;
+			}
+			
+			if(team2.mainplayers[cnt].mainpost == 'D'){
+				team2.mainplayers[cnt].form -= 3;
+			}
+		}
+	}
+	
+		//team2 win
+	if( (resault/10) < (resault%10)){
+		for(cnt=0 ; cnt<11 ; cnt++){
+			if(team2.mainplayers[cnt].mainpost == 'A'){
+				team2.mainplayers[cnt].form += 3;
+			}
+			
+			if(team1.mainplayers[cnt].mainpost == 'D'){
+				team1.mainplayers[cnt].form -= 3;
+			}
+		}
+	}
+	
 }
 
 
@@ -1067,9 +1126,8 @@ int main(){
 
 	game_start();
 	schedule();
-	void *input;
-	input = calloc(15 , sizeof(char));
 
+	
 
 	while(1){
 	int proceedNum = 0;
@@ -1103,18 +1161,14 @@ int main(){
 			}
 			
 
-				
 		
 		if(!strcmp(input , "exit")){
 			return 0;
 		}
 
-
-
-
-	}
-	
+}
 
 }
+
 
 
