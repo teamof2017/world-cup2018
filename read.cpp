@@ -1019,7 +1019,7 @@ void table() {
 		int firstTeamWon = team_array[firstTeam].stand.win;
 		int secTeamWon = team_array[secTeam].stand.win;
 		int thirdTeamWon = team_array[thirdTeam].stand.win;
-		int fourhTeamWon = team_array[fourthTeam].stand.win;
+		int fourthTeamWon = team_array[fourthTeam].stand.win;
 		
 		int firstTeamDraw = team_array[firstTeam].stand.draw;
 		int secTeamDraw = team_array[secTeam].stand.draw;
