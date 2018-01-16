@@ -77,8 +77,8 @@ typedef struct infoteams{
 groups  groups_array[8];
 teams team_array[32];
 
-
-
+int a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2;
+int w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62;
 
 
 enum teamsName{
@@ -1281,6 +1281,98 @@ int determineWiner(int i , int j){
 
 	return  resault; 
 
+}
+
+int knockout(int firstTeam, int secTeam)
+{
+	int result = determineWiner(firstTeam, secTeam);
+	
+	int firstTeamGoals = result / 10;
+	int secTeamGoals = result % 10;
+	
+	if(firstTeamGoals > secTeamGoals)
+		return firstTeam;
+		
+	else if(secTeamGoals > firstTeamGoals)
+		return secTeam;
+		
+	printf("%s %d ... %d %s\n\n", team_array[firstTeam].name, firstTeamGoals, team_array[secTeam].name, secTeamGoals);
+}
+
+void oneEight()
+{
+	a1 = searchByName(groups_array[0].teams[0]);
+	b2 = searchByName(groups_array[1].teams[1]);
+	w49 = knockout(a1, b2);
+	
+	c1 = searchByName(groups_array[2].teams[0]);
+	d2 = searchByName(groups_array[3].teams[1]);
+	w50 = knockout(c1, d2);
+	
+	b1 = searchByName(groups_array[1].teams[0]);
+	a2 = searchByName(groups_array[0].teams[1]);
+	w51 = knockout(b1, a2);
+	
+	d1 = searchByName(groups_array[3].teams[0]);
+	c2 = searchByName(groups_array[2].teams[1]);
+	w52 = knockout(d1, c2);
+	
+	e1 = searchByName(groups_array[4].teams[0]);
+	f2 = searchByName(groups_array[5].teams[1]);
+	w53 = knockout(e1, f2);
+	
+	g1 = searchByName(groups_array[6].teams[0]);
+	h2 = searchByName(groups_array[7].teams[1]);
+	w54 = knockout(g1, h2);
+	
+	f1 = searchByName(groups_array[5].teams[0]);
+	e2 = searchByName(groups_array[4].teams[1]);
+	w55 = knockout(f1, e2);
+	
+	h1 = searchByName(groups_array[7].teams[0]);
+	g2 = searchByName(groups_array[6].teams[1]);
+	w56 = knockout(h1, g2);
+}
+
+void oneFour()
+{
+	w57 = knockout(w49, w50);
+	w58 = knockout(w53, w54);
+	w59 = knockout(w51, w52);
+	w60 = knockout(w55, w56);
+}
+
+void semiFinal()
+{
+	w61 = knockout(w57, w58);
+	w62 = knockout(w59, w60);
+	
+	if(w61 = w57)
+		lose61 = w58;
+	else if(w61 = w58)
+		lose61 = w57;
+		
+	if(w62 = w59)
+		lose62 = w60;
+	else if(w62 = w60)
+		lose62 = w59;
+		
+}
+
+void final()
+{
+	int grandPrix;
+	semiFinal();
+	
+	int champion = knockout(w61, w62);
+	
+	if(champion = w61)
+		grandPrix = w62;
+		
+	else if(champion = w62)
+		grandPrix = w61;
+		
+	int third = knockout(lose61, lose62);
 }
 
 
