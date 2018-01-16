@@ -14,6 +14,7 @@ void chooseStorePlayer();
 void sortByPost();
 int searchByName(char *name);
 void printBall();
+int determineWiner(int i , int j);
 
 
 
@@ -1125,8 +1126,7 @@ void save(){
 
 
 int determineWiner(int i , int j){
-	#define team1 team_array[i]
-	#define team2 team_array[j]
+	
 	int defensiveavg1 = 0;
 	int defensiveavg2 = 0;
 	int middleavg1 = 0;
@@ -1137,8 +1137,8 @@ int determineWiner(int i , int j){
 //	int j = searchByName(&team1);
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
-		if(team1.mainplayers[cnt].mainpost == 'G'){
-			defensiveavg1 += team1.mainplayers[cnt].avg;
+		if(team_array[i].mainplayers[cnt].mainpost == 'G'){
+			defensiveavg1 += team_array[i].mainplayers[cnt].avg;
 		}
 	}
 	
@@ -1150,8 +1150,8 @@ int determineWiner(int i , int j){
 	
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
-		if(team1.mainplayers[cnt].mainpost == 'D'){
-			defensiveavg1 += team1.mainplayers[cnt].avg;
+		if(team_array[i].mainplayers[cnt].mainpost == 'D'){
+			defensiveavg1 += team_array[i].mainplayers[cnt].avg;
 		}
 	}
 	
@@ -1163,7 +1163,7 @@ int determineWiner(int i , int j){
 	}
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
-		if(team1.mainplayers[cnt].mainpost == 'M'){
+		if(team_array[i].mainplayers[cnt].mainpost == 'M'){
 			middleavg1 += team1.mainplayers[cnt].avg;
 		}
 	}
@@ -1175,8 +1175,8 @@ int determineWiner(int i , int j){
 	}
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
-		if(team1.mainplayers[cnt].mainpost == 'A'){
-			attackavg1 += team1.mainplayers[cnt].avg;
+		if(team_array[i].mainplayers[cnt].mainpost == 'A'){
+			attackavg1 += team_array[i].mainplayers[cnt].avg;
 		}
 	}
 	
@@ -1190,11 +1190,11 @@ int determineWiner(int i , int j){
 }
 
 	
-	attackavg1 /= ((team1.system) % 10);
+	attackavg1 /= ((team_array[i].system) % 10);
 	attackavg2 /= ((team2.system) % 10);
-	middleavg1 /= (((team1.system) / 10 )% 10);
+	middleavg1 /= (((team_array[i].system) / 10 )% 10);
 	middleavg2 /= (((team2.system) / 10 )% 10);
-	defensiveavg1 /= (((team1.system) / 100 )% 10) + 1;
+	defensiveavg1 /= (((team_array[i].system) / 100 )% 10) + 1;
 	defensiveavg2 /= ((team2.system) / 100 % 10) + 1;
 	
 
