@@ -50,6 +50,7 @@ typedef struct team_Result_In_group_stage{
 	int lose ;
 	int draw ;
 	int score ;
+
 } team_In_group;
 
 
@@ -1230,9 +1231,8 @@ int determineWiner(int i , int j){
 
 	
 
-		//printf("%d\n" , resault);
-		printf("%d\n" , (attackavg1 + middleavg1 - defensiveavg2-80)/5);
-	
+
+		
 	
 	for( cnt =0 ; cnt < 11 ; cnt++){
 		team_array[i].mainplayers[cnt].fitness -= 2;
@@ -1245,6 +1245,7 @@ int determineWiner(int i , int j){
 	if( (resault/10) > (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
 			if(team_array[i].mainplayers[cnt].mainpost == 'A'  && team_array[i].mainplayers[cnt].form < 100){
+
 				team_array[i].mainplayers[cnt].form += 3;
 			}
 			
