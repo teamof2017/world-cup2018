@@ -623,7 +623,7 @@ void lineup()
 		n=1;
 	}
 	puts("Enter the number for each statement: ");
-	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Show groups of world cup 2018\n4 -> Show seeds of world cup 2018\n5 -> Show table\n6 -> Exit lineup.\n");
+	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Show groups of world cup 2018\n4 -> Show seeds of world cup 2018\n5 -> Lottery seed\n6 -> Exit lineup.\n");
 	scanf("%d",& num);
 	print_players();
 	if(num == 1){
@@ -647,7 +647,8 @@ void lineup()
 	}
 	
 	else if(num == 5){
-		table();
+		lotterySeed();
+		print_group();
 	}
 
 	
@@ -1232,12 +1233,8 @@ int determineWiner(int i , int j){
 	
 
 
-<<<<<<< HEAD
-=======
-		
->>>>>>> c41b61c6affcf5b287a09781b2d3e5986914c7d9
 	
-	for( cnt =0 ; cnt < 11 ; cnt++){
+	for( cnt =0 ; cnt < 11 ; cnt++ ){
 		team_array[i].mainplayers[cnt].fitness -= 2;
 	}
 	
