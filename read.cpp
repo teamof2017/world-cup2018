@@ -614,10 +614,9 @@ int  game_start()
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
 	print_group();
-  playerSkill();
-  systemOfTeam(0);
-	sortByPost();
-  chooseMainPlayer();
+	playerSkill();
+  	systemOfTeam(0);
+  	chooseMainPlayer();
 	chooseStorePlayer();
 
 	
@@ -687,6 +686,7 @@ int  game_start()
 		//scanf("%d", &team_number);
 		//system("cls");
 		showTeamList();
+		sortByPost();
 		print_group();
 			return team_number;
 
@@ -874,60 +874,60 @@ void saveResultGames(){
 
 	//Round one
 	
-	groups_array[0].result[0][0]=determineWiner(team_array[searchByName(groups_array[0].teams[0])],team_array[searchByName(groups_array[0].teams[1])]);
-	groups_array[0].result[0][1]=determineWiner(team_array[searchByName(groups_array[0].teams[2])],team_array[searchByName(groups_array[0].teams[3])]);
-	groups_array[1].result[0][0]=determineWiner(team_array[searchByName(groups_array[1].teams[0])],team_array[searchByName(groups_array[1].teams[3])]);
-	groups_array[1].result[0][1]=determineWiner(team_array[searchByName(groups_array[1].teams[0])],team_array[searchByName(groups_array[1].teams[1])]);
-	groups_array[2].result[0][0]=determineWiner(team_array[searchByName(groups_array[2].teams[0])],team_array[searchByName(groups_array[2].teams[1])]);
-	groups_array[3].result[0][0]=determineWiner(team_array[searchByName(groups_array[3].teams[0])],team_array[searchByName(groups_array[3].teams[1])]);
-	groups_array[2].result[0][1]=determineWiner(team_array[searchByName(groups_array[2].teams[2])],team_array[searchByName(groups_array[2].teams[3])]);
-	groups_array[3].result[0][1]=determineWiner(team_array[searchByName(groups_array[3].teams[2])],team_array[searchByName(groups_array[3].teams[3])]);
-	groups_array[4].result[0][0]=determineWiner(team_array[searchByName(groups_array[4].teams[2])],team_array[searchByName(groups_array[4].teams[3])]);
-	groups_array[5].result[0][0]=determineWiner(team_array[searchByName(groups_array[5].teams[0])],team_array[searchByName(groups_array[5].teams[1])]);
-	groups_array[4].result[0][1]=determineWiner(team_array[searchByName(groups_array[4].teams[0])],team_array[searchByName(groups_array[4].teams[1])]);
-	groups_array[5].result[0][1]=determineWiner(team_array[searchByName(groups_array[5].teams[2])],team_array[searchByName(groups_array[5].teams[3])]);
-	groups_array[6].result[0][0]=determineWiner(team_array[searchByName(groups_array[6].teams[0])],team_array[searchByName(groups_array[6].teams[1])]);
-	groups_array[6].result[0][1]=determineWiner(team_array[searchByName(groups_array[6].teams[2])],team_array[searchByName(groups_array[6].teams[3])]);
-	groups_array[7].result[0][0]=determineWiner(team_array[searchByName(groups_array[7].teams[2])],team_array[searchByName(groups_array[7].teams[3])]);
-	groups_array[7].result[0][1]=determineWiner(team_array[searchByName(groups_array[7].teams[0])],team_array[searchByName(groups_array[7].teams[1])]);
+	groups_array[0].result[0][0]=determineWiner(searchByName(groups_array[0].teams[0]),searchByName(groups_array[0].teams[1]));
+	groups_array[0].result[0][1]=determineWiner(searchByName(groups_array[0].teams[2]),searchByName(groups_array[0].teams[3]));
+	groups_array[1].result[0][0]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[3]));
+	groups_array[1].result[0][1]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[1]));
+	groups_array[2].result[0][0]=determineWiner(searchByName(groups_array[2].teams[0]),searchByName(groups_array[2].teams[1]));
+	groups_array[3].result[0][0]=determineWiner(searchByName(groups_array[3].teams[0]),searchByName(groups_array[3].teams[1]));
+	groups_array[2].result[0][1]=determineWiner(searchByName(groups_array[2].teams[2]),searchByName(groups_array[2].teams[3]));
+	groups_array[3].result[0][1]=determineWiner(searchByName(groups_array[3].teams[2]),searchByName(groups_array[3].teams[3]));
+	groups_array[4].result[0][0]=determineWiner(searchByName(groups_array[4].teams[2]),searchByName(groups_array[4].teams[3]));
+	groups_array[5].result[0][0]=determineWiner(searchByName(groups_array[5].teams[0]),searchByName(groups_array[5].teams[1]));
+	groups_array[4].result[0][1]=determineWiner(searchByName(groups_array[4].teams[0]),searchByName(groups_array[4].teams[1]));
+	groups_array[5].result[0][1]=determineWiner(searchByName(groups_array[5].teams[2]),searchByName(groups_array[5].teams[3]));
+	groups_array[6].result[0][0]=determineWiner(searchByName(groups_array[6].teams[0]),searchByName(groups_array[6].teams[1]));
+	groups_array[6].result[0][1]=determineWiner(searchByName(groups_array[6].teams[2]),searchByName(groups_array[6].teams[3]));
+	groups_array[7].result[0][0]=determineWiner(searchByName(groups_array[7].teams[2]),searchByName(groups_array[7].teams[3]));
+	groups_array[7].result[0][1]=determineWiner(searchByName(groups_array[7].teams[0]),searchByName(groups_array[7].teams[1]));
 	
 	//Round two
 	
-	groups_array[0].result[1][0]=determineWiner(team_array[searchByName(groups_array[0].teams[0])],team_array[searchByName(groups_array[0].teams[2])]);
-	groups_array[1].result[1][0]=determineWiner(team_array[searchByName(groups_array[1].teams[0])],team_array[searchByName(groups_array[1].teams[2])]);
-	groups_array[0].result[1][1]=determineWiner(team_array[searchByName(groups_array[0].teams[3])],team_array[searchByName(groups_array[0].teams[1])]);
-	groups_array[1].result[1][1]=determineWiner(team_array[searchByName(groups_array[1].teams[3])],team_array[searchByName(groups_array[1].teams[1])]);
-	groups_array[2].result[1][0]=determineWiner(team_array[searchByName(groups_array[2].teams[3])],team_array[searchByName(groups_array[2].teams[1])]);
-	groups_array[2].result[1][1]=determineWiner(team_array[searchByName(groups_array[2].teams[0])],team_array[searchByName(groups_array[2].teams[2])]);
-	groups_array[3].result[1][0]=determineWiner(team_array[searchByName(groups_array[3].teams[0])],team_array[searchByName(groups_array[3].teams[2])]);
-	groups_array[4].result[1][0]=determineWiner(team_array[searchByName(groups_array[4].teams[0])],team_array[searchByName(groups_array[4].teams[2])]);
-	groups_array[3].result[1][1]=determineWiner(team_array[searchByName(groups_array[3].teams[3])],team_array[searchByName(groups_array[3].teams[1])]);
-	groups_array[4].result[1][1]=determineWiner(team_array[searchByName(groups_array[4].teams[3])],team_array[searchByName(groups_array[4].teams[1])]);
-	groups_array[6].result[1][0]=determineWiner(team_array[searchByName(groups_array[6].teams[0])],team_array[searchByName(groups_array[6].teams[2])]);
-	groups_array[5].result[1][0]=determineWiner(team_array[searchByName(groups_array[5].teams[3])],team_array[searchByName(groups_array[5].teams[1])]);
-	groups_array[5].result[1][1]=determineWiner(team_array[searchByName(groups_array[5].teams[0])],team_array[searchByName(groups_array[5].teams[2])]);
-	groups_array[6].result[1][1]=determineWiner(team_array[searchByName(groups_array[6].teams[3])],team_array[searchByName(groups_array[6].teams[1])]);
-	groups_array[7].result[1][0]=determineWiner(team_array[searchByName(groups_array[7].teams[3])],team_array[searchByName(groups_array[7].teams[1])]);
-	groups_array[7].result[1][1]=determineWiner(team_array[searchByName(groups_array[7].teams[0])],team_array[searchByName(groups_array[7].teams[2])]);
+	groups_array[0].result[1][0]=determineWiner(searchByName(groups_array[0].teams[0]),searchByName(groups_array[0].teams[2]));
+	groups_array[1].result[1][0]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[2]));
+	groups_array[0].result[1][1]=determineWiner(searchByName(groups_array[0].teams[3]),searchByName(groups_array[0].teams[1]));
+	groups_array[1].result[1][1]=determineWiner(searchByName(groups_array[1].teams[3]),searchByName(groups_array[1].teams[1]));
+	groups_array[2].result[1][0]=determineWiner(searchByName(groups_array[2].teams[3]),searchByName(groups_array[2].teams[1]));
+	groups_array[2].result[1][1]=determineWiner(searchByName(groups_array[2].teams[0]),searchByName(groups_array[2].teams[2]));
+	groups_array[3].result[1][0]=determineWiner(searchByName(groups_array[3].teams[0]),searchByName(groups_array[3].teams[2]));
+	groups_array[4].result[1][0]=determineWiner(searchByName(groups_array[4].teams[0]),searchByName(groups_array[4].teams[2]));
+	groups_array[3].result[1][1]=determineWiner(searchByName(groups_array[3].teams[3]),searchByName(groups_array[3].teams[1]));
+	groups_array[4].result[1][1]=determineWiner(searchByName(groups_array[4].teams[3]),searchByName(groups_array[4].teams[1]));
+	groups_array[6].result[1][0]=determineWiner(searchByName(groups_array[6].teams[0]),searchByName(groups_array[6].teams[2]));
+	groups_array[5].result[1][0]=determineWiner(searchByName(groups_array[5].teams[3]),searchByName(groups_array[5].teams[1]));
+	groups_array[5].result[1][1]=determineWiner(searchByName(groups_array[5].teams[0]),searchByName(groups_array[5].teams[2]));
+	groups_array[6].result[1][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[1]));
+	groups_array[7].result[1][0]=determineWiner(searchByName(groups_array[7].teams[3]),searchByName(groups_array[7].teams[1]));
+	groups_array[7].result[1][1]=determineWiner(searchByName(groups_array[7].teams[0]),searchByName(groups_array[7].teams[2]));
 	
 	//Round three
 	
-	groups_array[0].result[2][0]=determineWiner(team_array[searchByName(groups_array[0].teams[3])],team_array[searchByName(groups_array[0].teams[0])]);
-	groups_array[0].result[2][1]=determineWiner(team_array[searchByName(groups_array[0].teams[1])],team_array[searchByName(groups_array[0].teams[2])]);
-	groups_array[1].result[2][0]=determineWiner(team_array[searchByName(groups_array[1].teams[3])],team_array[searchByName(groups_array[1].teams[0])]);
-	groups_array[1].result[2][1]=determineWiner(team_array[searchByName(groups_array[1].teams[1])],team_array[searchByName(groups_array[1].teams[2])]);
-	groups_array[2].result[2][0]=determineWiner(team_array[searchByName(groups_array[2].teams[3])],team_array[searchByName(groups_array[2].teams[0])]);
-	groups_array[2].result[2][1]=determineWiner(team_array[searchByName(groups_array[2].teams[1])],team_array[searchByName(groups_array[2].teams[2])]);
-	groups_array[3].result[2][0]=determineWiner(team_array[searchByName(groups_array[3].teams[3])],team_array[searchByName(groups_array[3].teams[0])]);
-	groups_array[3].result[2][1]=determineWiner(team_array[searchByName(groups_array[3].teams[1])],team_array[searchByName(groups_array[3].teams[2])]);
-	groups_array[5].result[2][0]=determineWiner(team_array[searchByName(groups_array[5].teams[1])],team_array[searchByName(groups_array[5].teams[2])]);
-	groups_array[5].result[2][1]=determineWiner(team_array[searchByName(groups_array[5].teams[3])],team_array[searchByName(groups_array[5].teams[0])]);
-	groups_array[4].result[2][0]=determineWiner(team_array[searchByName(groups_array[4].teams[3])],team_array[searchByName(groups_array[4].teams[0])]);
-	groups_array[4].result[2][1]=determineWiner(team_array[searchByName(groups_array[4].teams[1])],team_array[searchByName(groups_array[4].teams[2])]);
-	groups_array[7].result[2][0]=determineWiner(team_array[searchByName(groups_array[7].teams[3])],team_array[searchByName(groups_array[7].teams[0])]);
-	groups_array[7].result[2][1]=determineWiner(team_array[searchByName(groups_array[7].teams[1])],team_array[searchByName(groups_array[1].teams[2])]);
-	groups_array[6].result[2][0]=determineWiner(team_array[searchByName(groups_array[6].teams[1])],team_array[searchByName(groups_array[6].teams[2])]);
-	groups_array[6].result[2][1]=determineWiner(team_array[searchByName(groups_array[6].teams[3])],team_array[searchByName(groups_array[6].teams[0])]);
+	groups_array[0].result[2][0]=determineWiner(searchByName(groups_array[0].teams[3]),searchByName(groups_array[0].teams[0]));
+	groups_array[0].result[2][1]=determineWiner(searchByName(groups_array[0].teams[1]),searchByName(groups_array[0].teams[2]));
+	groups_array[1].result[2][0]=determineWiner(searchByName(groups_array[1].teams[3]),searchByName(groups_array[1].teams[0]));
+	groups_array[1].result[2][1]=determineWiner(searchByName(groups_array[1].teams[1]),searchByName(groups_array[1].teams[2]));
+	groups_array[2].result[2][0]=determineWiner(searchByName(groups_array[2].teams[3]),searchByName(groups_array[2].teams[0]));
+	groups_array[2].result[2][1]=determineWiner(searchByName(groups_array[2].teams[1]),searchByName(groups_array[2].teams[2]));
+	groups_array[3].result[2][0]=determineWiner(searchByName(groups_array[3].teams[3]),searchByName(groups_array[3].teams[0]));
+	groups_array[3].result[2][1]=determineWiner(searchByName(groups_array[3].teams[1]),searchByName(groups_array[3].teams[2]));
+	groups_array[5].result[2][0]=determineWiner(searchByName(groups_array[5].teams[1]),searchByName(groups_array[5].teams[2]));
+	groups_array[5].result[2][1]=determineWiner(searchByName(groups_array[5].teams[3]),searchByName(groups_array[5].teams[0]));
+	groups_array[4].result[2][0]=determineWiner(searchByName(groups_array[4].teams[3]),searchByName(groups_array[4].teams[0]));
+	groups_array[4].result[2][1]=determineWiner(searchByName(groups_array[4].teams[1]),searchByName(groups_array[4].teams[2]));
+	groups_array[7].result[2][0]=determineWiner(searchByName(groups_array[7].teams[3]),searchByName(groups_array[7].teams[0]));
+	groups_array[7].result[2][1]=determineWiner(searchByName(groups_array[7].teams[1]),searchByName(groups_array[1].teams[2]));
+	groups_array[6].result[2][0]=determineWiner(searchByName(groups_array[6].teams[1]),searchByName(groups_array[6].teams[2]));
+	groups_array[6].result[2][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[0]));
 	
 	
 }
@@ -1218,9 +1218,8 @@ int main(){
 	schedule();
 	
 	table();
-
-	
 	saveResultGames();
+	table();
 
 	while(1){
 	int proceedNum = 0;
