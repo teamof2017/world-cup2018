@@ -200,7 +200,7 @@ void ReadFromFilePlayerinfo(void){
 
 
 
-void print_group(){
+void save_group(){
 	groups_array[0].groupname = 'A';
 	groups_array[1].groupname = 'B';
 	groups_array[2].groupname = 'C';
@@ -209,6 +209,41 @@ void print_group(){
 	groups_array[5].groupname = 'F';
 	groups_array[6].groupname = 'G';
 	groups_array[7].groupname = 'H';	
+	
+	int i=0 , j=0;
+	char groupName = 'A';
+	char *x = 0;
+	int cnt = 0 ;
+	 x = (char*)calloc(20 , sizeof(char));
+	for(cnt=0 ; cnt<32 ; cnt++){
+		if(groupName > 'H')
+			  break;
+		
+		
+		for(i=0 , j=0 ; i<32 ; i++){
+			
+		if(groupName > 'H')
+			  break;
+			
+		if(team_array[i].group == groupName){
+			strcpy(groups_array[(int)groupName - 65].teams[team_array[i].placeInGroup-1] , team_array[i].name);
+			j++;
+
+			if(j % 4 == 0){
+				groupName++;
+				break;
+			}
+				
+			
+		}
+	
+}
+
+		puts("");
+}
+}
+
+void print_group(){
 	puts("\n\n GROUPS OF WORLD CUP 2018\n\n");
 	
 	int i=0 , j=0;
@@ -228,7 +263,6 @@ void print_group(){
 			  break;
 			
 		if(team_array[i].group == groupName){
-			strcpy(groups_array[(int)groupName - 65].teams[team_array[i].placeInGroup-1] , team_array[i].name);
 			strcpy(x , (team_array[i].name )) ;
 			j++;
 			printf("\t%s\n", x);
@@ -246,6 +280,7 @@ void print_group(){
 		puts("");
 }
 }
+
 
 
 void systemOfTeam(int i){
@@ -614,9 +649,11 @@ int  game_start()
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
 	print_group();
-	playerSkill();
-  	systemOfTeam(0);
-  	chooseMainPlayer();
+	save_group();
+  playerSkill();
+  systemOfTeam(0);
+	sortByPost();
+  chooseMainPlayer();
 	chooseStorePlayer();
 
 	
@@ -1087,7 +1124,9 @@ void save(){
 }
 
 
-int determineWiner(teams team1 , teams team2){
+int determineWiner(int i , int j){
+	#define team1 team_array[i]
+	#define team2 team_array[j]
 	int defensiveavg1 = 0;
 	int defensiveavg2 = 0;
 	int middleavg1 = 0;
@@ -1095,6 +1134,8 @@ int determineWiner(teams team1 , teams team2){
 	int attackavg1 = 0;
 	int attackavg2 = 0;
 	int cnt=0;
+//	int j = searchByName(&team1);
+	
 	for(cnt=0 ; cnt< 11 ; cnt++){
 		if(team1.mainplayers[cnt].mainpost == 'G'){
 			defensiveavg1 += team1.mainplayers[cnt].avg;
@@ -1157,13 +1198,12 @@ int determineWiner(teams team1 , teams team2){
 	defensiveavg2 /= ((team2.system) / 100 % 10) + 1;
 	
 
-	int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 4) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 4);
+	const int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 4) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 4);
 
 	
 
 
 	
-	return  resault; 
 	
 	
 	for( cnt =0 ; cnt < 11 ; cnt++){
@@ -1184,6 +1224,14 @@ int determineWiner(teams team1 , teams team2){
 				team2.mainplayers[cnt].form -= 3;
 			}
 		}
+		
+		team1.stand.win += 1;
+		team1.stand.score += 3;
+		team1.stand.goalsF += (resault/10);
+		team1.stand.goalsA += (resault%10);
+		team2.stand.lose += 1;
+		team2.stand.goalsF += (resault%10);
+		team2.stand.goalsA += (resault/10);
 	}
 	
 		//team2 win
@@ -1197,8 +1245,31 @@ int determineWiner(teams team1 , teams team2){
 				team1.mainplayers[cnt].form -= 3;
 			}
 		}
+		
+		team2.stand.win += 1;
+		team2.stand.score += 3;
+		team2.stand.goalsF += (resault%10);
+		team2.stand.goalsA += (resault/10);
+		team1.stand.lose += 1;
+		team1.stand.goalsF += (resault/10);
+		team1.stand.goalsA += (resault%10);
 	}
 	
+	//resault equal
+	if( (resault/10) == (resault%10)){
+		team1.stand.score += 1;
+		team2.stand.score += 1;
+		team1.stand.draw += 1;
+		team2.stand.draw += 1;
+		team1.stand.goalsF += (resault/10);
+		team2.stand.goalsF += (resault%10);
+		team1.stand.goalsA += (resault%10);
+		team2.stand.goalsA += (resault/10);
+	}
+	
+
+
+	return  resault; 
 
 }
 
