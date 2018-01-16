@@ -14,6 +14,7 @@ void chooseStorePlayer();
 void sortByPost();
 int searchByName(char *name);
 void printBall();
+int determineWiner(int i , int j);
 
 
 
@@ -72,7 +73,6 @@ typedef struct infoteams{
 } teams;
 
 
-int determineWiner(teams team1 , teams team2);
 
 groups  groups_array[8];
 teams team_array[32];
@@ -648,7 +648,6 @@ int  game_start()
 	printBall();
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
-	print_group();
 	save_group();
   playerSkill();
   systemOfTeam(0);
@@ -1125,8 +1124,6 @@ void save(){
 
 
 int determineWiner(int i , int j){
-	#define team1 team_array[i]
-	#define team2 team_array[j]
 	int defensiveavg1 = 0;
 	int defensiveavg2 = 0;
 	int middleavg1 = 0;
@@ -1137,65 +1134,65 @@ int determineWiner(int i , int j){
 //	int j = searchByName(&team1);
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
-		if(team1.mainplayers[cnt].mainpost == 'G'){
-			defensiveavg1 += team1.mainplayers[cnt].avg;
+		if(team_array[i].mainplayers[cnt].mainpost == 'G'){
+			defensiveavg1 += team_array[i].mainplayers[cnt].avg;
 		}
 	}
 	
 	for( cnt=0 ; cnt< 11 ; cnt++){
-		if(team2.mainplayers[cnt].mainpost == 'G'){
-			defensiveavg2 += team2.mainplayers[cnt].avg;
+		if(team_array[j].mainplayers[cnt].mainpost == 'G'){
+			defensiveavg2 += team_array[j].mainplayers[cnt].avg;
 		}
 	}
 	
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
-		if(team1.mainplayers[cnt].mainpost == 'D'){
-			defensiveavg1 += team1.mainplayers[cnt].avg;
+		if(team_array[i].mainplayers[cnt].mainpost == 'D'){
+			defensiveavg1 += team_array[i].mainplayers[cnt].avg;
 		}
 	}
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
 
-		if(team2.mainplayers[cnt].mainpost == 'D'){
-			defensiveavg2 += team2.mainplayers[cnt].avg;
+		if(team_array[j].mainplayers[cnt].mainpost == 'D'){
+			defensiveavg2 += team_array[j].mainplayers[cnt].avg;
 		}
 	}
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
-		if(team1.mainplayers[cnt].mainpost == 'M'){
-			middleavg1 += team1.mainplayers[cnt].avg;
+		if(team_array[i].mainplayers[cnt].mainpost == 'M'){
+			middleavg1 += team_array[i].mainplayers[cnt].avg;
 		}
 	}
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
-		if(team2.mainplayers[cnt].mainpost == 'M'){
-			middleavg2 += team2.mainplayers[cnt].avg;
+		if(team_array[j].mainplayers[cnt].mainpost == 'M'){
+			middleavg2 += team_array[j].mainplayers[cnt].avg;
 		}
 	}
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
-		if(team1.mainplayers[cnt].mainpost == 'A'){
-			attackavg1 += team1.mainplayers[cnt].avg;
+		if(team_array[i].mainplayers[cnt].mainpost == 'A'){
+			attackavg1 += team_array[i].mainplayers[cnt].avg;
 		}
 	}
 	
 	for(cnt=0 ; cnt<11 ;cnt++){
-		if(team2.mainplayers[cnt].mainpost == 'A'){
+		if(team_array[j].mainplayers[cnt].mainpost == 'A'){
 
-			attackavg2 += team2.mainplayers[cnt].avg;
+			attackavg2 += team_array[j].mainplayers[cnt].avg;
 
   }
 
 }
 
 	
-	attackavg1 /= ((team1.system) % 10);
-	attackavg2 /= ((team2.system) % 10);
-	middleavg1 /= (((team1.system) / 10 )% 10);
-	middleavg2 /= (((team2.system) / 10 )% 10);
-	defensiveavg1 /= (((team1.system) / 100 )% 10) + 1;
-	defensiveavg2 /= ((team2.system) / 100 % 10) + 1;
+	attackavg1 /= ((team_array[i].system) % 10);
+	attackavg2 /= ((team_array[j].system) % 10);
+	middleavg1 /= (((team_array[i].system) / 10 )% 10);
+	middleavg2 /= (((team_array[j].system) / 10 )% 10);
+	defensiveavg1 /= (((team_array[i].system) / 100 )% 10) + 1;
+	defensiveavg2 /= ((team_array[j].system) / 100 % 10) + 1;
 	
 
 	const int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 4) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 4);
@@ -1207,64 +1204,64 @@ int determineWiner(int i , int j){
 	
 	
 	for( cnt =0 ; cnt < 11 ; cnt++){
-		team1.mainplayers[cnt].fitness -= 2;
+		team_array[i].mainplayers[cnt].fitness -= 2;
 	}
 	
 	for( cnt =0 ; cnt < 11 ; cnt++){
-		team2.mainplayers[cnt].fitness -= 2;
+		team_array[j].mainplayers[cnt].fitness -= 2;
 	}
 		//team1 win
 	if( (resault/10) > (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
-			if(team1.mainplayers[cnt].mainpost == 'A'){
-				team1.mainplayers[cnt].form += 3;
+			if(team_array[i].mainplayers[cnt].mainpost == 'A'){
+				team_array[i].mainplayers[cnt].form += 3;
 			}
 			
-			if(team2.mainplayers[cnt].mainpost == 'D'){
-				team2.mainplayers[cnt].form -= 3;
+			if(team_array[j].mainplayers[cnt].mainpost == 'D'){
+				team_array[j].mainplayers[cnt].form -= 3;
 			}
 		}
 		
-		team1.stand.win += 1;
-		team1.stand.score += 3;
-		team1.stand.goalsF += (resault/10);
-		team1.stand.goalsA += (resault%10);
-		team2.stand.lose += 1;
-		team2.stand.goalsF += (resault%10);
-		team2.stand.goalsA += (resault/10);
+		team_array[i].stand.win += 1;
+		team_array[i].stand.score += 3;
+		team_array[i].stand.goalsF += (resault/10);
+		team_array[i].stand.goalsA += (resault%10);
+		team_array[j].stand.lose += 1;
+		team_array[j].stand.goalsF += (resault%10);
+		team_array[j].stand.goalsA += (resault/10);
 	}
 	
 		//team2 win
 	if( (resault/10) < (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
-			if(team2.mainplayers[cnt].mainpost == 'A'){
-				team2.mainplayers[cnt].form += 3;
+			if(team_array[j].mainplayers[cnt].mainpost == 'A'){
+				team_array[j].mainplayers[cnt].form += 3;
 			}
 			
-			if(team1.mainplayers[cnt].mainpost == 'D'){
-				team1.mainplayers[cnt].form -= 3;
+			if(team_array[i].mainplayers[cnt].mainpost == 'D'){
+				team_array[i].mainplayers[cnt].form -= 3;
 			}
 		}
 		
-		team2.stand.win += 1;
-		team2.stand.score += 3;
-		team2.stand.goalsF += (resault%10);
-		team2.stand.goalsA += (resault/10);
-		team1.stand.lose += 1;
-		team1.stand.goalsF += (resault/10);
-		team1.stand.goalsA += (resault%10);
+		team_array[j].stand.win += 1;
+		team_array[j].stand.score += 3;
+		team_array[j].stand.goalsF += (resault%10);
+		team_array[j].stand.goalsA += (resault/10);
+		team_array[i].stand.lose += 1;
+		team_array[i].stand.goalsF += (resault/10);
+		team_array[i].stand.goalsA += (resault%10);
 	}
 	
 	//resault equal
 	if( (resault/10) == (resault%10)){
-		team1.stand.score += 1;
-		team2.stand.score += 1;
-		team1.stand.draw += 1;
-		team2.stand.draw += 1;
-		team1.stand.goalsF += (resault/10);
-		team2.stand.goalsF += (resault%10);
-		team1.stand.goalsA += (resault%10);
-		team2.stand.goalsA += (resault/10);
+		team_array[i].stand.score += 1;
+		team_array[j].stand.score += 1;
+		team_array[i].stand.draw += 1;
+		team_array[j].stand.draw += 1;
+		team_array[i].stand.goalsF += (resault/10);
+		team_array[j].stand.goalsF += (resault%10);
+		team_array[i].stand.goalsA += (resault%10);
+		team_array[j].stand.goalsA += (resault/10);
 	}
 	
 
@@ -1290,6 +1287,7 @@ int main(){
 	
 	table();
 	saveResultGames();
+	sortForTable();
 	table();
 
 	while(1){
