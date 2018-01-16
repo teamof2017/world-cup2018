@@ -499,7 +499,7 @@ void sortForTable(){
 				for(char x='A'; x != 'H';x++){
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
-							if(difference[0][i]>difference[0][i+1]){
+							if(difference[0][i+1]>difference[0][i]&&scoreTeams[0][i+1]==scoreTeams[0][i]){
 								char tmp[20];
 								strcpy(tmp,groups_array[z].teams[i]);
 								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
@@ -524,7 +524,7 @@ void sortForTable(){
 				for(char x='A'; x != 'H';x++){
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
-							if(goalsF[0][i]>goalsF[0][i+1]){
+							if(goalsF[0][i+1]>goalsF[0][i]&&difference[0][i+1]==difference[0][i]&&scoreTeams[0][i+1]==scoreTeams[0][i]){
 								char tmp[20];
 								strcpy(tmp,groups_array[z].teams[i]);
 								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
