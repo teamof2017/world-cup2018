@@ -1310,6 +1310,13 @@ void proceed(int n){
 }
 
 
+void newSeedGroup(){
+	
+	
+	
+}
+
+
 	
 
 int main(){
@@ -1360,6 +1367,11 @@ int main(){
 			}
 			
 }
+
+		if(!strcmp(input , "table")){
+			
+			table();
+		}
 		
 		if(!strcmp(input , "exit")){
 			return 0;
