@@ -15,8 +15,8 @@ void sortByPost();
 int searchByName(char *name);
 void printBall();
 int determineWiner(int i , int j);
-
-
+void saveResultGames(int n);
+void table();
 
 typedef struct teamplayer{
 	char groupName;
@@ -616,7 +616,7 @@ void lineup()
 		n=1;
 	}
 	puts("Enter the number for each statement: ");
-	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Exit lineup.\n");
+	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Show groups of world cup 2018\n4 -> Show seeds of world cup 2018\n5 -> Show table\n6 -> Exit lineup.\n");
 	scanf("%d",& num);
 	print_players();
 	if(num == 1){
@@ -630,9 +630,21 @@ void lineup()
 		print_players();
 
 	}
-
 	
 	else if(num == 3){
+		print_group;
+	}
+	
+	else if(num == 4){
+		print_seed();
+	}
+	
+	else if(num == 5){
+		table();
+	}
+
+	
+	else if(num == 6){
 		break;
 	}
 	
@@ -649,10 +661,10 @@ int  game_start()
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
 	save_group();
-  playerSkill();
-  systemOfTeam(0);
+    playerSkill();
+  	systemOfTeam(0);
 	sortByPost();
-  chooseMainPlayer();
+ 	 chooseMainPlayer();
 	chooseStorePlayer();
 
 	
@@ -906,7 +918,7 @@ int searchByName(char *name){
 	}
 	
 }
-void saveResultGames(){
+void saveResultGames(int n){
 
 	//Round one
 	
@@ -1031,6 +1043,8 @@ void schedule()
 
 
 void table() {
+	
+	sortForTable();
 	int cnt = 0, count = 0;
 	char group = 'A';
 	for (cnt = 0; cnt < 8; cnt++, group++) {
@@ -1273,7 +1287,7 @@ int determineWiner(int i , int j){
 
 void proceed(int n){
 	int num = (int)n - 48;
-
+	saveResultGames(num);
 
 }
 
@@ -1283,12 +1297,12 @@ void proceed(int n){
 int main(){
 
 	game_start();
-	schedule();
+//	schedule();
 	
-	table();
-	saveResultGames();
-	sortForTable();
-	table();
+//	table();
+//	saveResultGames( n);
+//	
+//	table();
 
 	while(1){
 	int proceedNum = 0;
