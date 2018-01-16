@@ -507,75 +507,101 @@ int search_player(int player_number, int x)
 
 void sortForTable(){
 	int firstTeam=0,secTeam=0,thirdTeam=0,fourthTeam=0,flagForScore=0,flagForDiffrence=0,scoreTeams[1][4];
+	for(int i=0;i<4;i++){
+		scoreTeams[0][i]=0;
+	}
 	for(int z=0;z<8;z++){
 	firstTeam=searchByName(groups_array[z].teams[0]);
 	secTeam=searchByName(groups_array[z].teams[1]);
-	thirdTeam=searchByName(groups_array[z].teams[1]);
-	fourthTeam=searchByName(groups_array[z].teams[1]);
+	thirdTeam=searchByName(groups_array[z].teams[2]);
+	fourthTeam=searchByName(groups_array[z].teams[3]);
 	scoreTeams[0][0]=team_array[firstTeam].stand.score;
 	scoreTeams[0][1]=team_array[secTeam].stand.score;
 	scoreTeams[0][2]=team_array[thirdTeam].stand.score;
 	scoreTeams[0][3]=team_array[fourthTeam].stand.score;
-		for(char x='A'; x != 'H';x++){
 			for(int j=0;j<4;j++){
 				for(int i=0;i<3;i++){
 					if(scoreTeams[0][i+1]>scoreTeams[0][i]){
 						char tmp[20];
+						int temp;
 						strcpy(tmp,groups_array[z].teams[i]);
 						strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
 						strcpy(groups_array[z].teams[i+1],tmp);
+						temp=scoreTeams[0][i];
+						scoreTeams[0][i]=scoreTeams[0][i+1];
+						scoreTeams[0][i+1]=temp;
 					}
 				}
 			}
-		}
+			flagForScore=0;
+			flagForDiffrence=0;
 		for(int i=0;i<3;i++){
 			if(scoreTeams[0][i]==scoreTeams[0][i+1]){
 				flagForScore=1;
 			}
 		}
-			int difference[0][4];
+			int difference[1][4];
+			for(int i=0;i<4;i++){
+				difference[0][i]=0;
+			}
 			difference[0][0]=team_array[firstTeam].stand.goalsF-team_array[firstTeam].stand.goalsA;
 			difference[0][1]=team_array[secTeam].stand.goalsF-team_array[secTeam].stand.goalsA;
 			difference[0][2]=team_array[thirdTeam].stand.goalsF-team_array[thirdTeam].stand.goalsA;
 			difference[0][3]=team_array[fourthTeam].stand.goalsF-team_array[fourthTeam].stand.goalsA;
+			
 		if(flagForScore==1){
-				for(char x='A'; x != 'H';x++){
+				
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
 							if(difference[0][i+1]>difference[0][i]&&scoreTeams[0][i+1]==scoreTeams[0][i]){
 								char tmp[20];
+								int temp;
 								strcpy(tmp,groups_array[z].teams[i]);
 								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
 								strcpy(groups_array[z].teams[i+1],tmp);
+								temp=difference[0][i];
+								difference[0][i]=difference[0][i+1];
+								difference[0][i+1]=temp;
 							}
 						}
 					}
-				}
+				
 		}
+		/*for(int j=0;j<4;j++){
+				printf("Team=%-10s    score=%d     difference= %d flagForScore=%d \n",groups_array[z].teams[j],scoreTeams[0][j],difference[0][j],flagForScore);
+				puts(" ");
+			}*/
 		for(int i=0;i<3;i++){
 			if(difference[0][i]==difference[0][i+1]){
 				flagForDiffrence=1;
 			}
 		}
 		if(flagForScore==1&&flagForDiffrence==1){
-			int goalsF[0][4];
+			int goalsF[1][4];
+			for(int i=0;i<4;i++){
+				goalsF[0][i]=0;
+			}
 			goalsF[0][0]=team_array[firstTeam].stand.goalsF;
 			goalsF[0][1]=team_array[secTeam].stand.goalsF;
 			goalsF[0][2]=team_array[thirdTeam].stand.goalsF;
 			goalsF[0][3]=team_array[fourthTeam].stand.goalsF;
 			
-				for(char x='A'; x != 'H';x++){
+			
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
-							if(goalsF[0][i+1]>goalsF[0][i]&&difference[0][i+1]==difference[0][i]&&scoreTeams[0][i+1]==scoreTeams[0][i]){
+							if(goalsF[0][i+1]>goalsF[0][i]&&scoreTeams[0][i+1]==scoreTeams[0][i]){
 								char tmp[20];
+								int temp;
 								strcpy(tmp,groups_array[z].teams[i]);
 								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
 								strcpy(groups_array[z].teams[i+1],tmp);
+								temp=goalsF[0][i];
+								goalsF[0][i]=goalsF[0][i+1];
+								goalsF[0][i+1]=temp;
 							}
 						}
 					}
-				}
+				
 		}
 	}
 }
@@ -930,7 +956,7 @@ void saveResultGames(int n){
 	
 	groups_array[0].result[0][0]=determineWiner(searchByName(groups_array[0].teams[0]),searchByName(groups_array[0].teams[1]));
 	groups_array[0].result[0][1]=determineWiner(searchByName(groups_array[0].teams[2]),searchByName(groups_array[0].teams[3]));
-	groups_array[1].result[0][0]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[3]));
+	groups_array[1].result[0][0]=determineWiner(searchByName(groups_array[1].teams[2]),searchByName(groups_array[1].teams[3]));
 	groups_array[1].result[0][1]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[1]));
 	groups_array[2].result[0][0]=determineWiner(searchByName(groups_array[2].teams[0]),searchByName(groups_array[2].teams[1]));
 	groups_array[3].result[0][0]=determineWiner(searchByName(groups_array[3].teams[0]),searchByName(groups_array[3].teams[1]));
@@ -979,7 +1005,7 @@ void saveResultGames(int n){
 	groups_array[4].result[2][0]=determineWiner(searchByName(groups_array[4].teams[3]),searchByName(groups_array[4].teams[0]));
 	groups_array[4].result[2][1]=determineWiner(searchByName(groups_array[4].teams[1]),searchByName(groups_array[4].teams[2]));
 	groups_array[7].result[2][0]=determineWiner(searchByName(groups_array[7].teams[3]),searchByName(groups_array[7].teams[0]));
-	groups_array[7].result[2][1]=determineWiner(searchByName(groups_array[7].teams[1]),searchByName(groups_array[1].teams[2]));
+	groups_array[7].result[2][1]=determineWiner(searchByName(groups_array[7].teams[1]),searchByName(groups_array[7].teams[2]));
 	groups_array[6].result[2][0]=determineWiner(searchByName(groups_array[6].teams[1]),searchByName(groups_array[6].teams[2]));
 	groups_array[6].result[2][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[0]));
 	
@@ -1144,6 +1170,7 @@ void save(){
 
 
 int determineWiner(int i , int j){
+
 	int defensiveavg1 = 0;
 	int defensiveavg2 = 0;
 	int middleavg1 = 0;
@@ -1210,6 +1237,7 @@ int determineWiner(int i , int j){
 	attackavg2 /= ((team_array[j].system) % 10);
 	middleavg1 /= (((team_array[i].system) / 10 )% 10);
 	middleavg2 /= (((team_array[j].system) / 10 )% 10);
+
 	defensiveavg1 /= ((((team_array[i].system) / 100 )) + 1);
 	defensiveavg2 /= ((((team_array[j].system) / 100 )) + 1);
 	int resault = 0;
@@ -1220,6 +1248,7 @@ int determineWiner(int i , int j){
 	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
 		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 80)/5 ) * 10;
 	}
+
 	
 	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
 		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-80 )/5) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-80 )/5);
