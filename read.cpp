@@ -15,8 +15,8 @@ void sortByPost();
 int searchByName(char *name);
 void printBall();
 int determineWiner(int i , int j);
-
-
+void saveResultGames(int n);
+void table();
 
 typedef struct teamplayer{
 	char groupName;
@@ -616,7 +616,7 @@ void lineup()
 		n=1;
 	}
 	puts("Enter the number for each statement: ");
-	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Exit lineup.\n");
+	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Show groups of world cup 2018\n4 -> Show seeds of world cup 2018\n5 -> Show table\n6 -> Exit lineup.\n");
 	scanf("%d",& num);
 	print_players();
 	if(num == 1){
@@ -630,9 +630,21 @@ void lineup()
 		print_players();
 
 	}
-
 	
 	else if(num == 3){
+		print_group;
+	}
+	
+	else if(num == 4){
+		print_seed();
+	}
+	
+	else if(num == 5){
+		table();
+	}
+
+	
+	else if(num == 6){
 		break;
 	}
 	
@@ -649,10 +661,10 @@ int  game_start()
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
 	save_group();
-  playerSkill();
-  systemOfTeam(0);
+    playerSkill();
+  	systemOfTeam(0);
 	sortByPost();
-  chooseMainPlayer();
+ 	 chooseMainPlayer();
 	chooseStorePlayer();
 
 	
@@ -723,7 +735,6 @@ int  game_start()
 		//system("cls");
 		showTeamList();
 		sortByPost();
-		print_group();
 			return team_number;
 
 	}
@@ -883,7 +894,7 @@ void print_players(){
 	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
 	
 	for(int i=0 ; i<11 ; i++){
-		printf("%2d.%-20s%20d%10d%9d%8c%4c\n",team_array[team_number - 1].mainplayers[i].num , team_array[team_number -1].mainplayers[i].playername , team_array[team_number-1].mainplayers[i].skill , team_array[team_number-1].mainplayers[i].fitness , team_array[team_number-1].mainplayers[i].form , team_array[team_number-1].mainplayers[i].mainpost , team_array[team_number-1].mainplayers[i].post);
+		printf("%2d.%-20s%20d%10d%9d%10c%10c\n",team_array[team_number - 1].mainplayers[i].num , team_array[team_number -1].mainplayers[i].playername , team_array[team_number-1].mainplayers[i].skill , team_array[team_number-1].mainplayers[i].fitness , team_array[team_number-1].mainplayers[i].form , team_array[team_number-1].mainplayers[i].mainpost , team_array[team_number-1].mainplayers[i].post);
 	}
 	
 	
@@ -894,7 +905,7 @@ void print_players(){
 
 
 	for(int i=0 ; i<j ; i++){
-		printf("%2d.%-20s%20d%10d%9d%8c%4c\n",team_array[team_number-1].storeplayers[i].num , team_array[team_number-1].storeplayers[i].playername , team_array[team_number-1].storeplayers[i].skill , team_array[team_number-1].storeplayers[i].fitness , team_array[team_number-1].storeplayers[i].form , team_array[team_number-1].storeplayers[i].mainpost , team_array[team_number-1].storeplayers[i].post);
+		printf("%2d.%-20s%20d%10d%9d%10c%10c\n",team_array[team_number-1].storeplayers[i].num , team_array[team_number-1].storeplayers[i].playername , team_array[team_number-1].storeplayers[i].skill , team_array[team_number-1].storeplayers[i].fitness , team_array[team_number-1].storeplayers[i].form , team_array[team_number-1].storeplayers[i].mainpost , team_array[team_number-1].storeplayers[i].post);
 	}
 	
 	
@@ -906,7 +917,7 @@ int searchByName(char *name){
 	}
 	
 }
-void saveResultGames(){
+void saveResultGames(int n){
 
 	//Round one
 	
@@ -1031,6 +1042,8 @@ void schedule()
 
 
 void table() {
+	
+	sortForTable();
 	int cnt = 0, count = 0;
 	char group = 'A';
 	for (cnt = 0; cnt < 8; cnt++, group++) {
@@ -1195,7 +1208,7 @@ int determineWiner(int i , int j){
 	defensiveavg2 /= ((team_array[j].system) / 100 % 10) + 1;
 	
 
-	const int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 4) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 4);
+	const int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 5) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 5);
 
 	
 
@@ -1273,7 +1286,8 @@ int determineWiner(int i , int j){
 
 void proceed(int n){
 	int num = (int)n - 48;
-
+	saveResultGames(num);
+	table();
 
 }
 
@@ -1281,14 +1295,14 @@ void proceed(int n){
 	
 
 int main(){
-
+	srand( time ( NULL ));
 	game_start();
-	schedule();
+//	schedule();
 	
-	table();
-	saveResultGames();
-	sortForTable();
-	table();
+//	table();
+//	saveResultGames( n);
+//	
+//	table();
 
 	while(1){
 	int proceedNum = 0;
