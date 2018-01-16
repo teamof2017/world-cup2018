@@ -44,12 +44,13 @@ typedef struct group_stage{
 
 typedef struct team_Result_In_group_stage{
 
-	int goalsF;
-	int goalsA;
-	int win;
-	int lose;
-	int draw;
-	int score;
+	int goalsF ;
+	int goalsA ;
+	int win ;
+	int lose ;
+	int draw ;
+	int score ;
+
 } team_In_group;
 
 
@@ -147,6 +148,12 @@ void ReadFromFileTeaminfo(void){
 		team_array[i].group=group;
 		team_array[i].placeInGroup=placeInGroup;
 		team_array[i].seed=seed;
+		team_array[i].stand.draw=0;
+		team_array[i].stand.goalsA=0;
+		team_array[i].stand.goalsF=0;
+		team_array[i].stand.lose=0;
+		team_array[i].stand.score=0;
+		team_array[i].stand.win=0;
 		strcpy(team_array[i].name,TeamName);
 		strcpy(team_array[i].confedration,confedration);
 		strcpy(team_array[i].filename,filename);
@@ -1144,7 +1151,6 @@ int determineWiner(int i , int j){
 	int attackavg1 = 0;
 	int attackavg2 = 0;
 	int cnt=0;
-//	int j = searchByName(&team1);
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
 		if(team_array[i].mainplayers[cnt].mainpost == 'G'){
@@ -1204,17 +1210,29 @@ int determineWiner(int i , int j){
 	attackavg2 /= ((team_array[j].system) % 10);
 	middleavg1 /= (((team_array[i].system) / 10 )% 10);
 	middleavg2 /= (((team_array[j].system) / 10 )% 10);
-	defensiveavg1 /= (((team_array[i].system) / 100 )% 10) + 1;
-	defensiveavg2 /= ((team_array[j].system) / 100 % 10) + 1;
+	defensiveavg1 /= ((((team_array[i].system) / 100 )) + 1);
+	defensiveavg2 /= ((((team_array[j].system) / 100 )) + 1);
+	int resault = 0;
+	if(((attackavg1 + middleavg1 - defensiveavg2-80)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
+		resault = ( attackavg2 + middleavg2 - defensiveavg1 -80) /5;
+	}	
+
+	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
+		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 80)/5 ) * 10;
+	}
+	
+	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
+		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-80 )/5) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-80 )/5);
+	}
+	
+	else if(((attackavg1 + middleavg1 - defensiveavg2-80 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
+		resault = 0;
+	}
+
 	
 
-	const int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 5) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 5);
 
-	
-
-
-	
-	
+		
 	
 	for( cnt =0 ; cnt < 11 ; cnt++){
 		team_array[i].mainplayers[cnt].fitness -= 2;
@@ -1226,7 +1244,8 @@ int determineWiner(int i , int j){
 		//team1 win
 	if( (resault/10) > (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
-			if(team_array[i].mainplayers[cnt].mainpost == 'A'){
+			if(team_array[i].mainplayers[cnt].mainpost == 'A'  && team_array[i].mainplayers[cnt].form < 100){
+
 				team_array[i].mainplayers[cnt].form += 3;
 			}
 			
@@ -1247,7 +1266,7 @@ int determineWiner(int i , int j){
 		//team2 win
 	if( (resault/10) < (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
-			if(team_array[j].mainplayers[cnt].mainpost == 'A'){
+			if(team_array[j].mainplayers[cnt].mainpost == 'A' && team_array[j].mainplayers[cnt].form <100){
 				team_array[j].mainplayers[cnt].form += 3;
 			}
 			
@@ -1384,6 +1403,13 @@ void proceed(int n){
 }
 
 
+void newSeedGroup(){
+	
+	
+	
+}
+
+
 	
 
 int main(){
@@ -1434,6 +1460,11 @@ int main(){
 			}
 			
 }
+
+		if(!strcmp(input , "table")){
+			
+			table();
+		}
 		
 		if(!strcmp(input , "exit")){
 			return 0;
