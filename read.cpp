@@ -735,7 +735,6 @@ int  game_start()
 		//system("cls");
 		showTeamList();
 		sortByPost();
-		print_group();
 			return team_number;
 
 	}
@@ -895,7 +894,7 @@ void print_players(){
 	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
 	
 	for(int i=0 ; i<11 ; i++){
-		printf("%2d.%-20s%20d%10d%9d%8c%4c\n",team_array[team_number - 1].mainplayers[i].num , team_array[team_number -1].mainplayers[i].playername , team_array[team_number-1].mainplayers[i].skill , team_array[team_number-1].mainplayers[i].fitness , team_array[team_number-1].mainplayers[i].form , team_array[team_number-1].mainplayers[i].mainpost , team_array[team_number-1].mainplayers[i].post);
+		printf("%2d.%-20s%20d%10d%9d%10c%10c\n",team_array[team_number - 1].mainplayers[i].num , team_array[team_number -1].mainplayers[i].playername , team_array[team_number-1].mainplayers[i].skill , team_array[team_number-1].mainplayers[i].fitness , team_array[team_number-1].mainplayers[i].form , team_array[team_number-1].mainplayers[i].mainpost , team_array[team_number-1].mainplayers[i].post);
 	}
 	
 	
@@ -906,7 +905,7 @@ void print_players(){
 
 
 	for(int i=0 ; i<j ; i++){
-		printf("%2d.%-20s%20d%10d%9d%8c%4c\n",team_array[team_number-1].storeplayers[i].num , team_array[team_number-1].storeplayers[i].playername , team_array[team_number-1].storeplayers[i].skill , team_array[team_number-1].storeplayers[i].fitness , team_array[team_number-1].storeplayers[i].form , team_array[team_number-1].storeplayers[i].mainpost , team_array[team_number-1].storeplayers[i].post);
+		printf("%2d.%-20s%20d%10d%9d%10c%10c\n",team_array[team_number-1].storeplayers[i].num , team_array[team_number-1].storeplayers[i].playername , team_array[team_number-1].storeplayers[i].skill , team_array[team_number-1].storeplayers[i].fitness , team_array[team_number-1].storeplayers[i].form , team_array[team_number-1].storeplayers[i].mainpost , team_array[team_number-1].storeplayers[i].post);
 	}
 	
 	
@@ -1209,7 +1208,7 @@ int determineWiner(int i , int j){
 	defensiveavg2 /= ((team_array[j].system) / 100 % 10) + 1;
 	
 
-	const int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 4) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 4);
+	const int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 5) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 5);
 
 	
 
@@ -1288,6 +1287,7 @@ int determineWiner(int i , int j){
 void proceed(int n){
 	int num = (int)n - 48;
 	saveResultGames(num);
+	table();
 
 }
 
@@ -1295,7 +1295,7 @@ void proceed(int n){
 	
 
 int main(){
-
+	srand( time ( NULL ));
 	game_start();
 //	schedule();
 	
