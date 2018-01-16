@@ -929,7 +929,7 @@ void saveResultGames(int n){
 	
 	groups_array[0].result[0][0]=determineWiner(searchByName(groups_array[0].teams[0]),searchByName(groups_array[0].teams[1]));
 	groups_array[0].result[0][1]=determineWiner(searchByName(groups_array[0].teams[2]),searchByName(groups_array[0].teams[3]));
-	groups_array[1].result[0][0]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[3]));
+	groups_array[1].result[0][0]=determineWiner(searchByName(groups_array[1].teams[2]),searchByName(groups_array[1].teams[3]));
 	groups_array[1].result[0][1]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[1]));
 	groups_array[2].result[0][0]=determineWiner(searchByName(groups_array[2].teams[0]),searchByName(groups_array[2].teams[1]));
 	groups_array[3].result[0][0]=determineWiner(searchByName(groups_array[3].teams[0]),searchByName(groups_array[3].teams[1]));
@@ -978,7 +978,7 @@ void saveResultGames(int n){
 	groups_array[4].result[2][0]=determineWiner(searchByName(groups_array[4].teams[3]),searchByName(groups_array[4].teams[0]));
 	groups_array[4].result[2][1]=determineWiner(searchByName(groups_array[4].teams[1]),searchByName(groups_array[4].teams[2]));
 	groups_array[7].result[2][0]=determineWiner(searchByName(groups_array[7].teams[3]),searchByName(groups_array[7].teams[0]));
-	groups_array[7].result[2][1]=determineWiner(searchByName(groups_array[7].teams[1]),searchByName(groups_array[1].teams[2]));
+	groups_array[7].result[2][1]=determineWiner(searchByName(groups_array[7].teams[1]),searchByName(groups_array[7].teams[2]));
 	groups_array[6].result[2][0]=determineWiner(searchByName(groups_array[6].teams[1]),searchByName(groups_array[6].teams[2]));
 	groups_array[6].result[2][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[0]));
 	
@@ -1230,9 +1230,7 @@ int determineWiner(int i , int j){
 
 	
 
-		//printf("%d\n" , resault);
-		printf("%d\n" , (attackavg1 + middleavg1 - defensiveavg2-80)/5);
-	
+
 	
 	for( cnt =0 ; cnt < 11 ; cnt++){
 		team_array[i].mainplayers[cnt].fitness -= 2;
@@ -1263,7 +1261,7 @@ int determineWiner(int i , int j){
 	}
 	
 		//team2 win
-	if( (resault/10) < (resault%10)){
+	else if( (resault/10) < (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
 			if(team_array[j].mainplayers[cnt].mainpost == 'A' && team_array[j].mainplayers[cnt].form <100){
 				team_array[j].mainplayers[cnt].form += 3;
@@ -1284,7 +1282,7 @@ int determineWiner(int i , int j){
 	}
 	
 	//resault equal
-	if( (resault/10) == (resault%10)){
+	else if( (resault/10) == (resault%10)){
 		team_array[i].stand.score += 1;
 		team_array[j].stand.score += 1;
 		team_array[i].stand.draw += 1;
@@ -1295,7 +1293,13 @@ int determineWiner(int i , int j){
 		team_array[j].stand.goalsA += (resault/10);
 	}
 	
-
+	for( cnt =0 ;cnt < team_array[i].numberOfPlayer - 11 ;cnt++){
+		team_array[i].storeplayers[cnt].form -= 3;
+	}
+	
+	for( cnt =0 ;cnt < team_array[j].numberOfPlayer - 11 ;cnt++){
+		team_array[j].storeplayers[cnt].form -= 3;
+	}
 
 	return  resault; 
 
@@ -1310,9 +1314,26 @@ void proceed(int n){
 }
 
 
-void newSeedGroup(){
-	
-	
+void lotterySeed(){
+	srand(time(NULL));
+	int seed = 1 ;
+	char group = 'A';
+	int random = rand() % 32 ;
+	for(int cnt2=0 ; cnt2<4 ; cnt2++){
+		for( int cnt =0 ; cnt < 32 ;cnt++ , random++){
+			if(random > 31){
+				random = 0;
+			}
+			if(team_array[random].seed == seed ){
+				team_array[random].group = group;
+				group++;
+				if(group > 'H'){
+					group = 'A';
+					seed++;		
+			}	
+		}
+	}
+}
 	
 }
 
@@ -1322,12 +1343,9 @@ void newSeedGroup(){
 int main(){
 	srand( time ( NULL ));
 	game_start();
-//	schedule();
-	
-//	table();
-//	saveResultGames( n);
-//	
-//	table();
+	print_group();
+	lotterySeed();
+	print_group();
 
 	while(1){
 	int proceedNum = 0;
