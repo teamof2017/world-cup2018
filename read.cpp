@@ -17,6 +17,8 @@ void printBall();
 int determineWiner(int i , int j);
 void saveResultGames(int n);
 void table();
+void lotterySeed();
+int penalty(int i , int j);
 
 typedef struct teamplayer{
 	char groupName;
@@ -80,6 +82,7 @@ teams team_array[32];
 
 int a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2;
 int w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62;
+int firstTeamGoals, secTeamGoals;
 
 
 enum teamsName{
@@ -649,7 +652,7 @@ void lineup()
 		n=1;
 	}
 	puts("Enter the number for each statement: ");
-	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Show groups of world cup 2018\n4 -> Show seeds of world cup 2018\n5 -> Show table\n6 -> Exit lineup.\n");
+	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Show groups of world cup 2018\n4 -> Show seeds of world cup 2018\n5 -> Lottery seed\n6 -> Exit lineup.\n");
 	scanf("%d",& num);
 	print_players();
 	if(num == 1){
@@ -673,7 +676,8 @@ void lineup()
 	}
 	
 	else if(num == 5){
-		table();
+		lotterySeed();
+		print_group();
 	}
 
 	
@@ -950,7 +954,7 @@ int searchByName(char *name){
 	}
 	
 }
-void saveResultGames(int n){
+void saveResultGames(){
 
 	//Round one
 	
@@ -1241,29 +1245,28 @@ int determineWiner(int i , int j){
 	defensiveavg1 /= ((((team_array[i].system) / 100 )) + 1);
 	defensiveavg2 /= ((((team_array[j].system) / 100 )) + 1);
 	int resault = 0;
-	if(((attackavg1 + middleavg1 - defensiveavg2-80)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
-		resault = ( attackavg2 + middleavg2 - defensiveavg1 -80) /5;
+	if(((attackavg1 + middleavg1 - defensiveavg2-85)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
+		resault = ( attackavg2 + middleavg2 - defensiveavg1 -85) /4;
 	}	
 
-	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
-		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 80)/5 ) * 10;
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
+		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 85)/4 ) * 10;
 	}
 
 	
-	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
-		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-80 )/5) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-80 )/5);
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
+		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-85 )/4) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-85 )/4);
 	}
 	
-	else if(((attackavg1 + middleavg1 - defensiveavg2-80 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
 		resault = 0;
 	}
 
 	
 
-
-		
+		printf("%d\n" , resault);
 	
-	for( cnt =0 ; cnt < 11 ; cnt++){
+	for( cnt =0 ; cnt < 11 ; cnt++ ){
 		team_array[i].mainplayers[cnt].fitness -= 2;
 	}
 	
@@ -1293,7 +1296,7 @@ int determineWiner(int i , int j){
 	}
 	
 		//team2 win
-	if( (resault/10) < (resault%10)){
+	else if( (resault/10) < (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
 			if(team_array[j].mainplayers[cnt].mainpost == 'A' && team_array[j].mainplayers[cnt].form <100){
 				team_array[j].mainplayers[cnt].form += 3;
@@ -1314,7 +1317,7 @@ int determineWiner(int i , int j){
 	}
 	
 	//resault equal
-	if( (resault/10) == (resault%10)){
+	else if( (resault/10) == (resault%10)){
 		team_array[i].stand.score += 1;
 		team_array[j].stand.score += 1;
 		team_array[i].stand.draw += 1;
@@ -1325,7 +1328,13 @@ int determineWiner(int i , int j){
 		team_array[j].stand.goalsA += (resault/10);
 	}
 	
-
+	for( cnt =0 ;cnt < team_array[i].numberOfPlayer - 11 ;cnt++){
+		team_array[i].storeplayers[cnt].form -= 3;
+	}
+	
+	for( cnt =0 ;cnt < team_array[j].numberOfPlayer - 11 ;cnt++){
+		team_array[j].storeplayers[cnt].form -= 3;
+	}
 
 	return  resault; 
 
@@ -1334,9 +1343,10 @@ int determineWiner(int i , int j){
 int knockout(int firstTeam, int secTeam)
 {
 	int result = determineWiner(firstTeam, secTeam);
+	int penaltyResult, firstTeamPenalty, secTeamPenalty;
 	
-	int firstTeamGoals = result / 10;
-	int secTeamGoals = result % 10;
+	firstTeamGoals = result / 10;
+	secTeamGoals = result % 10;
 	
 	if(firstTeamGoals > secTeamGoals)
 		return firstTeam;
@@ -1344,7 +1354,18 @@ int knockout(int firstTeam, int secTeam)
 	else if(secTeamGoals > firstTeamGoals)
 		return secTeam;
 		
-	printf("%s %d ... %d %s\n\n", team_array[firstTeam].name, firstTeamGoals, team_array[secTeam].name, secTeamGoals);
+	else if(firstTeamGoals == secTeamGoals) {
+		penaltyResult = penalty(firstTeam, secTeam);
+		
+		firstTeamPenalty = penaltyResult / 10;
+		secTeamPenalty = penaltyResult % 10;
+		
+		if(firstTeamPenalty > secTeamPenalty)
+			return firstTeam;
+			
+		else
+			return secTeam;
+	}
 }
 
 void oneEight()
@@ -1352,48 +1373,66 @@ void oneEight()
 	a1 = searchByName(groups_array[0].teams[0]);
 	b2 = searchByName(groups_array[1].teams[1]);
 	w49 = knockout(a1, b2);
+	printf("%s %d ... %d %s\n\n", team_array[a1].name, firstTeamGoals, secTeamGoals, team_array[b2].name);
 	
 	c1 = searchByName(groups_array[2].teams[0]);
 	d2 = searchByName(groups_array[3].teams[1]);
 	w50 = knockout(c1, d2);
+	printf("%s %d ... %d %s\n\n", team_array[c1].name, firstTeamGoals, secTeamGoals, team_array[d2].name);
 	
 	b1 = searchByName(groups_array[1].teams[0]);
 	a2 = searchByName(groups_array[0].teams[1]);
 	w51 = knockout(b1, a2);
+	printf("%s %d ... %d %s\n\n", team_array[b1].name, firstTeamGoals, secTeamGoals, team_array[a2].name);
 	
 	d1 = searchByName(groups_array[3].teams[0]);
 	c2 = searchByName(groups_array[2].teams[1]);
 	w52 = knockout(d1, c2);
+	printf("%s %d ... %d %s\n\n", team_array[d1].name, firstTeamGoals, secTeamGoals, team_array[c2].name);
 	
 	e1 = searchByName(groups_array[4].teams[0]);
 	f2 = searchByName(groups_array[5].teams[1]);
 	w53 = knockout(e1, f2);
+	printf("%s %d ... %d %s\n\n", team_array[e1].name, firstTeamGoals, secTeamGoals, team_array[f2].name);
 	
 	g1 = searchByName(groups_array[6].teams[0]);
 	h2 = searchByName(groups_array[7].teams[1]);
 	w54 = knockout(g1, h2);
+	printf("%s %d ... %d %s\n\n", team_array[g1].name, firstTeamGoals, secTeamGoals, team_array[h2].name);
 	
 	f1 = searchByName(groups_array[5].teams[0]);
 	e2 = searchByName(groups_array[4].teams[1]);
 	w55 = knockout(f1, e2);
+	printf("%s %d ... %d %s\n\n", team_array[f1].name, firstTeamGoals, secTeamGoals, team_array[e2].name);
 	
 	h1 = searchByName(groups_array[7].teams[0]);
 	g2 = searchByName(groups_array[6].teams[1]);
 	w56 = knockout(h1, g2);
+	printf("%s %d ... %d %s\n\n", team_array[h1].name, firstTeamGoals, secTeamGoals, team_array[g2].name);
 }
 
 void oneFour()
 {
 	w57 = knockout(w49, w50);
+	printf("%s %d ... %d %s\n\n", team_array[w49].name, firstTeamGoals, secTeamGoals, team_array[w50].name);
+	
 	w58 = knockout(w53, w54);
+	printf("%s %d ... %d %s\n\n", team_array[w53].name, firstTeamGoals, secTeamGoals, team_array[w54].name);
+	
 	w59 = knockout(w51, w52);
+	printf("%s %d ... %d %s\n\n", team_array[w51].name, firstTeamGoals, secTeamGoals, team_array[w52].name);
+	
 	w60 = knockout(w55, w56);
+	printf("%s %d ... %d %s\n\n", team_array[w55].name, firstTeamGoals, secTeamGoals, team_array[w56].name);
 }
 
 void semiFinal()
 {
 	w61 = knockout(w57, w58);
+	printf("%s %d ... %d %s\n\n", team_array[w57].name, firstTeamGoals, secTeamGoals, team_array[w58].name);
+	
 	w62 = knockout(w59, w60);
+	printf("%s %d ... %d %s\n\n", team_array[w59].name, firstTeamGoals, secTeamGoals, team_array[w60].name);
 	
 	if(w61 = w57)
 		lose61 = w58;
@@ -1409,47 +1448,119 @@ void semiFinal()
 
 void final()
 {
+	int third = knockout(lose61, lose62);
+	printf("%s %d ... %d %s\n\n", team_array[lose61].name, firstTeamGoals, secTeamGoals, team_array[lose62].name);
+	
 	int grandPrix;
-	semiFinal();
 	
 	int champion = knockout(w61, w62);
+	printf("%s %d ... %d %s\n\n", team_array[w61].name, firstTeamGoals, secTeamGoals, team_array[w62].name);
 	
 	if(champion = w61)
 		grandPrix = w62;
 		
 	else if(champion = w62)
 		grandPrix = w61;
-		
-	int third = knockout(lose61, lose62);
 }
 
 
 void proceed(int n){
 	int num = (int)n - 48;
-	saveResultGames(num);
+	saveResultGames();
 	table();
 
 }
 
 
-void newSeedGroup(){
-	
-	
+void lotterySeed(){
+	srand(time(NULL));
+	int seed = 1 ;
+	char group = 'A';
+	int random = rand() % 32 ;
+	for(int cnt2=0 ; cnt2<4 ; cnt2++){
+		for( int cnt =0 ; cnt < 32 ;cnt++ , random++){
+			if(random > 31){
+				random = 0;
+			}
+			if(team_array[random].seed == seed ){
+				team_array[random].group = group;
+				group++;
+				if(group > 'H'){
+					group = 'A';
+					seed++;		
+			}	
+		}
+	}
+}
 	
 }
 
+
+int penalty(int i , int j){
+	
+	int skilli = 0;
+	int skillj = 0;
+	int goalsi=0;
+	int goalsj=0;
+	
+	
+	for( int cnt =0 ; cnt<11 ;cnt++){
+		skilli += team_array[i].mainplayers[cnt].skill;
+	}
+	
+	for( int cnt =0 ; cnt<11 ;cnt++){
+		skillj += team_array[j].mainplayers[cnt].skill;
+	}
+	
+	do{
+	
+	if( skilli > skillj){
+		goalsi = rand() % 4 + 1;
+		goalsj = rand() % 4 ;
+	}
+	
+	else if( skilli < skillj){
+		goalsi = rand() % 4 ;
+		goalsj = rand() % 4 + 1;
+	}
+	
+	else if( skilli == skillj){
+		goalsi = rand() % 5 ;
+		goalsj = rand() % 5;
+	}
+	}while( goalsi == goalsj);
+	
+	
+		return goalsi * 10 + goalsj;
+	
+	
+
+
+}
 
 	
 
 int main(){
 	srand( time ( NULL ));
 	game_start();
-//	schedule();
+	schedule();
 	
-//	table();
-//	saveResultGames( n);
-//	
-//	table();
+	table();
+	saveResultGames();
+	
+	table();
+	
+	printf("	OneEight\n\n");
+	oneEight();
+	
+	printf("	OneFour\n\n");
+	oneFour();
+	
+	printf("	SemiFinal\n\n");
+	semiFinal();
+	
+	printf("	Final\n\n");
+	final();
 
 	while(1){
 	int proceedNum = 0;
