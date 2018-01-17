@@ -17,6 +17,7 @@ void printBall();
 int determineWiner(int i , int j);
 void saveResultGames(int n);
 void table();
+void lotterySeed();
 
 typedef struct teamplayer{
 	char groupName;
@@ -650,7 +651,7 @@ void lineup()
 		n=1;
 	}
 	puts("Enter the number for each statement: ");
-	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Show groups of world cup 2018\n4 -> Show seeds of world cup 2018\n5 -> Show table\n6 -> Exit lineup.\n");
+	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Show groups of world cup 2018\n4 -> Show seeds of world cup 2018\n5 -> Lottery seed\n6 -> Exit lineup.\n");
 	scanf("%d",& num);
 	print_players();
 	if(num == 1){
@@ -674,7 +675,8 @@ void lineup()
 	}
 	
 	else if(num == 5){
-		table();
+		lotterySeed();
+		print_group();
 	}
 
 	
@@ -1262,9 +1264,8 @@ int determineWiner(int i , int j){
 	
 
 
-		
 	
-	for( cnt =0 ; cnt < 11 ; cnt++){
+	for( cnt =0 ; cnt < 11 ; cnt++ ){
 		team_array[i].mainplayers[cnt].fitness -= 2;
 	}
 	
@@ -1294,7 +1295,7 @@ int determineWiner(int i , int j){
 	}
 	
 		//team2 win
-	if( (resault/10) < (resault%10)){
+	else if( (resault/10) < (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
 			if(team_array[j].mainplayers[cnt].mainpost == 'A' && team_array[j].mainplayers[cnt].form <100){
 				team_array[j].mainplayers[cnt].form += 3;
@@ -1315,7 +1316,7 @@ int determineWiner(int i , int j){
 	}
 	
 	//resault equal
-	if( (resault/10) == (resault%10)){
+	else if( (resault/10) == (resault%10)){
 		team_array[i].stand.score += 1;
 		team_array[j].stand.score += 1;
 		team_array[i].stand.draw += 1;
@@ -1326,7 +1327,13 @@ int determineWiner(int i , int j){
 		team_array[j].stand.goalsA += (resault/10);
 	}
 	
-
+	for( cnt =0 ;cnt < team_array[i].numberOfPlayer - 11 ;cnt++){
+		team_array[i].storeplayers[cnt].form -= 3;
+	}
+	
+	for( cnt =0 ;cnt < team_array[j].numberOfPlayer - 11 ;cnt++){
+		team_array[j].storeplayers[cnt].form -= 3;
+	}
 
 	return  resault; 
 
@@ -1450,12 +1457,71 @@ void proceed(int n){
 }
 
 
-void newSeedGroup(){
-	
-	
+void lotterySeed(){
+	srand(time(NULL));
+	int seed = 1 ;
+	char group = 'A';
+	int random = rand() % 32 ;
+	for(int cnt2=0 ; cnt2<4 ; cnt2++){
+		for( int cnt =0 ; cnt < 32 ;cnt++ , random++){
+			if(random > 31){
+				random = 0;
+			}
+			if(team_array[random].seed == seed ){
+				team_array[random].group = group;
+				group++;
+				if(group > 'H'){
+					group = 'A';
+					seed++;		
+			}	
+		}
+	}
+}
 	
 }
 
+
+int penalty(int i , int j){
+	
+	int skilli = 0;
+	int skillj = 0;
+	int goalsi=0;
+	int goalsj=0;
+	
+	
+	for( int cnt =0 ; cnt<11 ;cnt++){
+		skilli += team_array[i].mainplayers[cnt].skill;
+	}
+	
+	for( int cnt =0 ; cnt<11 ;cnt++){
+		skillj += team_array[j].mainplayers[cnt].skill;
+	}
+	
+	do{
+	
+	if( skilli > skillj){
+		goalsi = rand() % 4 + 1;
+		goalsj = rand() % 4 ;
+	}
+	
+	else if( skilli < skillj){
+		goalsi = rand() % 4 ;
+		goalsj = rand() % 4 + 1;
+	}
+	
+	else if( skilli == skillj){
+		goalsi = rand() % 5 ;
+		goalsj = rand() % 5;
+	}
+	}while( goalsi == goalsj);
+	
+	
+		return goalsi * 10 + goalsj;
+	
+	
+
+
+}
 
 	
 
