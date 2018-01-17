@@ -1244,26 +1244,26 @@ int determineWiner(int i , int j){
 	defensiveavg1 /= ((((team_array[i].system) / 100 )) + 1);
 	defensiveavg2 /= ((((team_array[j].system) / 100 )) + 1);
 	int resault = 0;
-	if(((attackavg1 + middleavg1 - defensiveavg2-80)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
-		resault = ( attackavg2 + middleavg2 - defensiveavg1 -80) /5;
+	if(((attackavg1 + middleavg1 - defensiveavg2-85)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
+		resault = ( attackavg2 + middleavg2 - defensiveavg1 -85) /4;
 	}	
 
-	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
-		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 80)/5 ) * 10;
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
+		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 85)/4 ) * 10;
 	}
 
 	
-	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
-		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-80 )/5) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-80 )/5);
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
+		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-85 )/4) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-85 )/4);
 	}
 	
-	else if(((attackavg1 + middleavg1 - defensiveavg2-80 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
 		resault = 0;
 	}
 
 	
 
-
+		printf("%d\n" , resault);
 	
 	for( cnt =0 ; cnt < 11 ; cnt++ ){
 		team_array[i].mainplayers[cnt].fitness -= 2;
