@@ -50,6 +50,7 @@ typedef struct team_Result_In_group_stage{
 	int lose;
 	int draw;
 	int score;
+	int difference;
 } team_In_group;
 
 
@@ -505,101 +506,141 @@ int search_player(int player_number, int x)
 }
 
 void sortForTable(){
-	int firstTeam=0,secTeam=0,thirdTeam=0,fourthTeam=0,flagForScore=0,flagForDiffrence=0,scoreTeams[1][4];
+	int firstTeam=0,secTeam=0,thirdTeam=0,fourthTeam=0,flagForScore=0,flagForDifference=0,scoreTeams[4];
 	for(int i=0;i<4;i++){
-		scoreTeams[0][i]=0;
+		scoreTeams[i]=0;
 	}
 	for(int z=0;z<8;z++){
 	firstTeam=searchByName(groups_array[z].teams[0]);
 	secTeam=searchByName(groups_array[z].teams[1]);
 	thirdTeam=searchByName(groups_array[z].teams[2]);
 	fourthTeam=searchByName(groups_array[z].teams[3]);
-	scoreTeams[0][0]=team_array[firstTeam].stand.score;
-	scoreTeams[0][1]=team_array[secTeam].stand.score;
-	scoreTeams[0][2]=team_array[thirdTeam].stand.score;
-	scoreTeams[0][3]=team_array[fourthTeam].stand.score;
+	scoreTeams[0]=team_array[firstTeam].stand.score;
+	scoreTeams[1]=team_array[secTeam].stand.score;
+	scoreTeams[2]=team_array[thirdTeam].stand.score;
+	scoreTeams[3]=team_array[fourthTeam].stand.score;
 			for(int j=0;j<4;j++){
 				for(int i=0;i<3;i++){
-					if(scoreTeams[0][i+1]>scoreTeams[0][i]){
-						char tmp[20];
+					if(scoreTeams[i+1]>scoreTeams[i]){
+						char tmp[40];
 						int temp;
 						strcpy(tmp,groups_array[z].teams[i]);
 						strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
 						strcpy(groups_array[z].teams[i+1],tmp);
-						temp=scoreTeams[0][i];
-						scoreTeams[0][i]=scoreTeams[0][i+1];
-						scoreTeams[0][i+1]=temp;
+						temp=scoreTeams[i];
+						scoreTeams[i]=scoreTeams[i+1];
+						scoreTeams[i+1]=temp;
 					}
 				}
 			}
 			flagForScore=0;
-			flagForDiffrence=0;
+			flagForDifference=0;
 		for(int i=0;i<3;i++){
-			if(scoreTeams[0][i]==scoreTeams[0][i+1]){
+			if(scoreTeams[i]==scoreTeams[i+1]){
 				flagForScore=1;
 			}
 		}
-			int difference[1][4];
+			int difference[4];
 			for(int i=0;i<4;i++){
-				difference[0][i]=0;
+				difference[i]=0;
 			}
-			difference[0][0]=team_array[firstTeam].stand.goalsF-team_array[firstTeam].stand.goalsA;
-			difference[0][1]=team_array[secTeam].stand.goalsF-team_array[secTeam].stand.goalsA;
-			difference[0][2]=team_array[thirdTeam].stand.goalsF-team_array[thirdTeam].stand.goalsA;
-			difference[0][3]=team_array[fourthTeam].stand.goalsF-team_array[fourthTeam].stand.goalsA;
+			difference[0]=team_array[firstTeam].stand.difference;
+			difference[1]=team_array[secTeam].stand.difference;
+			difference[2]=team_array[thirdTeam].stand.difference;
+			difference[3]=team_array[fourthTeam].stand.difference;
+			/*	printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[0],scoreTeams[0],team_array[firstTeam].stand.goalsF,team_array[firstTeam].stand.goalsA,difference[0],flagForScore);
+				puts("\n");
+				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[1],scoreTeams[1],team_array[secTeam].stand.goalsF,team_array[secTeam].stand.goalsA,difference[1],flagForScore);
+				puts("\n");
+				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[2],scoreTeams[2],team_array[thirdTeam].stand.goalsF,team_array[thirdTeam].stand.goalsA,difference[2],flagForScore);
+				puts("\n");
+				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[3],scoreTeams[3],team_array[fourthTeam].stand.goalsF,team_array[fourthTeam].stand.goalsA,difference[3],flagForScore);
+				puts("\n");*/
 			
 		if(flagForScore==1){
 				
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
-							if(difference[0][i+1]>difference[0][i]&&scoreTeams[0][i+1]==scoreTeams[0][i]){
-								char tmp[20];
+							if(difference[i+1]>difference[i]&&scoreTeams[i+1]==scoreTeams[i]){
+								char tmp[40];
 								int temp;
 								strcpy(tmp,groups_array[z].teams[i]);
 								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
 								strcpy(groups_array[z].teams[i+1],tmp);
-								temp=difference[0][i];
-								difference[0][i]=difference[0][i+1];
-								difference[0][i+1]=temp;
+								temp=difference[i];
+								difference[i]=difference[i+1];
+								difference[i+1]=temp;
 							}
 						}
 					}
 				
 		}
-		/*for(int j=0;j<4;j++){
+		/*	printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[0],scoreTeams[0],team_array[firstTeam].stand.goalsF,team_array[firstTeam].stand.goalsA,difference[0],flagForScore);
+				puts(" \n");
+				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[1],scoreTeams[1],team_array[secTeam].stand.goalsF,team_array[secTeam].stand.goalsA,difference[1],flagForScore);
+				puts(" \n");
+				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[2],scoreTeams[2],team_array[thirdTeam].stand.goalsF,team_array[thirdTeam].stand.goalsA,difference[2],flagForScore);
+				puts(" \n");
+				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[3],scoreTeams[3],team_array[fourthTeam].stand.goalsF,team_array[fourthTeam].stand.goalsA,difference[3],flagForScore);
+				puts(" \n");
+		for(int j=0;j<4;j++){
 				printf("Team=%-10s    score=%d     difference= %d flagForScore=%d \n",groups_array[z].teams[j],scoreTeams[0][j],difference[0][j],flagForScore);
 				puts(" ");
 			}*/
 		for(int i=0;i<3;i++){
-			if(difference[0][i]==difference[0][i+1]){
-				flagForDiffrence=1;
+			if(difference[i]==difference[i+1]){
+				flagForDifference=1;
 			}
 		}
-		if(flagForScore==1&&flagForDiffrence==1){
-			int goalsF[1][4];
+			/*	printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d \n",groups_array[z].teams[0],scoreTeams[0],team_array[firstTeam].stand.goalsF,team_array[firstTeam].stand.goalsA,difference[0],flagForScore,flagForDifference);
+				puts("\n");
+				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[1],scoreTeams[1],team_array[secTeam].stand.goalsF,team_array[secTeam].stand.goalsA,difference[1],flagForScore,flagForDifference);
+				puts("\n");
+				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[2],scoreTeams[2],team_array[thirdTeam].stand.goalsF,team_array[thirdTeam].stand.goalsA,difference[2],flagForScore,flagForDifference);
+				puts("\n");
+				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[3],scoreTeams[3],team_array[fourthTeam].stand.goalsF,team_array[fourthTeam].stand.goalsA,difference[3],flagForScore,flagForDifference);
+				puts("\n");*/
+		if(flagForScore==1&&flagForDifference==1){
+			int goalsF[4];
 			for(int i=0;i<4;i++){
-				goalsF[0][i]=0;
+				goalsF[i]=0;
 			}
-			goalsF[0][0]=team_array[firstTeam].stand.goalsF;
-			goalsF[0][1]=team_array[secTeam].stand.goalsF;
-			goalsF[0][2]=team_array[thirdTeam].stand.goalsF;
-			goalsF[0][3]=team_array[fourthTeam].stand.goalsF;
+			goalsF[0]=team_array[firstTeam].stand.goalsF;
+			goalsF[1]=team_array[secTeam].stand.goalsF;
+			goalsF[2]=team_array[thirdTeam].stand.goalsF;
+			goalsF[3]=team_array[fourthTeam].stand.goalsF;
+			/*	printf("Team=%-10s    score=%d   goalsF[0]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d \n",groups_array[z].teams[0],scoreTeams[0],goalsF[0],team_array[firstTeam].stand.goalsF,team_array[firstTeam].stand.goalsA,difference[0],flagForScore,flagForDifference);
+				puts("\n");
+				printf("Team=%-10s    score=%d   goalsF[1]=%d goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[1],scoreTeams[1],goalsF[1],team_array[secTeam].stand.goalsF,team_array[secTeam].stand.goalsA,difference[1],flagForScore,flagForDifference);
+				puts("\n");
+				printf("Team=%-10s    score=%d   goalsF[2]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[2],scoreTeams[2],goalsF[2],team_array[thirdTeam].stand.goalsF,team_array[thirdTeam].stand.goalsA,difference[2],flagForScore,flagForDifference);
+				puts("\n");
+				printf("Team=%-10s    score=%d   goalsF[3]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[3],scoreTeams[3],goalsF[3],team_array[fourthTeam].stand.goalsF,team_array[fourthTeam].stand.goalsA,difference[3],flagForScore,flagForDifference);
+				puts("\n");*/
 			
 			
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
-							if(goalsF[0][i+1]>goalsF[0][i]&&scoreTeams[0][i+1]==scoreTeams[0][i]){
-								char tmp[20];
+							if(goalsF[i+1]>goalsF[i]&&difference[i+1]==difference[i]&&scoreTeams[i+1]==scoreTeams[i]){
+								char tmp[40];
 								int temp;
 								strcpy(tmp,groups_array[z].teams[i]);
 								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
 								strcpy(groups_array[z].teams[i+1],tmp);
-								temp=goalsF[0][i];
-								goalsF[0][i]=goalsF[0][i+1];
-								goalsF[0][i+1]=temp;
+								temp=goalsF[i];
+								goalsF[i]=goalsF[i+1];
+								goalsF[i+1]=temp;
 							}
 						}
 					}
+				/*printf("Team=%-10s    score=%d   goalsF[0]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d \n",groups_array[z].teams[0],scoreTeams[0],goalsF[0],team_array[firstTeam].stand.goalsF,team_array[firstTeam].stand.goalsA,difference[0],flagForScore,flagForDifference);
+				puts("\n");
+				printf("Team=%-10s    score=%d   goalsF[1]=%d goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[1],scoreTeams[1],goalsF[1],team_array[secTeam].stand.goalsF,team_array[secTeam].stand.goalsA,difference[1],flagForScore,flagForDifference);
+				puts("\n");
+				printf("Team=%-10s    score=%d   goalsF[2]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[2],scoreTeams[2],goalsF[2],team_array[thirdTeam].stand.goalsF,team_array[thirdTeam].stand.goalsA,difference[2],flagForScore,flagForDifference);
+				puts("\n");
+				printf("Team=%-10s    score=%d   goalsF[3]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[3],scoreTeams[3],goalsF[3],team_array[fourthTeam].stand.goalsF,team_array[fourthTeam].stand.goalsA,difference[3],flagForScore,flagForDifference);
+				puts("\n");*/
 				
 		}
 	}
@@ -950,65 +991,76 @@ int searchByName(char *name){
 	
 }
 void saveResultGames(int n){
-
-	//Round one
+	static int gamesDone=0; 
+	while(1){
+		if(gamesDone==n)
+			break;
+		//Round one
+		if(gamesDone<=1){
 	
-	groups_array[0].result[0][0]=determineWiner(searchByName(groups_array[0].teams[0]),searchByName(groups_array[0].teams[1]));
-	groups_array[0].result[0][1]=determineWiner(searchByName(groups_array[0].teams[2]),searchByName(groups_array[0].teams[3]));
-	groups_array[1].result[0][0]=determineWiner(searchByName(groups_array[1].teams[2]),searchByName(groups_array[1].teams[3]));
-	groups_array[1].result[0][1]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[1]));
-	groups_array[2].result[0][0]=determineWiner(searchByName(groups_array[2].teams[0]),searchByName(groups_array[2].teams[1]));
-	groups_array[3].result[0][0]=determineWiner(searchByName(groups_array[3].teams[0]),searchByName(groups_array[3].teams[1]));
-	groups_array[2].result[0][1]=determineWiner(searchByName(groups_array[2].teams[2]),searchByName(groups_array[2].teams[3]));
-	groups_array[3].result[0][1]=determineWiner(searchByName(groups_array[3].teams[2]),searchByName(groups_array[3].teams[3]));
-	groups_array[4].result[0][0]=determineWiner(searchByName(groups_array[4].teams[2]),searchByName(groups_array[4].teams[3]));
-	groups_array[5].result[0][0]=determineWiner(searchByName(groups_array[5].teams[0]),searchByName(groups_array[5].teams[1]));
-	groups_array[4].result[0][1]=determineWiner(searchByName(groups_array[4].teams[0]),searchByName(groups_array[4].teams[1]));
-	groups_array[5].result[0][1]=determineWiner(searchByName(groups_array[5].teams[2]),searchByName(groups_array[5].teams[3]));
-	groups_array[6].result[0][0]=determineWiner(searchByName(groups_array[6].teams[0]),searchByName(groups_array[6].teams[1]));
-	groups_array[6].result[0][1]=determineWiner(searchByName(groups_array[6].teams[2]),searchByName(groups_array[6].teams[3]));
-	groups_array[7].result[0][0]=determineWiner(searchByName(groups_array[7].teams[2]),searchByName(groups_array[7].teams[3]));
-	groups_array[7].result[0][1]=determineWiner(searchByName(groups_array[7].teams[0]),searchByName(groups_array[7].teams[1]));
-	
-	//Round two
-	
-	groups_array[0].result[1][0]=determineWiner(searchByName(groups_array[0].teams[0]),searchByName(groups_array[0].teams[2]));
-	groups_array[1].result[1][0]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[2]));
-	groups_array[0].result[1][1]=determineWiner(searchByName(groups_array[0].teams[3]),searchByName(groups_array[0].teams[1]));
-	groups_array[1].result[1][1]=determineWiner(searchByName(groups_array[1].teams[3]),searchByName(groups_array[1].teams[1]));
-	groups_array[2].result[1][0]=determineWiner(searchByName(groups_array[2].teams[3]),searchByName(groups_array[2].teams[1]));
-	groups_array[2].result[1][1]=determineWiner(searchByName(groups_array[2].teams[0]),searchByName(groups_array[2].teams[2]));
-	groups_array[3].result[1][0]=determineWiner(searchByName(groups_array[3].teams[0]),searchByName(groups_array[3].teams[2]));
-	groups_array[4].result[1][0]=determineWiner(searchByName(groups_array[4].teams[0]),searchByName(groups_array[4].teams[2]));
-	groups_array[3].result[1][1]=determineWiner(searchByName(groups_array[3].teams[3]),searchByName(groups_array[3].teams[1]));
-	groups_array[4].result[1][1]=determineWiner(searchByName(groups_array[4].teams[3]),searchByName(groups_array[4].teams[1]));
-	groups_array[6].result[1][0]=determineWiner(searchByName(groups_array[6].teams[0]),searchByName(groups_array[6].teams[2]));
-	groups_array[5].result[1][0]=determineWiner(searchByName(groups_array[5].teams[3]),searchByName(groups_array[5].teams[1]));
-	groups_array[5].result[1][1]=determineWiner(searchByName(groups_array[5].teams[0]),searchByName(groups_array[5].teams[2]));
-	groups_array[6].result[1][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[1]));
-	groups_array[7].result[1][0]=determineWiner(searchByName(groups_array[7].teams[3]),searchByName(groups_array[7].teams[1]));
-	groups_array[7].result[1][1]=determineWiner(searchByName(groups_array[7].teams[0]),searchByName(groups_array[7].teams[2]));
-	
-	//Round three
-	
-	groups_array[0].result[2][0]=determineWiner(searchByName(groups_array[0].teams[3]),searchByName(groups_array[0].teams[0]));
-	groups_array[0].result[2][1]=determineWiner(searchByName(groups_array[0].teams[1]),searchByName(groups_array[0].teams[2]));
-	groups_array[1].result[2][0]=determineWiner(searchByName(groups_array[1].teams[3]),searchByName(groups_array[1].teams[0]));
-	groups_array[1].result[2][1]=determineWiner(searchByName(groups_array[1].teams[1]),searchByName(groups_array[1].teams[2]));
-	groups_array[2].result[2][0]=determineWiner(searchByName(groups_array[2].teams[3]),searchByName(groups_array[2].teams[0]));
-	groups_array[2].result[2][1]=determineWiner(searchByName(groups_array[2].teams[1]),searchByName(groups_array[2].teams[2]));
-	groups_array[3].result[2][0]=determineWiner(searchByName(groups_array[3].teams[3]),searchByName(groups_array[3].teams[0]));
-	groups_array[3].result[2][1]=determineWiner(searchByName(groups_array[3].teams[1]),searchByName(groups_array[3].teams[2]));
-	groups_array[5].result[2][0]=determineWiner(searchByName(groups_array[5].teams[1]),searchByName(groups_array[5].teams[2]));
-	groups_array[5].result[2][1]=determineWiner(searchByName(groups_array[5].teams[3]),searchByName(groups_array[5].teams[0]));
-	groups_array[4].result[2][0]=determineWiner(searchByName(groups_array[4].teams[3]),searchByName(groups_array[4].teams[0]));
-	groups_array[4].result[2][1]=determineWiner(searchByName(groups_array[4].teams[1]),searchByName(groups_array[4].teams[2]));
-	groups_array[7].result[2][0]=determineWiner(searchByName(groups_array[7].teams[3]),searchByName(groups_array[7].teams[0]));
-	groups_array[7].result[2][1]=determineWiner(searchByName(groups_array[7].teams[1]),searchByName(groups_array[7].teams[2]));
-	groups_array[6].result[2][0]=determineWiner(searchByName(groups_array[6].teams[1]),searchByName(groups_array[6].teams[2]));
-	groups_array[6].result[2][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[0]));
-	
-	
+		groups_array[0].result[0][0]=determineWiner(searchByName(groups_array[0].teams[0]),searchByName(groups_array[0].teams[1]));
+		groups_array[0].result[0][1]=determineWiner(searchByName(groups_array[0].teams[2]),searchByName(groups_array[0].teams[3]));
+		groups_array[1].result[0][0]=determineWiner(searchByName(groups_array[1].teams[2]),searchByName(groups_array[1].teams[3]));
+		groups_array[1].result[0][1]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[1]));
+		groups_array[2].result[0][0]=determineWiner(searchByName(groups_array[2].teams[0]),searchByName(groups_array[2].teams[1]));
+		groups_array[3].result[0][0]=determineWiner(searchByName(groups_array[3].teams[0]),searchByName(groups_array[3].teams[1]));
+		groups_array[2].result[0][1]=determineWiner(searchByName(groups_array[2].teams[2]),searchByName(groups_array[2].teams[3]));
+		groups_array[3].result[0][1]=determineWiner(searchByName(groups_array[3].teams[2]),searchByName(groups_array[3].teams[3]));
+		groups_array[4].result[0][0]=determineWiner(searchByName(groups_array[4].teams[2]),searchByName(groups_array[4].teams[3]));
+		groups_array[5].result[0][0]=determineWiner(searchByName(groups_array[5].teams[0]),searchByName(groups_array[5].teams[1]));
+		groups_array[4].result[0][1]=determineWiner(searchByName(groups_array[4].teams[0]),searchByName(groups_array[4].teams[1]));
+		groups_array[5].result[0][1]=determineWiner(searchByName(groups_array[5].teams[2]),searchByName(groups_array[5].teams[3]));
+		groups_array[6].result[0][0]=determineWiner(searchByName(groups_array[6].teams[0]),searchByName(groups_array[6].teams[1]));
+		groups_array[6].result[0][1]=determineWiner(searchByName(groups_array[6].teams[2]),searchByName(groups_array[6].teams[3]));
+		groups_array[7].result[0][0]=determineWiner(searchByName(groups_array[7].teams[2]),searchByName(groups_array[7].teams[3]));
+		groups_array[7].result[0][1]=determineWiner(searchByName(groups_array[7].teams[0]),searchByName(groups_array[7].teams[1]));
+		gamesDone++;
+		}
+		if(gamesDone==n)
+			break;
+		//Round two
+		if(gamesDone<=2){
+		groups_array[0].result[1][0]=determineWiner(searchByName(groups_array[0].teams[0]),searchByName(groups_array[0].teams[2]));
+		groups_array[1].result[1][0]=determineWiner(searchByName(groups_array[1].teams[0]),searchByName(groups_array[1].teams[2]));
+		groups_array[0].result[1][1]=determineWiner(searchByName(groups_array[0].teams[3]),searchByName(groups_array[0].teams[1]));
+		groups_array[1].result[1][1]=determineWiner(searchByName(groups_array[1].teams[3]),searchByName(groups_array[1].teams[1]));
+		groups_array[2].result[1][0]=determineWiner(searchByName(groups_array[2].teams[3]),searchByName(groups_array[2].teams[1]));
+		groups_array[2].result[1][1]=determineWiner(searchByName(groups_array[2].teams[0]),searchByName(groups_array[2].teams[2]));
+		groups_array[3].result[1][0]=determineWiner(searchByName(groups_array[3].teams[0]),searchByName(groups_array[3].teams[2]));
+		groups_array[4].result[1][0]=determineWiner(searchByName(groups_array[4].teams[0]),searchByName(groups_array[4].teams[2]));
+		groups_array[3].result[1][1]=determineWiner(searchByName(groups_array[3].teams[3]),searchByName(groups_array[3].teams[1]));
+		groups_array[4].result[1][1]=determineWiner(searchByName(groups_array[4].teams[3]),searchByName(groups_array[4].teams[1]));
+		groups_array[6].result[1][0]=determineWiner(searchByName(groups_array[6].teams[0]),searchByName(groups_array[6].teams[2]));
+		groups_array[5].result[1][0]=determineWiner(searchByName(groups_array[5].teams[3]),searchByName(groups_array[5].teams[1]));
+		groups_array[5].result[1][1]=determineWiner(searchByName(groups_array[5].teams[0]),searchByName(groups_array[5].teams[2]));
+		groups_array[6].result[1][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[1]));
+		groups_array[7].result[1][0]=determineWiner(searchByName(groups_array[7].teams[3]),searchByName(groups_array[7].teams[1]));
+		groups_array[7].result[1][1]=determineWiner(searchByName(groups_array[7].teams[0]),searchByName(groups_array[7].teams[2]));
+		gamesDone++;
+		}
+		if(gamesDone==n)
+		break;
+		//Round three
+		if(gamesDone<=3){
+		groups_array[0].result[2][0]=determineWiner(searchByName(groups_array[0].teams[3]),searchByName(groups_array[0].teams[0]));
+		groups_array[0].result[2][1]=determineWiner(searchByName(groups_array[0].teams[1]),searchByName(groups_array[0].teams[2]));
+		groups_array[1].result[2][0]=determineWiner(searchByName(groups_array[1].teams[3]),searchByName(groups_array[1].teams[0]));
+		groups_array[1].result[2][1]=determineWiner(searchByName(groups_array[1].teams[1]),searchByName(groups_array[1].teams[2]));
+		groups_array[2].result[2][0]=determineWiner(searchByName(groups_array[2].teams[3]),searchByName(groups_array[2].teams[0]));
+		groups_array[2].result[2][1]=determineWiner(searchByName(groups_array[2].teams[1]),searchByName(groups_array[2].teams[2]));
+		groups_array[3].result[2][0]=determineWiner(searchByName(groups_array[3].teams[3]),searchByName(groups_array[3].teams[0]));
+		groups_array[3].result[2][1]=determineWiner(searchByName(groups_array[3].teams[1]),searchByName(groups_array[3].teams[2]));
+		groups_array[5].result[2][0]=determineWiner(searchByName(groups_array[5].teams[1]),searchByName(groups_array[5].teams[2]));
+		groups_array[5].result[2][1]=determineWiner(searchByName(groups_array[5].teams[3]),searchByName(groups_array[5].teams[0]));
+		groups_array[4].result[2][0]=determineWiner(searchByName(groups_array[4].teams[3]),searchByName(groups_array[4].teams[0]));
+		groups_array[4].result[2][1]=determineWiner(searchByName(groups_array[4].teams[1]),searchByName(groups_array[4].teams[2]));
+		groups_array[7].result[2][0]=determineWiner(searchByName(groups_array[7].teams[3]),searchByName(groups_array[7].teams[0]));
+		groups_array[7].result[2][1]=determineWiner(searchByName(groups_array[7].teams[1]),searchByName(groups_array[7].teams[2]));
+		groups_array[6].result[2][0]=determineWiner(searchByName(groups_array[6].teams[1]),searchByName(groups_array[6].teams[2]));
+		groups_array[6].result[2][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[0]));
+		gamesDone++;
+		}
+	}
 }
 
 void schedule()
@@ -1074,8 +1126,35 @@ void schedule()
 
 
 void table() {
-	
-	sortForTable();
+		for(int x=0;x < 8;x++){
+		int firstTeam, secTeam, thirdTeam, fourthTeam;
+		firstTeam = searchByName(groups_array[x].teams[0]);
+		secTeam = searchByName(groups_array[x].teams[1]);
+		thirdTeam = searchByName(groups_array[x].teams[2]);
+		fourthTeam = searchByName(groups_array[x].teams[3]);
+		
+		int firstTeamGA = team_array[firstTeam].stand.goalsA;
+		int secTeamGA = team_array[secTeam].stand.goalsA;
+		int thirdTeamGA = team_array[thirdTeam].stand.goalsA;
+		int fourthTeamGA = team_array[fourthTeam].stand.goalsA;
+		
+		int firstTeamGF = team_array[firstTeam].stand.goalsF;
+		int secTeamGF = team_array[secTeam].stand.goalsF;
+		int thirdTeamGF = team_array[thirdTeam].stand.goalsF;
+		int fourthTeamGF = team_array[fourthTeam].stand.goalsF;
+		
+		int firstTeamDif = firstTeamGF - firstTeamGA;
+		int secTeamDif = secTeamGF - secTeamGA;
+		int thirdTeamDif = thirdTeamGF - thirdTeamGA;
+		int fourthTeamDif = fourthTeamGF - fourthTeamGA;
+		
+		team_array[firstTeam].stand.difference=firstTeamDif;
+		team_array[secTeam].stand.difference=secTeamDif;
+		team_array[thirdTeam].stand.difference=thirdTeamDif;
+		team_array[fourthTeam].stand.difference=fourthTeamDif;
+		}
+		sortForTable();
+		
 	int cnt = 0, count = 0;
 	char group = 'A';
 	for (cnt = 0; cnt < 8; cnt++, group++) {
@@ -1331,7 +1410,7 @@ void proceed(int n){
 int main(){
 	srand( time ( NULL ));
 	game_start();
-//	schedule();
+	schedule();
 	
 //	table();
 //	saveResultGames( n);
