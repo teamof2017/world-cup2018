@@ -18,6 +18,7 @@ int determineWiner(int i , int j);
 void saveResultGames(int n);
 void table();
 void lotterySeed();
+int penalty(int i , int j);
 
 typedef struct teamplayer{
 	char groupName;
@@ -1342,6 +1343,7 @@ int determineWiner(int i , int j){
 int knockout(int firstTeam, int secTeam)
 {
 	int result = determineWiner(firstTeam, secTeam);
+	int penaltyResult, firstTeamPenalty, secTeamPenalty;
 	
 	firstTeamGoals = result / 10;
 	secTeamGoals = result % 10;
@@ -1351,6 +1353,19 @@ int knockout(int firstTeam, int secTeam)
 		
 	else if(secTeamGoals > firstTeamGoals)
 		return secTeam;
+		
+	else if(firstTeamGoals == secTeamGoals) {
+		penaltyResult = penalty(firstTeam, secTeam);
+		
+		firstTeamPenalty = penaltyResult / 10;
+		secTeamPenalty = penaltyResult % 10;
+		
+		if(firstTeamPenalty > secTeamPenalty)
+			return firstTeam;
+			
+		else
+			return secTeam;
+	}
 }
 
 void oneEight()
