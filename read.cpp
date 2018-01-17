@@ -17,6 +17,7 @@ void printBall();
 int determineWiner(int i , int j);
 void saveResultGames(int n);
 void table();
+void lotterySeed();
 
 typedef struct teamplayer{
 	char groupName;
@@ -1433,15 +1434,57 @@ void lotterySeed(){
 }
 
 
+int penalty(int i , int j){
+	
+	int skilli = 0;
+	int skillj = 0;
+	int goalsi=0;
+	int goalsj=0;
+	
+	
+	for( int cnt =0 ; cnt<11 ;cnt++){
+		skilli += team_array[i].mainplayers[cnt].skill;
+	}
+	
+	for( int cnt =0 ; cnt<11 ;cnt++){
+		skillj += team_array[j].mainplayers[cnt].skill;
+	}
+	
+	do{
+	
+	if( skilli > skillj){
+		goalsi = rand() % 4 + 1;
+		goalsj = rand() % 4 ;
+	}
+	
+	else if( skilli < skillj){
+		goalsi = rand() % 4 ;
+		goalsj = rand() % 4 + 1;
+	}
+	
+	else if( skilli == skillj){
+		goalsi = rand() % 5 ;
+		goalsj = rand() % 5;
+	}
+	}while( goalsi == goalsj);
+	
+	
+		return goalsi * 10 + goalsj;
+	
+	
+
+
+}
+
 	
 
 int main(){
 	srand( time ( NULL ));
 	game_start();
-	print_group();
+	/*print_group();
 	lotterySeed();
 	print_group();
-
+*/
 	while(1){
 	int proceedNum = 0;
 	char *input;
