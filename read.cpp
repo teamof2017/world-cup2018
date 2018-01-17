@@ -20,7 +20,6 @@ void table();
 void lotterySeed();
 
 typedef struct teamplayer{
-	char groupName;
 	char playername[40];
 	int form;
 	int fitness;
@@ -1139,32 +1138,39 @@ void table() {
 
 void save(){
 	
-	
+	int i=0;
 	for(int cnt =0 ; cnt < 32 ; cnt++){
 		 FILE *filesave = fopen( team_array[cnt].filesaved , "w");
 		fprintf(filesave , "     %s\n" ,  team_array[cnt].name );
-		fprintf(filesave , "system =  %d\n" ,  team_array[cnt].system );
-		fprintf(filesave , "group = %c\n" ,  team_array[cnt].group );
-		fprintf(filesave , "%d , %d\n" , cnt+1 , team_array[cnt].numberOfPlayer );
-		fprintf(filesave , "%d , %f\n" , cnt+1 , team_array[cnt].power );
-		fprintf(filesave , "%d , %d\n" , cnt+1 , team_array[cnt].seed );
-		fprintf(filesave , "%d , %s\n" , cnt+1, team_array[cnt].confedration );
-		fputs("\n\n" , filesave);
-		fputs("MAIN PLAYERS\n" , filesave);
-		for(int i=0 ; i<11 ; i++){
-		fprintf(filesave , "%d . %s\n" , i+1, team_array[cnt].mainplayers[i] );
-			
-		}
-		fputs("STORE PLAYERS\n" , filesave);
+		fprintf(filesave , "  %d\n" ,  team_array[cnt].system );
+		fprintf(filesave , "   %c\n" ,  team_array[cnt].group );
+		fprintf(filesave , "  %d\n" ,  team_array[cnt].placeInGroup );
+		fprintf(filesave , "  %s\n" ,  team_array[cnt].confedration );
+		fprintf(filesave , "%d\n" , team_array[cnt].seed );
+		fprintf(filesave , "  %s\n" ,  team_array[cnt].filename );
+		fprintf(filesave , "  %s\n" ,  team_array[cnt].filesaved );
+		fprintf(filesave , " %d\n" ,  team_array[cnt].numberOfPlayer );
+		fprintf(filesave , " %f\n" ,  team_array[cnt].power );
+		fprintf(filesave , " %d\n" ,  team_array[cnt].stand.goalsF );
+		fprintf(filesave , " %d\n" ,  team_array[cnt].stand.goalsA );
+		fprintf(filesave , " %d\n" ,  team_array[cnt].stand.win );
+		fprintf(filesave , " %d\n" ,  team_array[cnt].stand.lose );
+		fprintf(filesave , " %d\n" ,  team_array[cnt].stand.draw );
+		fprintf(filesave , " %d\n" ,  team_array[cnt].stand.score );
 
-			for(int i=0 ; i<team_array[cnt].numberOfPlayer - 11 ; i++){
-		fprintf(filesave , "%d . %s\n" , i+1, team_array[cnt].storeplayers[i] );
+		for( i=0 ; i<11 ; i++){
+		fprintf(filesave , " %s,%d,%f,%d,%d,%d,%d,%c,%c\n" ,  team_array[cnt].mainplayers[i].playername ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
 			
 		}
+
+		for( i=0 ; i<team_array[cnt].numberOfPlayer - 11 ; i++){
+		fprintf(filesave , " %s,%d,%f,%d,%d,%d,%d,%c,%c\n" ,  team_array[cnt].storeplayers[i].playername ,team_array[cnt].storeplayers[i].age , team_array[cnt].storeplayers[i].avg , team_array[cnt].storeplayers[i].fitness , team_array[cnt].storeplayers[i].form , team_array[cnt].storeplayers[i].skill , team_array[cnt].storeplayers[i].num , team_array[cnt].storeplayers[i].mainpost , team_array[cnt].storeplayers[i].post );
+			
+		}
+		
+		
 	
-
 				
-		puts("\n\n");
 		fclose(filesave);
 }
 		
@@ -1275,7 +1281,7 @@ int determineWiner(int i , int j){
 		//team1 win
 	if( (resault/10) > (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
-			if(team_array[i].mainplayers[cnt].mainpost == 'A'  && team_array[i].mainplayers[cnt].form < 100){
+			if(team_array[i].mainplayers[cnt].mainpost == 'A'  && team_array[i].mainplayers[cnt].form < 97){
 
 				team_array[i].mainplayers[cnt].form += 3;
 			}
@@ -1297,7 +1303,7 @@ int determineWiner(int i , int j){
 		//team2 win
 	else if( (resault/10) < (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
-			if(team_array[j].mainplayers[cnt].mainpost == 'A' && team_array[j].mainplayers[cnt].form <100){
+			if(team_array[j].mainplayers[cnt].mainpost == 'A' && team_array[j].mainplayers[cnt].form <97){
 				team_array[j].mainplayers[cnt].form += 3;
 			}
 			
@@ -1528,7 +1534,7 @@ int penalty(int i , int j){
 int main(){
 	srand( time ( NULL ));
 	game_start();
-	schedule();
+/*	schedule();
 	
 	table();
 	saveResultGames();
@@ -1546,7 +1552,7 @@ int main(){
 	
 	printf("	Final\n\n");
 	final();
-
+*/
 	while(1){
 	int proceedNum = 0;
 	char *input;
