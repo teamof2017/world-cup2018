@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<time.h>
 #include <time.h>
 #include <windows.h>
 
@@ -1167,12 +1166,14 @@ void table() {
 
 void load(){
 	char arr[200];
-	
+	char arr2[100];
+	char *arr3;
 	ReadFromFileTeaminfo();
 	for(int cnt =0 ; cnt<32 ; cnt++){
 		 FILE *fp = fopen( team_array[cnt].filesaved , "r");
-		 fgets(arr , 20 , fp);
-		 sscanf(arr , "%s" , team_array[cnt].name);
+		 fgets(arr2 , 20 , fp);
+		 arr3 = strtok(arr2 , ",");
+		 strcpy(team_array[cnt].name , arr3);
 		 fgets(arr , 20 , fp);
 		 sscanf(arr , "%d" , &(team_array[cnt].system));
 		 fgets(arr , 20 , fp);
@@ -1217,7 +1218,42 @@ void load(){
 		 }
 		 	fclose(fp);
 		}
-	
+		
+		
+		FILE *fg = fopen( "Groups.txt" , "r");
+		int i=0;
+		for( i=0 ; i<8 ; i++){
+			fgets(arr , 20 , fg);
+			 sscanf( arr , "%c" , &groups_array[i].groupname);
+	   		fgets(arr , 20 , fg);
+	   		sscanf(arr , "%s" , groups_array[i].teams[0]);
+	   		fgets(arr , 20 , fg);
+	   		sscanf(arr , "%s" , groups_array[i].teams[1]);
+	   		fgets(arr , 20 , fg);
+	   		sscanf(arr , "%s" , groups_array[i].teams[2]);
+	   		fgets(arr , 20 , fg);
+	   		sscanf(arr , "%s" , groups_array[i].teams[3]);
+	   		fgets(arr , 20 , fg);
+	   		sscanf(arr , "%s" , &groups_array[i].result[0][0]);
+	   		fgets(arr , 20 , fg);
+	   		sscanf(arr , "%s" , &groups_array[i].result[0][1]);
+	   		fgets(arr , 20 , fg);
+	   		sscanf(arr , "%s" , &groups_array[i].result[1][0]);
+	   		fgets(arr , 20 , fg);
+	   		sscanf(arr , "%s" , &groups_array[i].result[1][1]);
+	   		fgets(arr , 20 , fg);
+	   		sscanf(arr , "%s" , &groups_array[i].result[2][0]);
+	   		fgets(arr , 20 , fg);
+	   		sscanf(arr , "%s" , &groups_array[i].result[2][1]);
+		}
+		
+		fgets(arr , 100 , fg);
+		sscanf(arr , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d" , &a1, &a2, &b1, &b2, &c1, &c2, &d1, &d2, &e1, &e2, &f1, &f2, &g1, &g2, &h1, &h2);
+		fgets(arr , 100 ,fg);
+		sscanf(arr , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d" , &w49, &w50, &w51, &w52, &w53, &w54, &w55, &w56, &w57, &w58, &w59, &w60, &w61, &w62, &lose61, &lose62);
+		
+
+		fclose(fg);
 }
 
 
@@ -1228,7 +1264,7 @@ void save(){
 	int i=0;
 	for(int cnt =0 ; cnt < 32 ; cnt++){
 		 FILE *filesave = fopen( team_array[cnt].filesaved , "w");
-		fprintf(filesave , "%s\n" ,  team_array[cnt].name );
+		fprintf(filesave , "%s%c\n" ,  team_array[cnt].name , ',' );
 		fprintf(filesave , "%d\n" ,  team_array[cnt].system );
 		fprintf(filesave , "%c\n" ,  team_array[cnt].group );
 		fprintf(filesave , "%d\n" ,  team_array[cnt].placeInGroup );
@@ -1244,6 +1280,7 @@ void save(){
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.lose );
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.draw );
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.score );
+		
 
 		for( i=0 ; i<11 ; i++){
 		fprintf(filesave , "%s %d %f %d %d %d %d %c %c\n" ,  team_array[cnt].mainplayers[i].playername ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
@@ -1255,12 +1292,32 @@ void save(){
 			
 		}
 		
-		
-	
-				
+					
 		fclose(filesave);
 }
+
+	FILE *fp = fopen( "Groups.txt" , "w");
+
+		for( i=0 ; i<8 ; i++){
+			fprintf( fp , "%c\n" , groups_array[i].groupname);
+			fprintf( fp , "%s\n" , groups_array[i].teams[0]);
+			fprintf( fp , "%s\n" , groups_array[i].teams[1]);
+			fprintf( fp , "%s\n" , groups_array[i].teams[2]);
+			fprintf( fp , "%s\n" , groups_array[i].teams[3]);
+			fprintf( fp , "%d\n" , groups_array[i].result[0][0]);
+			fprintf( fp , "%d\n" , groups_array[i].result[0][1]);
+			fprintf( fp , "%d\n" , groups_array[i].result[1][0]);
+			fprintf( fp , "%d\n" , groups_array[i].result[1][1]);
+			fprintf( fp , "%d\n" , groups_array[i].result[2][0]);
+			fprintf( fp , "%d\n" , groups_array[i].result[2][1]);
+			
+		}
 		
+		fprintf( fp , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" , a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2);
+		fprintf( fp , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" , w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62);
+
+
+		fclose(fp);
 
 }
 
@@ -1715,6 +1772,16 @@ int penalty(int i , int j){
 	}while( goalsi == goalsj);
 	
 	
+	int cnt=0;
+	for(cnt=0 ; cnt<11 ; cnt++){
+		team_array[i].mainplayers[cnt].fitness -= 3;
+	}
+	
+	for(cnt=0 ; cnt<11 ; cnt++){
+		team_array[j].mainplayers[cnt].fitness -= 3;
+	}
+	
+	
 		return goalsi * 10 + goalsj;
 	
 	
@@ -1725,10 +1792,12 @@ int penalty(int i , int j){
 	
 
 int main(){
+
 		
 	srand( time ( NULL ));
 
 	game_start();
+
 	schedule();
 
 
@@ -1768,6 +1837,8 @@ int main(){
 			else{
 				proceed(entrance);
 			}
+
+
 			
 }
 
