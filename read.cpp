@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<time.h>
 #include <time.h>
 #include <windows.h>
 
@@ -1136,12 +1135,14 @@ void table() {
 
 void load(){
 	char arr[200];
-	
+	char arr2[100];
+	char *arr3;
 	ReadFromFileTeaminfo();
 	for(int cnt =0 ; cnt<32 ; cnt++){
 		 FILE *fp = fopen( team_array[cnt].filesaved , "r");
-		 fgets(arr , 20 , fp);
-		 sscanf(arr , "%s" , team_array[cnt].name);
+		 fgets(arr2 , 20 , fp);
+		 arr3 = strtok(arr2 , ",");
+		 strcpy(team_array[cnt].name , arr3);
 		 fgets(arr , 20 , fp);
 		 sscanf(arr , "%d" , &(team_array[cnt].system));
 		 fgets(arr , 20 , fp);
@@ -1214,6 +1215,12 @@ void load(){
 	   		fgets(arr , 20 , fg);
 	   		sscanf(arr , "%s" , &groups_array[i].result[2][1]);
 		}
+		
+		fgets(arr , 100 , fg);
+		sscanf(arr , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d" , &a1, &a2, &b1, &b2, &c1, &c2, &d1, &d2, &e1, &e2, &f1, &f2, &g1, &g2, &h1, &h2);
+		fgets(arr , 100 ,fg);
+		sscanf(arr , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d" , &w49, &w50, &w51, &w52, &w53, &w54, &w55, &w56, &w57, &w58, &w59, &w60, &w61, &w62, &lose61, &lose62);
+		
 
 		fclose(fg);
 }
@@ -1226,7 +1233,7 @@ void save(){
 	int i=0;
 	for(int cnt =0 ; cnt < 32 ; cnt++){
 		 FILE *filesave = fopen( team_array[cnt].filesaved , "w");
-		fprintf(filesave , "%s\n" ,  team_array[cnt].name );
+		fprintf(filesave , "%s%c\n" ,  team_array[cnt].name , ',' );
 		fprintf(filesave , "%d\n" ,  team_array[cnt].system );
 		fprintf(filesave , "%c\n" ,  team_array[cnt].group );
 		fprintf(filesave , "%d\n" ,  team_array[cnt].placeInGroup );
@@ -1254,9 +1261,7 @@ void save(){
 			
 		}
 		
-			
-	
-				
+					
 		fclose(filesave);
 }
 
@@ -1276,6 +1281,10 @@ void save(){
 			fprintf( fp , "%d\n" , groups_array[i].result[2][1]);
 			
 		}
+		
+		fprintf( fp , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" , a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2);
+		fprintf( fp , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" , w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62);
+
 
 		fclose(fp);
 
@@ -1648,8 +1657,9 @@ int penalty(int i , int j){
 int main(){
 	
 	load();
+	save_group();
 	printf("%s\n" , team_array[0].name);
-	printf("%s\n" , team_array[1].name);
+	printf("%s\n" , team_array[5].name);
 	printf("%s\n" , team_array[0].confedration);
 	printf("%f\n" , team_array[0].power);
 
@@ -1661,7 +1671,8 @@ int main(){
 	table();
 	
 	srand( time ( NULL ));
-	//game_start();
+//	game_start();
+		
 /*	schedule();
 	
 	table();
@@ -1717,6 +1728,8 @@ int main(){
 			else{
 				proceed(entrance);
 			}
+
+
 			
 }
 
