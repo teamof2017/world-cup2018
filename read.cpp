@@ -1656,7 +1656,7 @@ int penalty(int i , int j){
 
 int main(){
 	
-	load();
+	/*load();
 	save_group();
 	printf("%s\n" , team_array[0].name);
 	printf("%s\n" , team_array[5].name);
@@ -1669,9 +1669,9 @@ int main(){
 	printf("%d\n" , team_array[1].stand.win);
 
 	table();
-	
+	*/
 	srand( time ( NULL ));
-//	game_start();
+	game_start();
 		
 /*	schedule();
 	
