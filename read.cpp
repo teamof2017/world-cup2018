@@ -1792,27 +1792,7 @@ int penalty(int i , int j){
 	
 
 int main(){
-<<<<<<< HEAD
-	
-	/*load();
-	save_group();
-	printf("%s\n" , team_array[0].name);
-	printf("%s\n" , team_array[5].name);
-	printf("%s\n" , team_array[0].confedration);
-	printf("%f\n" , team_array[0].power);
 
-	printf("%d\n" , team_array[0].system);
-	printf("%c\n" , team_array[0].group);
-	printf("%d\n" , team_array[0].stand.win);
-	printf("%d\n" , team_array[1].stand.win);
-
-	table();
-	*/
-	srand( time ( NULL ));
-	game_start();
-=======
-
->>>>>>> a7d40b2a7134460da1bedcc20b09e26edf96818d
 		
 	srand( time ( NULL ));
 
