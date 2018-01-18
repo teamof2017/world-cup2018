@@ -17,6 +17,9 @@ void printBall();
 int determineWiner(int i , int j);
 void saveResultGames(int n);
 void table();
+void sortForTable();
+void lotterySeed();
+int penalty(int i , int j);
 
 typedef struct teamplayer{
 	char groupName;
@@ -34,7 +37,7 @@ typedef struct teamplayer{
 
 typedef struct group_stage{
 	char groupname;
-	char teams[4][20];
+	char teams[4][40];
 	int result[3][2]; //result[round][game Number]
 
 } groups;
@@ -51,6 +54,7 @@ typedef struct team_Result_In_group_stage{
 	int draw;
 	int score;
 	int difference;
+
 } team_In_group;
 
 
@@ -78,8 +82,9 @@ typedef struct infoteams{
 groups  groups_array[8];
 teams team_array[32];
 
-
-
+int a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2;
+int w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62;
+int firstTeamGoals, secTeamGoals;
 
 
 enum teamsName{
@@ -442,48 +447,48 @@ void print_seed(){
 
 
 void printBall(){
-	puts("                                              *********");
-	puts("                                             *         *");
-	puts("                                            * *****  ****");
-	puts("                                           ** *****  *****");
-	puts("                                          ***          ****");
-	puts("                                         *******************");
-	puts("                                        *** *********** *****");
-	puts("                                       ****             ******");
-	puts("                                      ***** *********** *******");
-	puts("                                     ***************************");
-	puts("                                    ********* ****** ************");
-	puts("                                   ******** ****** *** ***********");
-	puts("                                  ********* **** ****** ***********");
-	puts("                                 ***********   *****   *************");
-	puts("                                *************************************");
-	puts("                               ************** ****** *****************");
-	puts("                              ************* ****** *** ****************");
-	puts("                              ************* **** ****** ***************");
-	puts("                              **************   *****   ****************");
-	puts("                               ***************************************");
-	puts("                                ***********          ****************");
-	puts("                                 ********************* *************");
-	puts("                                  *******************  ************");
-	puts("                                   ********          *************");
-	puts("                                    *****************************");
-	puts("                                     *******    **** ***********");
-	puts("                                      ***** **** ** **********");
-	puts("                                       **** ***** ***********");
-	puts("                                        ***          *******");
-	puts("                                         ******************");
-	puts("                                          ****************");
-	puts("                                           **************");
-	puts("                                           **************");
-	puts("                                           **************");
-	puts("                                          ***************");
-	puts("                                         *****************");
-	puts("                                        *******************");
-	puts("                                       *********************");
-	puts("                                      ***********************");
-	puts("                                     *************************");
-	puts("                                    ***************************");
-	puts("\n                                         RUSSIA 2018\n\n\n");
+	puts("                                              ***********");
+	puts("                                             **          *");
+	puts("                                            **  ****  *****");
+	puts("                                           ***  ****  ******");
+	puts("                                          *****          ****");
+	puts("                                         *********************");
+	puts("                                        ****** ********* ******");
+	puts("                                       *******           *******");
+	puts("                                      ******** ********* ********");
+	puts("                                     *****************************");
+	puts("                                    ***********  ****  ************");
+	puts("                                   ***********  *** ***  ***********");
+	puts("                                  ************  ** ****  ************");
+	puts("                                 **************   ***   **************");
+	puts("                                ***************************************");
+	puts("                               ****************  ****  *****************");
+	puts("                              ****************  *** ***  ****************");
+	puts("                              ****************  ** ****  ****************");
+	puts("                              *****************   ***   *****************");
+	puts("                               *****************************************");
+	puts("                                **************          ***************");
+	puts("                                 **********************  *************");
+	puts("                                  *********************  ************");
+	puts("                                   ***********          ************");
+	puts("                                    *******************************");
+	puts("                                     *********     ***  **********");
+	puts("                                      ********  ** **  **********");
+	puts("                                       *******  ** *  *********");
+	puts("                                        ******          ******");
+	puts("                                         ********************");
+	puts("                                          ******************");
+	puts("                                           ****************");
+	puts("                                           ****************");
+	puts("                                           ****************");
+	puts("                                          ******************");
+	puts("                                         ********************");
+	puts("                                        **********************");
+	puts("                                       ************************");
+	puts("                                      **************************");
+	puts("                                     ****************************");
+	puts("                                    ******************************");
+	puts("\n                                            RUSSIA 2018\n\n\n");
 }
 
 int search_player(int player_number, int x)
@@ -506,143 +511,87 @@ int search_player(int player_number, int x)
 }
 
 void sortForTable(){
-	int firstTeam=0,secTeam=0,thirdTeam=0,fourthTeam=0,flagForScore=0,flagForDifference=0,scoreTeams[4];
+	int firstTeam=0,secTeam=0,thirdTeam=0,fourthTeam=0,flagForScore=0,flagForDifference=0,teams[4];
 	for(int i=0;i<4;i++){
-		scoreTeams[i]=0;
+		teams[i]=0;
 	}
 	for(int z=0;z<8;z++){
 	firstTeam=searchByName(groups_array[z].teams[0]);
 	secTeam=searchByName(groups_array[z].teams[1]);
 	thirdTeam=searchByName(groups_array[z].teams[2]);
 	fourthTeam=searchByName(groups_array[z].teams[3]);
-	scoreTeams[0]=team_array[firstTeam].stand.score;
-	scoreTeams[1]=team_array[secTeam].stand.score;
-	scoreTeams[2]=team_array[thirdTeam].stand.score;
-	scoreTeams[3]=team_array[fourthTeam].stand.score;
+	teams[0]=firstTeam;
+	teams[1]=secTeam;
+	teams[2]=thirdTeam;
+	teams[3]=fourthTeam;
+	
+
 			for(int j=0;j<4;j++){
 				for(int i=0;i<3;i++){
-					if(scoreTeams[i+1]>scoreTeams[i]){
+					if(team_array[teams[i+1]].stand.score>team_array[teams[i]].stand.score){
 						char tmp[40];
 						int temp;
 						strcpy(tmp,groups_array[z].teams[i]);
 						strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
 						strcpy(groups_array[z].teams[i+1],tmp);
-						temp=scoreTeams[i];
-						scoreTeams[i]=scoreTeams[i+1];
-						scoreTeams[i+1]=temp;
+						temp=teams[i];
+						teams[i]=teams[i+1];
+						teams[i+1]=temp;
 					}
 				}
 			}
 			flagForScore=0;
 			flagForDifference=0;
-		for(int i=0;i<3;i++){
-			if(scoreTeams[i]==scoreTeams[i+1]){
+			for(int i=0;i<3;i++){
+				if(team_array[teams[i]].stand.score==team_array[teams[i+1]].stand.score){
 				flagForScore=1;
+				}
 			}
-		}
-			int difference[4];
-			for(int i=0;i<4;i++){
-				difference[i]=0;
-			}
-			difference[0]=team_array[firstTeam].stand.difference;
-			difference[1]=team_array[secTeam].stand.difference;
-			difference[2]=team_array[thirdTeam].stand.difference;
-			difference[3]=team_array[fourthTeam].stand.difference;
-			/*	printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[0],scoreTeams[0],team_array[firstTeam].stand.goalsF,team_array[firstTeam].stand.goalsA,difference[0],flagForScore);
-				puts("\n");
-				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[1],scoreTeams[1],team_array[secTeam].stand.goalsF,team_array[secTeam].stand.goalsA,difference[1],flagForScore);
-				puts("\n");
-				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[2],scoreTeams[2],team_array[thirdTeam].stand.goalsF,team_array[thirdTeam].stand.goalsA,difference[2],flagForScore);
-				puts("\n");
-				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[3],scoreTeams[3],team_array[fourthTeam].stand.goalsF,team_array[fourthTeam].stand.goalsA,difference[3],flagForScore);
-				puts("\n");*/
+
 			
 		if(flagForScore==1){
 				
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
-							if(difference[i+1]>difference[i]&&scoreTeams[i+1]==scoreTeams[i]){
+							if(team_array[teams[i+1]].stand.difference>team_array[teams[i]].stand.difference&&team_array[teams[i+1]].stand.score==team_array[teams[i]].stand.score){
 								char tmp[40];
 								int temp;
 								strcpy(tmp,groups_array[z].teams[i]);
 								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
 								strcpy(groups_array[z].teams[i+1],tmp);
-								temp=difference[i];
-								difference[i]=difference[i+1];
-								difference[i+1]=temp;
+								temp=teams[i];
+								teams[i]=teams[i+1];
+								teams[i+1]=temp;
 							}
 						}
 					}
 				
 		}
-		/*	printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[0],scoreTeams[0],team_array[firstTeam].stand.goalsF,team_array[firstTeam].stand.goalsA,difference[0],flagForScore);
-				puts(" \n");
-				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[1],scoreTeams[1],team_array[secTeam].stand.goalsF,team_array[secTeam].stand.goalsA,difference[1],flagForScore);
-				puts(" \n");
-				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[2],scoreTeams[2],team_array[thirdTeam].stand.goalsF,team_array[thirdTeam].stand.goalsA,difference[2],flagForScore);
-				puts(" \n");
-				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d \n",groups_array[z].teams[3],scoreTeams[3],team_array[fourthTeam].stand.goalsF,team_array[fourthTeam].stand.goalsA,difference[3],flagForScore);
-				puts(" \n");
-		for(int j=0;j<4;j++){
-				printf("Team=%-10s    score=%d     difference= %d flagForScore=%d \n",groups_array[z].teams[j],scoreTeams[0][j],difference[0][j],flagForScore);
-				puts(" ");
-			}*/
+
 		for(int i=0;i<3;i++){
-			if(difference[i]==difference[i+1]){
+			if(team_array[teams[i+1]].stand.difference==team_array[teams[i]].stand.difference&&team_array[teams[i+1]].stand.score==team_array[teams[i]].stand.score){
 				flagForDifference=1;
 			}
 		}
-			/*	printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d \n",groups_array[z].teams[0],scoreTeams[0],team_array[firstTeam].stand.goalsF,team_array[firstTeam].stand.goalsA,difference[0],flagForScore,flagForDifference);
-				puts("\n");
-				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[1],scoreTeams[1],team_array[secTeam].stand.goalsF,team_array[secTeam].stand.goalsA,difference[1],flagForScore,flagForDifference);
-				puts("\n");
-				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[2],scoreTeams[2],team_array[thirdTeam].stand.goalsF,team_array[thirdTeam].stand.goalsA,difference[2],flagForScore,flagForDifference);
-				puts("\n");
-				printf("Team=%-10s    score=%d    goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[3],scoreTeams[3],team_array[fourthTeam].stand.goalsF,team_array[fourthTeam].stand.goalsA,difference[3],flagForScore,flagForDifference);
-				puts("\n");*/
+
 		if(flagForScore==1&&flagForDifference==1){
-			int goalsF[4];
-			for(int i=0;i<4;i++){
-				goalsF[i]=0;
-			}
-			goalsF[0]=team_array[firstTeam].stand.goalsF;
-			goalsF[1]=team_array[secTeam].stand.goalsF;
-			goalsF[2]=team_array[thirdTeam].stand.goalsF;
-			goalsF[3]=team_array[fourthTeam].stand.goalsF;
-			/*	printf("Team=%-10s    score=%d   goalsF[0]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d \n",groups_array[z].teams[0],scoreTeams[0],goalsF[0],team_array[firstTeam].stand.goalsF,team_array[firstTeam].stand.goalsA,difference[0],flagForScore,flagForDifference);
-				puts("\n");
-				printf("Team=%-10s    score=%d   goalsF[1]=%d goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[1],scoreTeams[1],goalsF[1],team_array[secTeam].stand.goalsF,team_array[secTeam].stand.goalsA,difference[1],flagForScore,flagForDifference);
-				puts("\n");
-				printf("Team=%-10s    score=%d   goalsF[2]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[2],scoreTeams[2],goalsF[2],team_array[thirdTeam].stand.goalsF,team_array[thirdTeam].stand.goalsA,difference[2],flagForScore,flagForDifference);
-				puts("\n");
-				printf("Team=%-10s    score=%d   goalsF[3]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[3],scoreTeams[3],goalsF[3],team_array[fourthTeam].stand.goalsF,team_array[fourthTeam].stand.goalsA,difference[3],flagForScore,flagForDifference);
-				puts("\n");*/
-			
-			
+
 					for(int j=0;j<4;j++){
 						for(int i=0;i<3;i++){
-							if(goalsF[i+1]>goalsF[i]&&difference[i+1]==difference[i]&&scoreTeams[i+1]==scoreTeams[i]){
+							if(team_array[teams[i+1]].stand.goalsF>team_array[teams[i]].stand.goalsF&&team_array[teams[i+1]].stand.difference==team_array[teams[i]].stand.difference&&team_array[teams[i+1]].stand.score==team_array[teams[i]].stand.score){
 								char tmp[40];
 								int temp;
 								strcpy(tmp,groups_array[z].teams[i]);
 								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
 								strcpy(groups_array[z].teams[i+1],tmp);
-								temp=goalsF[i];
-								goalsF[i]=goalsF[i+1];
-								goalsF[i+1]=temp;
+								temp=teams[i];
+								teams[i]=teams[i+1];
+								teams[i+1]=temp;
 							}
 						}
-					}
-				/*printf("Team=%-10s    score=%d   goalsF[0]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d \n",groups_array[z].teams[0],scoreTeams[0],goalsF[0],team_array[firstTeam].stand.goalsF,team_array[firstTeam].stand.goalsA,difference[0],flagForScore,flagForDifference);
-				puts("\n");
-				printf("Team=%-10s    score=%d   goalsF[1]=%d goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[1],scoreTeams[1],goalsF[1],team_array[secTeam].stand.goalsF,team_array[secTeam].stand.goalsA,difference[1],flagForScore,flagForDifference);
-				puts("\n");
-				printf("Team=%-10s    score=%d   goalsF[2]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[2],scoreTeams[2],goalsF[2],team_array[thirdTeam].stand.goalsF,team_array[thirdTeam].stand.goalsA,difference[2],flagForScore,flagForDifference);
-				puts("\n");
-				printf("Team=%-10s    score=%d   goalsF[3]=%d  goalsF=%d  goalsA=%d  difference= %d flagForScore=%d flagForDifference=%d\n",groups_array[z].teams[3],scoreTeams[3],goalsF[3],team_array[fourthTeam].stand.goalsF,team_array[fourthTeam].stand.goalsA,difference[3],flagForScore,flagForDifference);
-				puts("\n");*/
-				
+					}				
 		}
+	
 	}
 }
 
@@ -689,7 +638,7 @@ void lineup()
 		n=1;
 	}
 	puts("Enter the number for each statement: ");
-	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Show groups of world cup 2018\n4 -> Show seeds of world cup 2018\n5 -> Show table\n6 -> Exit lineup.\n");
+	puts("1 -> Change your team system.\n2 -> Change players.\n3 -> Show groups of world cup 2018\n4 -> Show seeds of world cup 2018\n5 -> Lottery seed\n6 -> Exit lineup.\n");
 	scanf("%d",& num);
 	print_players();
 	if(num == 1){
@@ -713,7 +662,8 @@ void lineup()
 	}
 	
 	else if(num == 5){
-		table();
+		lotterySeed();
+		print_group();
 	}
 
 	
@@ -990,6 +940,7 @@ int searchByName(char *name){
 	}
 	
 }
+
 void saveResultGames(int n){
 	static int gamesDone=0; 
 	while(1){
@@ -1061,6 +1012,7 @@ void saveResultGames(int n){
 		gamesDone++;
 		}
 	}
+
 }
 
 void schedule()
@@ -1126,36 +1078,12 @@ void schedule()
 
 
 void table() {
-		for(int x=0;x < 8;x++){
-		int firstTeam, secTeam, thirdTeam, fourthTeam;
-		firstTeam = searchByName(groups_array[x].teams[0]);
-		secTeam = searchByName(groups_array[x].teams[1]);
-		thirdTeam = searchByName(groups_array[x].teams[2]);
-		fourthTeam = searchByName(groups_array[x].teams[3]);
-		
-		int firstTeamGA = team_array[firstTeam].stand.goalsA;
-		int secTeamGA = team_array[secTeam].stand.goalsA;
-		int thirdTeamGA = team_array[thirdTeam].stand.goalsA;
-		int fourthTeamGA = team_array[fourthTeam].stand.goalsA;
-		
-		int firstTeamGF = team_array[firstTeam].stand.goalsF;
-		int secTeamGF = team_array[secTeam].stand.goalsF;
-		int thirdTeamGF = team_array[thirdTeam].stand.goalsF;
-		int fourthTeamGF = team_array[fourthTeam].stand.goalsF;
-		
-		int firstTeamDif = firstTeamGF - firstTeamGA;
-		int secTeamDif = secTeamGF - secTeamGA;
-		int thirdTeamDif = thirdTeamGF - thirdTeamGA;
-		int fourthTeamDif = fourthTeamGF - fourthTeamGA;
-		
-		team_array[firstTeam].stand.difference=firstTeamDif;
-		team_array[secTeam].stand.difference=secTeamDif;
-		team_array[thirdTeam].stand.difference=thirdTeamDif;
-		team_array[fourthTeam].stand.difference=fourthTeamDif;
-		}
-		sortForTable();
-		
-	int cnt = 0, count = 0;
+		for (int count = 0; count < 32; count++) {
+		team_array[count].stand.difference=team_array[count].stand.goalsF - team_array[count].stand.goalsA ;
+
+}
+	sortForTable();	
+	int cnt = 0;
 	char group = 'A';
 	for (cnt = 0; cnt < 8; cnt++, group++) {
 		int firstTeam, secTeam, thirdTeam, fourthTeam;
@@ -1256,7 +1184,6 @@ int determineWiner(int i , int j){
 	int attackavg1 = 0;
 	int attackavg2 = 0;
 	int cnt=0;
-//	int j = searchByName(&team1);
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
 		if(team_array[i].mainplayers[cnt].mainpost == 'G'){
@@ -1316,20 +1243,32 @@ int determineWiner(int i , int j){
 	attackavg2 /= ((team_array[j].system) % 10);
 	middleavg1 /= (((team_array[i].system) / 10 )% 10);
 	middleavg2 /= (((team_array[j].system) / 10 )% 10);
-	defensiveavg1 /= (((team_array[i].system) / 100 )% 10) + 1;
-	defensiveavg2 /= ((team_array[j].system) / 100 % 10) + 1;
+
+	defensiveavg1 /= ((((team_array[i].system) / 100 )) + 1);
+	defensiveavg2 /= ((((team_array[j].system) / 100 )) + 1);
+	int resault = 0;
+	if(((attackavg1 + middleavg1 - defensiveavg2-85)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
+		resault = ( attackavg2 + middleavg2 - defensiveavg1 -85) /4;
+	}	
+
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
+		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 85)/4 ) * 10;
+	}
+
+	
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
+		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-85 )/4) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-85 )/4);
+	}
+	
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
+		resault = 0;
+	}
 
 	
 
-	const int resault = ((attackavg1 + middleavg1 - defensiveavg2 -80) / 5) * 10 + ((attackavg2 + middleavg2 - defensiveavg1-80 ) / 5);
-
+		printf("%d\n" , resault);
 	
-
-
-	
-	
-	
-	for( cnt =0 ; cnt < 11 ; cnt++){
+	for( cnt =0 ; cnt < 11 ; cnt++ ){
 		team_array[i].mainplayers[cnt].fitness -= 2;
 	}
 	
@@ -1339,7 +1278,8 @@ int determineWiner(int i , int j){
 		//team1 win
 	if( (resault/10) > (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
-			if(team_array[i].mainplayers[cnt].mainpost == 'A'){
+			if(team_array[i].mainplayers[cnt].mainpost == 'A'  && team_array[i].mainplayers[cnt].form < 100){
+
 				team_array[i].mainplayers[cnt].form += 3;
 			}
 			
@@ -1358,9 +1298,9 @@ int determineWiner(int i , int j){
 	}
 	
 		//team2 win
-	if( (resault/10) < (resault%10)){
+	else if( (resault/10) < (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
-			if(team_array[j].mainplayers[cnt].mainpost == 'A'){
+			if(team_array[j].mainplayers[cnt].mainpost == 'A' && team_array[j].mainplayers[cnt].form <100){
 				team_array[j].mainplayers[cnt].form += 3;
 			}
 			
@@ -1379,7 +1319,7 @@ int determineWiner(int i , int j){
 	}
 	
 	//resault equal
-	if( (resault/10) == (resault%10)){
+	else if( (resault/10) == (resault%10)){
 		team_array[i].stand.score += 1;
 		team_array[j].stand.score += 1;
 		team_array[i].stand.draw += 1;
@@ -1390,20 +1330,216 @@ int determineWiner(int i , int j){
 		team_array[j].stand.goalsA += (resault/10);
 	}
 	
-
+	for( cnt =0 ;cnt < team_array[i].numberOfPlayer - 11 ;cnt++){
+		team_array[i].storeplayers[cnt].form -= 3;
+	}
+	
+	for( cnt =0 ;cnt < team_array[j].numberOfPlayer - 11 ;cnt++){
+		team_array[j].storeplayers[cnt].form -= 3;
+	}
 
 	return  resault; 
 
 }
 
+int knockout(int firstTeam, int secTeam)
+{
+	int result = determineWiner(firstTeam, secTeam);
+	int penaltyResult, firstTeamPenalty, secTeamPenalty;
+	
+	firstTeamGoals = result / 10;
+	secTeamGoals = result % 10;
+	
+	if(firstTeamGoals > secTeamGoals)
+		return firstTeam;
+		
+	else if(secTeamGoals > firstTeamGoals)
+		return secTeam;
+		
+	else if(firstTeamGoals == secTeamGoals) {
+		penaltyResult = penalty(firstTeam, secTeam);
+		
+		firstTeamPenalty = penaltyResult / 10;
+		secTeamPenalty = penaltyResult % 10;
+		
+		if(firstTeamPenalty > secTeamPenalty)
+			return firstTeam;
+			
+		else
+			return secTeam;
+	}
+}
+
+void oneEight()
+{
+	a1 = searchByName(groups_array[0].teams[0]);
+	b2 = searchByName(groups_array[1].teams[1]);
+	w49 = knockout(a1, b2);
+	printf("%s %d ... %d %s\n\n", team_array[a1].name, firstTeamGoals, secTeamGoals, team_array[b2].name);
+	
+	c1 = searchByName(groups_array[2].teams[0]);
+	d2 = searchByName(groups_array[3].teams[1]);
+	w50 = knockout(c1, d2);
+	printf("%s %d ... %d %s\n\n", team_array[c1].name, firstTeamGoals, secTeamGoals, team_array[d2].name);
+	
+	b1 = searchByName(groups_array[1].teams[0]);
+	a2 = searchByName(groups_array[0].teams[1]);
+	w51 = knockout(b1, a2);
+	printf("%s %d ... %d %s\n\n", team_array[b1].name, firstTeamGoals, secTeamGoals, team_array[a2].name);
+	
+	d1 = searchByName(groups_array[3].teams[0]);
+	c2 = searchByName(groups_array[2].teams[1]);
+	w52 = knockout(d1, c2);
+	printf("%s %d ... %d %s\n\n", team_array[d1].name, firstTeamGoals, secTeamGoals, team_array[c2].name);
+	
+	e1 = searchByName(groups_array[4].teams[0]);
+	f2 = searchByName(groups_array[5].teams[1]);
+	w53 = knockout(e1, f2);
+	printf("%s %d ... %d %s\n\n", team_array[e1].name, firstTeamGoals, secTeamGoals, team_array[f2].name);
+	
+	g1 = searchByName(groups_array[6].teams[0]);
+	h2 = searchByName(groups_array[7].teams[1]);
+	w54 = knockout(g1, h2);
+	printf("%s %d ... %d %s\n\n", team_array[g1].name, firstTeamGoals, secTeamGoals, team_array[h2].name);
+	
+	f1 = searchByName(groups_array[5].teams[0]);
+	e2 = searchByName(groups_array[4].teams[1]);
+	w55 = knockout(f1, e2);
+	printf("%s %d ... %d %s\n\n", team_array[f1].name, firstTeamGoals, secTeamGoals, team_array[e2].name);
+	
+	h1 = searchByName(groups_array[7].teams[0]);
+	g2 = searchByName(groups_array[6].teams[1]);
+	w56 = knockout(h1, g2);
+	printf("%s %d ... %d %s\n\n", team_array[h1].name, firstTeamGoals, secTeamGoals, team_array[g2].name);
+}
+
+void oneFour()
+{
+	w57 = knockout(w49, w50);
+	printf("%s %d ... %d %s\n\n", team_array[w49].name, firstTeamGoals, secTeamGoals, team_array[w50].name);
+	
+	w58 = knockout(w53, w54);
+	printf("%s %d ... %d %s\n\n", team_array[w53].name, firstTeamGoals, secTeamGoals, team_array[w54].name);
+	
+	w59 = knockout(w51, w52);
+	printf("%s %d ... %d %s\n\n", team_array[w51].name, firstTeamGoals, secTeamGoals, team_array[w52].name);
+	
+	w60 = knockout(w55, w56);
+	printf("%s %d ... %d %s\n\n", team_array[w55].name, firstTeamGoals, secTeamGoals, team_array[w56].name);
+}
+
+void semiFinal()
+{
+	w61 = knockout(w57, w58);
+	printf("%s %d ... %d %s\n\n", team_array[w57].name, firstTeamGoals, secTeamGoals, team_array[w58].name);
+	
+	w62 = knockout(w59, w60);
+	printf("%s %d ... %d %s\n\n", team_array[w59].name, firstTeamGoals, secTeamGoals, team_array[w60].name);
+	
+	if(w61 = w57)
+		lose61 = w58;
+	else if(w61 = w58)
+		lose61 = w57;
+		
+	if(w62 = w59)
+		lose62 = w60;
+	else if(w62 = w60)
+		lose62 = w59;
+		
+}
+
+void final()
+{
+	int third = knockout(lose61, lose62);
+	printf("%s %d ... %d %s\n\n", team_array[lose61].name, firstTeamGoals, secTeamGoals, team_array[lose62].name);
+	
+	int grandPrix;
+	
+	int champion = knockout(w61, w62);
+	printf("%s %d ... %d %s\n\n", team_array[w61].name, firstTeamGoals, secTeamGoals, team_array[w62].name);
+	
+	if(champion = w61)
+		grandPrix = w62;
+		
+	else if(champion = w62)
+		grandPrix = w61;
+}
+
 
 void proceed(int n){
-	int num = (int)n - 48;
+	static int num=0;
+	num += (int)n - 48;//48='0';
 	saveResultGames(num);
 	table();
 
 }
 
+
+void lotterySeed(){
+	srand(time(NULL));
+	int seed = 1 ;
+	char group = 'A';
+	int random = rand() % 32 ;
+	for(int cnt2=0 ; cnt2<4 ; cnt2++){
+		for( int cnt =0 ; cnt < 32 ;cnt++ , random++){
+			if(random > 31){
+				random = 0;
+			}
+			if(team_array[random].seed == seed ){
+				team_array[random].group = group;
+				group++;
+				if(group > 'H'){
+					group = 'A';
+					seed++;		
+			}	
+		}
+	}
+}
+	
+}
+
+
+int penalty(int i , int j){
+	
+	int skilli = 0;
+	int skillj = 0;
+	int goalsi=0;
+	int goalsj=0;
+	
+	
+	for( int cnt =0 ; cnt<11 ;cnt++){
+		skilli += team_array[i].mainplayers[cnt].skill;
+	}
+	
+	for( int cnt =0 ; cnt<11 ;cnt++){
+		skillj += team_array[j].mainplayers[cnt].skill;
+	}
+	
+	do{
+	
+	if( skilli > skillj){
+		goalsi = rand() % 4 + 1;
+		goalsj = rand() % 4 ;
+	}
+	
+	else if( skilli < skillj){
+		goalsi = rand() % 4 ;
+		goalsj = rand() % 4 + 1;
+	}
+	
+	else if( skilli == skillj){
+		goalsi = rand() % 5 ;
+		goalsj = rand() % 5;
+	}
+	}while( goalsi == goalsj);
+	
+	
+		return goalsi * 10 + goalsj;
+	
+	
+
+
+}
 
 	
 
@@ -1411,11 +1547,24 @@ int main(){
 	srand( time ( NULL ));
 	game_start();
 	schedule();
+
+/*	table();
+	saveResultGames();
 	
-//	table();
-//	saveResultGames( n);
-//	
-//	table();
+	table();
+	
+	printf("	OneEight\n\n");
+	oneEight();
+
+	
+	printf("	OneFour\n\n");
+	oneFour();
+	
+	printf("	SemiFinal\n\n");
+	semiFinal();
+	
+	printf("	Final\n\n");
+	final();*/
 
 	while(1){
 	int proceedNum = 0;
@@ -1455,6 +1604,11 @@ int main(){
 			}
 			
 }
+
+		if(!strcmp(input , "table")){
+			
+			table();
+		}
 		
 		if(!strcmp(input , "exit")){
 			return 0;
