@@ -82,7 +82,7 @@ teams team_array[32];
 
 int a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2;
 int w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62;
-int firstTeamGoals, secTeamGoals;
+int firstTeamGoals, secTeamGoals, firstTeamPenalty, secTeamPenalty;
 
 
 enum teamsName{
@@ -954,6 +954,67 @@ int searchByName(char *name){
 	}
 	
 }
+
+void schedule()
+{
+	//First Round
+	printf("	     ROUND 1 STAGE\n\n");
+	printf("%-15s%d	%d    %s\n", groups_array[0].teams[0], groups_array[0].result[0][0] / 10, groups_array[0].result[0][0] % 10, groups_array[0].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[0].teams[2], groups_array[0].result[0][1] / 10, groups_array[0].result[0][1] % 10, groups_array[0].teams[3]);
+	printf("%-15s%d	%d    %s\n", groups_array[1].teams[2], groups_array[1].result[0][0] / 10, groups_array[0].result[0][0] % 10, groups_array[1].teams[3]);
+	printf("%-15s%d	%d    %s\n", groups_array[1].teams[0], groups_array[1].result[0][1] / 10, groups_array[1].result[0][1] % 10, groups_array[1].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[2].teams[0], groups_array[2].result[0][0] / 10, groups_array[2].result[0][0] % 10, groups_array[2].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[3].teams[0], groups_array[3].result[0][0] / 10, groups_array[3].result[0][0] % 10, groups_array[3].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[2].teams[2], groups_array[2].result[0][1] / 10, groups_array[2].result[0][1] % 10, groups_array[2].teams[3]);
+	printf("%-15s%d	%d    %s\n", groups_array[3].teams[2], groups_array[3].result[0][1] / 10, groups_array[3].result[0][1] % 10, groups_array[3].teams[3]);
+	printf("%-15s%d	%d    %s\n", groups_array[4].teams[2], groups_array[4].result[0][0] / 10, groups_array[4].result[0][0] % 10, groups_array[4].teams[3]);
+	printf("%-15s%d	%d    %s\n", groups_array[5].teams[0], groups_array[5].result[0][0] / 10, groups_array[5].result[0][0] % 10, groups_array[5].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[4].teams[0], groups_array[4].result[0][1] / 10, groups_array[4].result[0][1] % 10, groups_array[4].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[5].teams[2], groups_array[5].result[0][1] / 10, groups_array[5].result[0][1] % 10, groups_array[5].teams[3]);
+	printf("%-15s%d	%d    %s\n", groups_array[6].teams[0], groups_array[6].result[0][0] / 10, groups_array[6].result[0][0] % 10, groups_array[6].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[6].teams[2], groups_array[6].result[0][1] / 10, groups_array[6].result[0][1] % 10, groups_array[6].teams[3]);
+	printf("%-15s%d	%d    %s\n", groups_array[7].teams[2], groups_array[7].result[0][0] / 10, groups_array[7].result[0][0] % 10, groups_array[7].teams[3]);
+	printf("%-15s%d	%d    %s\n\n\n", groups_array[7].teams[0], groups_array[7].result[0][1] / 10, groups_array[7].result[0][1] % 10, groups_array[7].teams[1]);
+
+	//Second round
+	printf("	     ROUND 2 STAGE\n\n");
+	printf("%-15s%d	%d    %s\n", groups_array[0].teams[0], groups_array[0].result[1][0] / 10, groups_array[0].result[1][0] % 10, groups_array[0].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[1].teams[0], groups_array[1].result[1][0] / 10, groups_array[1].result[1][0] % 10, groups_array[1].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[0].teams[3], groups_array[0].result[1][1] / 10, groups_array[0].result[1][1] % 10, groups_array[0].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[1].teams[3], groups_array[1].result[1][1] / 10, groups_array[1].result[1][1] % 10, groups_array[1].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[2].teams[3], groups_array[2].result[1][0] / 10, groups_array[2].result[1][0] % 10, groups_array[2].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[2].teams[0], groups_array[2].result[1][1] / 10, groups_array[2].result[1][1] % 10, groups_array[2].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[3].teams[0], groups_array[3].result[1][0] / 10, groups_array[3].result[1][0] % 10, groups_array[3].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[4].teams[0], groups_array[4].result[1][0] / 10, groups_array[4].result[1][0] % 10, groups_array[4].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[3].teams[3], groups_array[3].result[1][1] / 10, groups_array[3].result[1][1] % 10, groups_array[3].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[4].teams[3], groups_array[4].result[1][1] / 10, groups_array[4].result[1][1] % 10, groups_array[4].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[6].teams[0], groups_array[6].result[1][0] / 10, groups_array[6].result[1][0] % 10, groups_array[6].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[5].teams[3], groups_array[5].result[1][0] / 10, groups_array[5].result[1][0] % 10, groups_array[5].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[5].teams[0], groups_array[5].result[1][1] / 10, groups_array[5].result[1][1] % 10, groups_array[5].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[6].teams[3], groups_array[6].result[1][1] / 10, groups_array[6].result[1][1] % 10, groups_array[6].teams[1]);
+	printf("%-15s%d	%d    %s\n", groups_array[7].teams[3], groups_array[7].result[1][0] / 10, groups_array[7].result[1][0] % 10, groups_array[7].teams[1]);
+	printf("%-15s%d	%d    %s\n\n\n", groups_array[7].teams[0], groups_array[7].result[1][1] / 10, groups_array[7].result[1][1] % 10, groups_array[7].teams[2]);
+	
+	//3rd round
+	printf("	     ROUND 3 STAGE\n\n");
+	printf("%-15s%d	%d    %s\n", groups_array[0].teams[3], groups_array[0].result[2][0] / 10, groups_array[0].result[2][0] % 10, groups_array[0].teams[0]);
+	printf("%-15s%d	%d    %s\n", groups_array[0].teams[1], groups_array[0].result[2][1] / 10, groups_array[0].result[2][1] % 10, groups_array[0].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[1].teams[3], groups_array[1].result[2][0] / 10, groups_array[1].result[2][0] % 10, groups_array[1].teams[0]);
+	printf("%-15s%d	%d    %s\n", groups_array[1].teams[1], groups_array[1].result[2][1] / 10, groups_array[1].result[2][1] % 10, groups_array[1].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[2].teams[3], groups_array[2].result[2][0] / 10, groups_array[2].result[2][0] % 10, groups_array[2].teams[0]);
+	printf("%-15s%d	%d    %s\n", groups_array[2].teams[1], groups_array[2].result[2][1] / 10, groups_array[2].result[2][1] % 10, groups_array[2].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[3].teams[3], groups_array[3].result[2][0] / 10, groups_array[3].result[2][0] % 10, groups_array[3].teams[0]);
+	printf("%-15s%d	%d    %s\n", groups_array[3].teams[1], groups_array[3].result[2][1] / 10, groups_array[3].result[2][1] % 10, groups_array[3].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[5].teams[1], groups_array[5].result[2][0] / 10, groups_array[5].result[2][0] % 10, groups_array[5].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[5].teams[3], groups_array[5].result[2][1] / 10, groups_array[5].result[2][1] % 10, groups_array[5].teams[0]);
+	printf("%-15s%d	%d    %s\n", groups_array[4].teams[3], groups_array[4].result[2][0] / 10, groups_array[4].result[2][0] % 10, groups_array[4].teams[0]);
+	printf("%-15s%d	%d    %s\n", groups_array[4].teams[1], groups_array[4].result[2][1] / 10, groups_array[4].result[2][1] % 10, groups_array[4].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[7].teams[3], groups_array[7].result[2][0] / 10, groups_array[7].result[2][0] % 10, groups_array[7].teams[0]);
+	printf("%-15s%d	%d    %s\n", groups_array[7].teams[1], groups_array[7].result[2][1] / 10, groups_array[7].result[2][1] % 10, groups_array[7].teams[2]);
+	printf("%-15s%d	%d    %s\n", groups_array[6].teams[1], groups_array[6].result[2][0] / 10, groups_array[6].result[2][0] % 10, groups_array[6].teams[2]);
+	printf("%-15s%d	%d    %s\n\n\n", groups_array[6].teams[3], groups_array[6].result[2][1] / 10, groups_array[6].result[2][1] % 10, groups_array[6].teams[0]);
+}
+
 void saveResultGames(){
 
 	//Round one
@@ -1012,69 +1073,9 @@ void saveResultGames(){
 	groups_array[7].result[2][1]=determineWiner(searchByName(groups_array[7].teams[1]),searchByName(groups_array[7].teams[2]));
 	groups_array[6].result[2][0]=determineWiner(searchByName(groups_array[6].teams[1]),searchByName(groups_array[6].teams[2]));
 	groups_array[6].result[2][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[0]));
-	
-	
 }
 
-void schedule()
-{
-	int cnt = 0, count = 0;
-	
-	printf("ROUND 1 STAGE\n\n");
-	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count], groups_array[cnt].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count + 2], groups_array[cnt].teams[count + 3]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count + 2], groups_array[cnt + 1].teams[count + 3]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count], groups_array[cnt + 1].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count], groups_array[cnt + 2].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count], groups_array[cnt + 3].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count + 2], groups_array[cnt + 2].teams[count + 3]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count + 2], groups_array[cnt + 3].teams[count + 3]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count + 2], groups_array[cnt + 4].teams[count + 3]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count], groups_array[cnt + 5].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count], groups_array[cnt + 4].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count + 2], groups_array[cnt + 5].teams[count + 3]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count], groups_array[cnt + 6].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count + 2], groups_array[cnt + 6].teams[count + 3]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 7].teams[count + 2], groups_array[cnt + 7].teams[count + 3]);
-	printf("%-10s		VS		%-10s\n\n\n", groups_array[cnt + 7].teams[count], groups_array[cnt + 7].teams[count + 1]);
 
-	
-	printf("ROUND 2 STAGE\n\n");
-	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count], groups_array[cnt].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count], groups_array[cnt + 1].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count + 3], groups_array[cnt].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count + 3], groups_array[cnt + 1].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count + 3], groups_array[cnt + 2].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count], groups_array[cnt + 2].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count], groups_array[cnt + 3].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count], groups_array[cnt + 4].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count + 3], groups_array[cnt + 3].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count + 3], groups_array[cnt + 4].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count], groups_array[cnt + 6].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count + 3], groups_array[cnt + 5].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count], groups_array[cnt + 5].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count + 3], groups_array[cnt + 6].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 7].teams[count + 3], groups_array[cnt + 7].teams[count + 1]);
-	printf("%-10s		VS		%-10s\n\n\n", groups_array[cnt + 7].teams[count], groups_array[cnt + 7].teams[count + 2]);
-	
-	printf("ROUND 3 STAGE\n\n");
-	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count + 3], groups_array[cnt].teams[count]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt].teams[count + 1], groups_array[cnt].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count + 3], groups_array[cnt + 1].teams[count]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 1].teams[count + 1], groups_array[cnt + 1].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count + 3], groups_array[cnt + 2].teams[count]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 2].teams[count + 1], groups_array[cnt + 2].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count + 3], groups_array[cnt + 3].teams[count]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 3].teams[count + 1], groups_array[cnt + 3].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count + 1], groups_array[cnt + 5].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 5].teams[count + 3], groups_array[cnt + 5].teams[count]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count + 3], groups_array[cnt + 4].teams[count]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 4].teams[count + 1], groups_array[cnt + 4].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 7].teams[count + 3], groups_array[cnt + 7].teams[count]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 7].teams[count + 1], groups_array[cnt + 7].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n", groups_array[cnt + 6].teams[count + 1], groups_array[cnt + 6].teams[count + 2]);
-	printf("%-10s		VS		%-10s\n\n\n", groups_array[cnt + 6].teams[count + 3], groups_array[cnt + 6].teams[count]);
-}
 
 
 
@@ -1343,7 +1344,7 @@ int determineWiner(int i , int j){
 int knockout(int firstTeam, int secTeam)
 {
 	int result = determineWiner(firstTeam, secTeam);
-	int penaltyResult, firstTeamPenalty, secTeamPenalty;
+	int penaltyResult;
 	
 	firstTeamGoals = result / 10;
 	secTeamGoals = result % 10;
@@ -1370,69 +1371,142 @@ int knockout(int firstTeam, int secTeam)
 
 void oneEight()
 {
+	printf("\n\n	ROUND OF 16\n\n");
 	a1 = searchByName(groups_array[0].teams[0]);
 	b2 = searchByName(groups_array[1].teams[1]);
 	w49 = knockout(a1, b2);
-	printf("%s %d ... %d %s\n\n", team_array[a1].name, firstTeamGoals, secTeamGoals, team_array[b2].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[a1].name, firstTeamGoals, secTeamGoals, team_array[b2].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[a1].name, firstTeamGoals, secTeamGoals, team_array[b2].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	c1 = searchByName(groups_array[2].teams[0]);
 	d2 = searchByName(groups_array[3].teams[1]);
 	w50 = knockout(c1, d2);
-	printf("%s %d ... %d %s\n\n", team_array[c1].name, firstTeamGoals, secTeamGoals, team_array[d2].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[c1].name, firstTeamGoals, secTeamGoals, team_array[d2].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[c1].name, firstTeamGoals, secTeamGoals, team_array[d2].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	b1 = searchByName(groups_array[1].teams[0]);
 	a2 = searchByName(groups_array[0].teams[1]);
 	w51 = knockout(b1, a2);
-	printf("%s %d ... %d %s\n\n", team_array[b1].name, firstTeamGoals, secTeamGoals, team_array[a2].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[b1].name, firstTeamGoals, secTeamGoals, team_array[a2].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[b1].name, firstTeamGoals, secTeamGoals, team_array[a2].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	d1 = searchByName(groups_array[3].teams[0]);
 	c2 = searchByName(groups_array[2].teams[1]);
 	w52 = knockout(d1, c2);
-	printf("%s %d ... %d %s\n\n", team_array[d1].name, firstTeamGoals, secTeamGoals, team_array[c2].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[d1].name, firstTeamGoals, secTeamGoals, team_array[c2].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[d1].name, firstTeamGoals, secTeamGoals, team_array[c2].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	e1 = searchByName(groups_array[4].teams[0]);
 	f2 = searchByName(groups_array[5].teams[1]);
 	w53 = knockout(e1, f2);
-	printf("%s %d ... %d %s\n\n", team_array[e1].name, firstTeamGoals, secTeamGoals, team_array[f2].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[e1].name, firstTeamGoals, secTeamGoals, team_array[f2].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[e1].name, firstTeamGoals, secTeamGoals, team_array[f2].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	g1 = searchByName(groups_array[6].teams[0]);
 	h2 = searchByName(groups_array[7].teams[1]);
 	w54 = knockout(g1, h2);
-	printf("%s %d ... %d %s\n\n", team_array[g1].name, firstTeamGoals, secTeamGoals, team_array[h2].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[g1].name, firstTeamGoals, secTeamGoals, team_array[h2].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[g1].name, firstTeamGoals, secTeamGoals, team_array[h2].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	f1 = searchByName(groups_array[5].teams[0]);
 	e2 = searchByName(groups_array[4].teams[1]);
 	w55 = knockout(f1, e2);
-	printf("%s %d ... %d %s\n\n", team_array[f1].name, firstTeamGoals, secTeamGoals, team_array[e2].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[f1].name, firstTeamGoals, secTeamGoals, team_array[e2].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[f1].name, firstTeamGoals, secTeamGoals, team_array[e2].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	h1 = searchByName(groups_array[7].teams[0]);
 	g2 = searchByName(groups_array[6].teams[1]);
 	w56 = knockout(h1, g2);
-	printf("%s %d ... %d %s\n\n", team_array[h1].name, firstTeamGoals, secTeamGoals, team_array[g2].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[h1].name, firstTeamGoals, secTeamGoals, team_array[g2].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[h1].name, firstTeamGoals, secTeamGoals, team_array[g2].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 }
 
 void oneFour()
 {
+	printf("\n\n	QUARTER_FINAL\n\n");
 	w57 = knockout(w49, w50);
-	printf("%s %d ... %d %s\n\n", team_array[w49].name, firstTeamGoals, secTeamGoals, team_array[w50].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[w49].name, firstTeamGoals, secTeamGoals, team_array[w50].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[w49].name, firstTeamGoals, secTeamGoals, team_array[w50].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	w58 = knockout(w53, w54);
-	printf("%s %d ... %d %s\n\n", team_array[w53].name, firstTeamGoals, secTeamGoals, team_array[w54].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[w53].name, firstTeamGoals, secTeamGoals, team_array[w54].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[w53].name, firstTeamGoals, secTeamGoals, team_array[w54].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	w59 = knockout(w51, w52);
-	printf("%s %d ... %d %s\n\n", team_array[w51].name, firstTeamGoals, secTeamGoals, team_array[w52].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[w51].name, firstTeamGoals, secTeamGoals, team_array[w52].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[w51].name, firstTeamGoals, secTeamGoals, team_array[w52].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	w60 = knockout(w55, w56);
-	printf("%s %d ... %d %s\n\n", team_array[w55].name, firstTeamGoals, secTeamGoals, team_array[w56].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[w55].name, firstTeamGoals, secTeamGoals, team_array[w56].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[w55].name, firstTeamGoals, secTeamGoals, team_array[w56].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 }
 
 void semiFinal()
 {
+	printf("\n\n	SEMI FINAL\n\n");
 	w61 = knockout(w57, w58);
-	printf("%s %d ... %d %s\n\n", team_array[w57].name, firstTeamGoals, secTeamGoals, team_array[w58].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[w57].name, firstTeamGoals, secTeamGoals, team_array[w58].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[w57].name, firstTeamGoals, secTeamGoals, team_array[w58].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	w62 = knockout(w59, w60);
-	printf("%s %d ... %d %s\n\n", team_array[w59].name, firstTeamGoals, secTeamGoals, team_array[w60].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[w59].name, firstTeamGoals, secTeamGoals, team_array[w60].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[w59].name, firstTeamGoals, secTeamGoals, team_array[w60].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	if(w61 = w57)
 		lose61 = w58;
@@ -1448,13 +1522,25 @@ void semiFinal()
 
 void final()
 {
+	printf("\n\n	MATCH FOR 3rd PLACE\n\n");
 	int third = knockout(lose61, lose62);
-	printf("%s %d ... %d %s\n\n", team_array[lose61].name, firstTeamGoals, secTeamGoals, team_array[lose62].name);
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[lose61].name, firstTeamGoals, secTeamGoals, team_array[lose62].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[lose61].name, firstTeamGoals, secTeamGoals, team_array[lose62].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	int grandPrix;
 	
 	int champion = knockout(w61, w62);
-	printf("%s %d ... %d %s\n\n", team_array[w61].name, firstTeamGoals, secTeamGoals, team_array[w62].name);
+	printf("\n\n	FINAL\n\n");
+	if(firstTeamGoals != secTeamGoals)
+		printf("%s %d ... %d %s\n\n", team_array[w61].name, firstTeamGoals, secTeamGoals, team_array[w62].name);
+	else {
+		printf("%s %d ... %d %s\n", team_array[w61].name, firstTeamGoals, secTeamGoals, team_array[w62].name);
+		printf("Penalty  :  %d ... %d\n\n", firstTeamPenalty, secTeamPenalty);
+	}
 	
 	if(champion = w61)
 		grandPrix = w62;
@@ -1547,19 +1633,13 @@ int main(){
 	
 	table();
 	saveResultGames();
+	schedule();
 	
 	table();
 	
-	printf("	OneEight\n\n");
 	oneEight();
-	
-	printf("	OneFour\n\n");
 	oneFour();
-	
-	printf("	SemiFinal\n\n");
 	semiFinal();
-	
-	printf("	Final\n\n");
 	final();
 
 	while(1){
