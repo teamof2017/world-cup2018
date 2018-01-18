@@ -21,7 +21,6 @@ void lotterySeed();
 int penalty(int i , int j);
 
 typedef struct teamplayer{
-	char groupName;
 	char playername[40];
 	int form;
 	int fitness;
@@ -1137,36 +1136,99 @@ void table() {
 }
 
 
+void load(){
+	char arr[200];
+	
+	ReadFromFileTeaminfo();
+	for(int cnt =0 ; cnt<32 ; cnt++){
+		 FILE *fp = fopen( team_array[cnt].filesaved , "r");
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%s" , team_array[cnt].name);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &(team_array[cnt].system));
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%c" , &team_array[cnt].group);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &team_array[cnt].placeInGroup);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%s" ,team_array[cnt].confedration);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &team_array[cnt].seed);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%s" , team_array[cnt].filename);
+		 fgets(arr , 30 , fp);
+		 sscanf(arr , "%s" , team_array[cnt].filesaved);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &team_array[cnt].numberOfPlayer);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%f" , &team_array[cnt].power);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" ,&team_array[cnt].stand.goalsF);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &team_array[cnt].stand.goalsA);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &(team_array[cnt].stand.win));
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &team_array[cnt].stand.lose);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &team_array[cnt].stand.draw);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &team_array[cnt].stand.score);
+		 int i = 0;
+		 
+		 for(i =0 ; i<11 ; i++){
+		 	fgets(arr , 100 , fp);
+		 	sscanf(arr , "%s%d%f%d%d%d%d%c%c" , team_array[cnt].mainplayers[i].playername ,&(team_array[cnt].mainplayers[i].age) , &(team_array[cnt].mainplayers[i].avg) ,&(team_array[cnt].mainplayers[i].fitness) , &(team_array[cnt].mainplayers[i].form) , &(team_array[cnt].mainplayers[i].skill) , &(team_array[cnt].mainplayers[i].num) , &(team_array[cnt].mainplayers[i].mainpost) , &(team_array[cnt].mainplayers[i].post));
+		 }
+		 
+		 for(i=0 ; i<team_array[cnt].numberOfPlayer - 11 ; i++){
+		 	fgets(arr , 100 , fp);
+		 	sscanf(arr , "%s%d%f%d%d%d%d%c%c" , team_array[cnt].storeplayers[i].playername ,&(team_array[cnt].storeplayers[i].age) , &(team_array[cnt].storeplayers[i].avg) , &(team_array[cnt].storeplayers[i].fitness) , &(team_array[cnt].storeplayers[i].form) , &(team_array[cnt].storeplayers[i].skill) , &(team_array[cnt].storeplayers[i].num) , &(team_array[cnt].storeplayers[i].mainpost) , &(team_array[cnt].storeplayers[i].post) );
+
+		 }
+		 	fclose(fp);
+		}
+	
+}
+
+
 
 
 void save(){
 	
-	
+	int i=0;
 	for(int cnt =0 ; cnt < 32 ; cnt++){
 		 FILE *filesave = fopen( team_array[cnt].filesaved , "w");
-		fprintf(filesave , "     %s\n" ,  team_array[cnt].name );
-		fprintf(filesave , "system =  %d\n" ,  team_array[cnt].system );
-		fprintf(filesave , "group = %c\n" ,  team_array[cnt].group );
-		fprintf(filesave , "%d , %d\n" , cnt+1 , team_array[cnt].numberOfPlayer );
-		fprintf(filesave , "%d , %f\n" , cnt+1 , team_array[cnt].power );
-		fprintf(filesave , "%d , %d\n" , cnt+1 , team_array[cnt].seed );
-		fprintf(filesave , "%d , %s\n" , cnt+1, team_array[cnt].confedration );
-		fputs("\n\n" , filesave);
-		fputs("MAIN PLAYERS\n" , filesave);
-		for(int i=0 ; i<11 ; i++){
-		fprintf(filesave , "%d . %s\n" , i+1, team_array[cnt].mainplayers[i] );
-			
-		}
-		fputs("STORE PLAYERS\n" , filesave);
+		fprintf(filesave , "%s\n" ,  team_array[cnt].name );
+		fprintf(filesave , "%d\n" ,  team_array[cnt].system );
+		fprintf(filesave , "%c\n" ,  team_array[cnt].group );
+		fprintf(filesave , "%d\n" ,  team_array[cnt].placeInGroup );
+		fprintf(filesave , "%s\n" ,  team_array[cnt].confedration );
+		fprintf(filesave , "%d\n" , team_array[cnt].seed );
+		fprintf(filesave , "%s\n" ,  team_array[cnt].filename );
+		fprintf(filesave , "%s\n" ,  team_array[cnt].filesaved );
+		fprintf(filesave , "%d\n" ,  team_array[cnt].numberOfPlayer );
+		fprintf(filesave , "%f\n" ,  team_array[cnt].power );
+		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.goalsF );
+		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.goalsA );
+		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.win );
+		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.lose );
+		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.draw );
+		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.score );
 
-			for(int i=0 ; i<team_array[cnt].numberOfPlayer - 11 ; i++){
-		fprintf(filesave , "%d . %s\n" , i+1, team_array[cnt].storeplayers[i] );
+		for( i=0 ; i<11 ; i++){
+		fprintf(filesave , "%s %d %f %d %d %d %d %c %c\n" ,  team_array[cnt].mainplayers[i].playername ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
 			
 		}
+
+		for( i=0 ; i<team_array[cnt].numberOfPlayer - 11 ; i++){
+		fprintf(filesave , "%s %d %f %d %d %d %d %c %c\n" ,  team_array[cnt].storeplayers[i].playername ,team_array[cnt].storeplayers[i].age , team_array[cnt].storeplayers[i].avg , team_array[cnt].storeplayers[i].fitness , team_array[cnt].storeplayers[i].form , team_array[cnt].storeplayers[i].skill , team_array[cnt].storeplayers[i].num , team_array[cnt].storeplayers[i].mainpost , team_array[cnt].storeplayers[i].post );
+			
+		}
+		
+		
 	
-
 				
-		puts("\n\n");
 		fclose(filesave);
 }
 		
@@ -1246,26 +1308,26 @@ int determineWiner(int i , int j){
 	defensiveavg1 /= ((((team_array[i].system) / 100 )) + 1);
 	defensiveavg2 /= ((((team_array[j].system) / 100 )) + 1);
 	int resault = 0;
-	if(((attackavg1 + middleavg1 - defensiveavg2-80)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
-		resault = ( attackavg2 + middleavg2 - defensiveavg1 -80) /5;
+	if(((attackavg1 + middleavg1 - defensiveavg2-85)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
+		resault = ( attackavg2 + middleavg2 - defensiveavg1 -85) /4;
 	}	
 
-	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
-		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 80)/5 ) * 10;
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
+		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 85)/4 ) * 10;
 	}
 
 	
-	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
-		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-80 )/5) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-80 )/5);
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
+		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-85 )/4) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-85 )/4);
 	}
 	
-	else if(((attackavg1 + middleavg1 - defensiveavg2-80 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
+	else if(((attackavg1 + middleavg1 - defensiveavg2-85 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
 		resault = 0;
 	}
 
 	
 
-
+		printf("%d\n" , resault);
 	
 	for( cnt =0 ; cnt < 11 ; cnt++ ){
 		team_array[i].mainplayers[cnt].fitness -= 2;
@@ -1277,7 +1339,7 @@ int determineWiner(int i , int j){
 		//team1 win
 	if( (resault/10) > (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
-			if(team_array[i].mainplayers[cnt].mainpost == 'A'  && team_array[i].mainplayers[cnt].form < 100){
+			if(team_array[i].mainplayers[cnt].mainpost == 'A'  && team_array[i].mainplayers[cnt].form < 97){
 
 				team_array[i].mainplayers[cnt].form += 3;
 			}
@@ -1299,7 +1361,7 @@ int determineWiner(int i , int j){
 		//team2 win
 	else if( (resault/10) < (resault%10)){
 		for(cnt=0 ; cnt<11 ; cnt++){
-			if(team_array[j].mainplayers[cnt].mainpost == 'A' && team_array[j].mainplayers[cnt].form <100){
+			if(team_array[j].mainplayers[cnt].mainpost == 'A' && team_array[j].mainplayers[cnt].form <97){
 				team_array[j].mainplayers[cnt].form += 3;
 			}
 			
@@ -1627,9 +1689,23 @@ int penalty(int i , int j){
 	
 
 int main(){
+	
+	load();
+	printf("%s\n" , team_array[0].name);
+	printf("%s\n" , team_array[1].name);
+	printf("%s\n" , team_array[0].confedration);
+	printf("%f\n" , team_array[0].power);
+
+	printf("%d\n" , team_array[0].system);
+	printf("%c\n" , team_array[0].group);
+	printf("%d\n" , team_array[0].stand.win);
+	printf("%d\n" , team_array[1].stand.win);
+
+	//table();
+	
 	srand( time ( NULL ));
-	game_start();
-	schedule();
+//	game_start();
+/*	schedule();
 	
 	table();
 	saveResultGames();
@@ -1641,7 +1717,7 @@ int main(){
 	oneFour();
 	semiFinal();
 	final();
-
+*/
 	while(1){
 	int proceedNum = 0;
 	char *input;
@@ -1658,13 +1734,13 @@ int main(){
 		}
 		
 		
-		if( !strcmp(input , "save") ){
+		else if( !strcmp(input , "save") ){
 			save();
 		}
 		
 		
 
-		if(!strcmp(input , "proceed") ){
+		else if(!strcmp(input , "proceed") ){
 			getchar();
 			int entrance = getchar();
 			
@@ -1681,13 +1757,18 @@ int main(){
 			
 }
 
-		if(!strcmp(input , "table")){
+		else if(!strcmp(input , "table")){
 			
 			table();
 		}
 		
-		if(!strcmp(input , "exit")){
+		else if(!strcmp(input , "exit")){
 			return 0;
+		}
+		
+		
+		else{
+			puts("Invalid Order Please Try Again!!!");
 		}
 
 }
