@@ -88,13 +88,9 @@ teams team_array[32];
 
 int a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2;
 int w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62;
-<<<<<<< HEAD
-int firstTeamGoals, secTeamGoals, firstTeamPenalty, secTeamPenalty;
 int counter =0 ,  gamesDone=0;;
-=======
 int firstTeamGoals, secTeamGoals, firstTeamPenalty, secTeamPenalty, shomareshgar;
 int knockoutResult[16];
->>>>>>> 928819375df815c66674382bd5e41d6dd20c89cd
 
 enum teamsName{
 	Argentina=1,
@@ -1560,11 +1556,8 @@ int determineWiner(int i , int j){
 	}	
 
 	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
-<<<<<<< HEAD
 		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 80)/4 ) * 10;
-=======
-		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 85)/4 ) * 10;
->>>>>>> 928819375df815c66674382bd5e41d6dd20c89cd
+
 	}
 
 	
@@ -1853,7 +1846,7 @@ int oneFour(int userTeam)
 
 int semiFinal(int userTeam)
 {
-	int falg = 0;
+	int flag = 0;
 	printf("\n\n	SEMI FINAL\n\n");
 	w61 = knockout(w57, w58);
 	if(firstTeamGoals != secTeamGoals)
@@ -2009,22 +2002,10 @@ int penalty(int i , int j){
 
 int main(){
 
-<<<<<<< HEAD
 	srand( time ( NULL ));
 	game_start();
-=======
->>>>>>> 928819375df815c66674382bd5e41d6dd20c89cd
-		
 
-<<<<<<< HEAD
-
-	schedule();
-
-
-=======
-	game_start();
-	
->>>>>>> 928819375df815c66674382bd5e41d6dd20c89cd
+	schedule(4);
 	while(1){
 	int proceedNum = 0;
 	char *input;
