@@ -26,6 +26,7 @@ int semiFinal(int team_number);
 void load();
 
 
+
 typedef struct teamplayer{
 	char playername[40];
 	int form;
@@ -91,7 +92,6 @@ int w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61
 int counter =0 ,  gamesDone=0;;
 int firstTeamGoals, secTeamGoals, firstTeamPenalty, secTeamPenalty, shomareshgar;
 int knockoutResult[16];
-
 
 enum teamsName{
 	Argentina=1,
@@ -759,11 +759,20 @@ int  game_start()
 		char write_teamNum[] = "\nWrite the number of the team you want to play with : ";
 		typeInConsole(write_teamNum);
 
+		
+
+		while(1){
 		scanf("%d", &team_number);
+		if(team_number <1 || team_number>32)
+			puts("Invalid team number please try again!!!!");
+		else 
+			break;
+	}
 		//system("cls");
 		showTeamList(team_number);
 		sortByPost();
-			return team_number ;
+		//	return team_number ;
+
 
 	}
 	
@@ -1028,6 +1037,7 @@ void saveResultGames(int n,int team_number){
 		}
 		if(gamesDone==n)
 		break;
+
 		for(int x=0;x<8;x++){
 			if(groups_array[x].groupname==team_array[team_number].group){
 				if(strcmp(groups_array[x].teams[0],team_array[team_number].name) == 0 || strcmp(groups_array[x].teams[1],team_array[team_number].name) == 0 )
@@ -1077,6 +1087,7 @@ void saveResultGames(int n,int team_number){
 		if(flagYes == 1){
 			if(flagOneEight==0){
 			char answer='s';
+
 			while(1){
 			printf("Your team has been lost on one Eight.Do you want to continue to result of cup?(Y/N)");
 			scanf("%c",&answer);
@@ -1479,6 +1490,9 @@ void load(){
 		 sscanf(arr , "%d" , &counter);
 		 fgets(arr , 20 , fp);
 		 sscanf(arr , "%d" , &gamesDone);
+		 
+		 
+		 
 		 int i = 0;
 		 
 		 for(i =0 ; i<11 ; i++){
@@ -1524,8 +1538,14 @@ void load(){
 	   		sscanf(arr , "%s" , &groups_array[i].result[2][0]);
 	   		fgets(arr , 20 , fg);
 	   		sscanf(arr , "%s" , &groups_array[i].result[2][1]);
+	   		
 		}
-		
+		fgets(arr , 40 , fg);
+		sscanf( arr , "%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d" , knockoutResult[0],knockoutResult[1],knockoutResult[2],knockoutResult[3],knockoutResult[4],knockoutResult[5],knockoutResult[6],knockoutResult[7],knockoutResult[8],knockoutResult[9],knockoutResult[10],knockoutResult[11],knockoutResult[12],knockoutResult[13],knockoutResult[14],knockoutResult[15]);
+		fgets(arr , 20 , fg);
+		sscanf(arr , "%d" , &shomareshgar);
+		fgets(arr , 20 , fg);
+		sscanf(arr , "%d" , &team_number);
 		fgets(arr , 100 , fg);
 		sscanf(arr , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d" , &a1, &a2, &b1, &b2, &c1, &c2, &d1, &d2, &e1, &e2, &f1, &f2, &g1, &g2, &h1, &h2);
 		fgets(arr , 100 ,fg);
@@ -1561,7 +1581,9 @@ void save(){
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.score );
 		fprintf(filesave , "%d\n" ,  counter);
 		fprintf(filesave , "%d\n" ,  gamesDone);
-
+		
+		
+		
 		for( i=0 ; i<11 ; i++){
 		fprintf(filesave , "%s %d %f %d %d %d %d %c %c\n" ,  team_array[cnt].mainplayers[i].playername ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
 			
@@ -1590,9 +1612,15 @@ void save(){
 			fprintf( fp , "%d\n" , groups_array[i].result[1][1]);
 			fprintf( fp , "%d\n" , groups_array[i].result[2][0]);
 			fprintf( fp , "%d\n" , groups_array[i].result[2][1]);
+
 			
 		}
-		
+		for(i=0 ; i<16 ; i++){
+			fprintf( fp , "%d " , knockoutResult[i]);
+		}
+		fprintf( fp , "%d\n" ,  shomareshgar);
+		fprintf( fp , "%d\n" ,  team_number);
+
 		fprintf( fp , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" , a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2);
 		fprintf( fp , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" , w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62);
 
@@ -1695,7 +1723,6 @@ int determineWiner(int i , int j){
 	else if(((attackavg1 + middleavg1 - defensiveavg2-80 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
 		resault = 0;
 	}
-
 
 	
 	for( cnt =0 ; cnt < 11 ; cnt++ ){
@@ -2130,7 +2157,7 @@ int main(){
 	srand( time ( NULL ));
 
 	game_start();
-	//schedule(4);
+
 
 
 		
@@ -2165,7 +2192,6 @@ int main(){
 			
 			if(entrance == '\n'){
 				proceed('1',team_number - 1);
-				
 			}
 			
 	
