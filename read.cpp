@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<time.h>
 #include <time.h>
 #include <windows.h>
 
@@ -15,15 +14,16 @@ void sortByPost();
 int searchByName(char *name);
 void printBall();
 int determineWiner(int i , int j);
-void saveResultGames(int n);
+void saveResultGames(int n,int userTeam);
 void table();
 void sortForTable();
 void lotterySeed();
 int penalty(int i , int j);
-void oneEight();
-void oneFour();
+int oneEight(int userTeam);
+int oneFour(int userTeam);
 void final();
-void semiFinal();
+int semiFinal(int userTeam);
+
 
 typedef struct teamplayer{
 	char playername[40];
@@ -87,8 +87,10 @@ teams team_array[32];
 
 int a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2;
 int w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62;
+int counter =0 ,  gamesDone=0;;
 int firstTeamGoals, secTeamGoals, firstTeamPenalty, secTeamPenalty, shomareshgar;
 int knockoutResult[16];
+
 
 enum teamsName{
 	Argentina=1,
@@ -756,12 +758,19 @@ int  game_start()
 		char write_teamNum[] = "\nWrite the number of the team you want to play with : ";
 		typeInConsole(write_teamNum);
 
-		int team_number;
-		scanf("%d", &team_number);
+		int userTeam;
+		scanf("%d", &userTeam);
 		//system("cls");
+		showTeamList(userTeam);
 		sortByPost();
-			return team_number;
+			return userTeam;
 
+	}
+	
+	if( start == 2){
+		
+		load();
+		save_group();
 	}
 	
 }
@@ -942,11 +951,13 @@ int searchByName(char *name){
 }
 
 
-void schedule(int round);
 
 
-void saveResultGames(int n){
+
+void saveResultGames(int n,int userTeam){
 	static int gamesDone=0; 
+	int flagRise=0,flag=1,flagOneEight=1,flagOneFour=1,flagRanking=1;
+
 	while(1){
 		if(gamesDone==n)
 			break;
@@ -1015,23 +1026,91 @@ void saveResultGames(int n){
 		groups_array[6].result[2][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[0]));
 		gamesDone++;
 		}
+		for(int x=0;x<8;x++){
+			if(groups_array[x].groupname==team_array[userTeam].group){
+				if(strcmp(groups_array[x].teams[0],team_array[userTeam].name) == 0 || strcmp(groups_array[x].teams[1],team_array[userTeam].name) == 0 )
+					flagRise=1;
+				else 
+					flagRise=0;
+			}
+		}
+		if(flagRise==0){
+			char answer='s';
+			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
+			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
+			scanf("%s",&answer);
+			if(answer=='Y' || answer=='y' )
+				n=7;
+			else if(answer=='N' || answer=='n'){
+				flag=0;
+				break;
+			}
+			else if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
+				printf("please wirte a correct answer");
+			}
+			if(flag==0)
+				break;
+		}
 		if(gamesDone==n)
 		break;
 		if(gamesDone<4){
-		oneEight();
+		flagOneEight=oneEight(userTeam);
 		gamesDone++;
+		if(flag == 1){
+			if(flagOneEight==0){
+			char answer='s';
+			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
+			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
+			scanf("%s",&answer);
+			if(answer=='Y' || answer=='y' )
+				n=7;
+			else if(answer=='N' || answer=='n'){
+				flag=0;
+				break;
+			}
+			else if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
+				printf("please wirte a correct answer");
+			}
+			if(flag==0)
+				break;
+			}
+		}
 		}
 		if(gamesDone==n)
 		break;
 		if(gamesDone<5){
-		oneFour();
+		flagOneFour=oneFour(userTeam);
 		gamesDone++;
+		if(flag == 1){
+			if(flagOneEight==0){
+			char answer='s';
+			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
+			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
+			scanf("%s",&answer);
+			if(answer=='Y' || answer=='y' )
+				n=7;
+			else if(answer=='N' || answer=='n'){
+				flag=0;
+				break;
+			}
+			else if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
+				printf("please wirte a correct answer");
+			}
+			if(flag==0)
+				break;
+			}
+		}
 		}
 		if(gamesDone==n)
 		break;
 		if(gamesDone<6){
-		semiFinal();
+		flagRanking=semiFinal(userTeam);
 		gamesDone++;
+		if(flag==1){
+			if(flagRanking==0){
+			printf("Your team has been lost.and now go to ranking match");
+			}
+		}
 		}
 		if(gamesDone==n)
 		break;
@@ -1342,6 +1421,10 @@ void load(){
 		 sscanf(arr , "%d" , &team_array[cnt].stand.draw);
 		 fgets(arr , 20 , fp);
 		 sscanf(arr , "%d" , &team_array[cnt].stand.score);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &counter);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &gamesDone);
 		 int i = 0;
 		 
 		 for(i =0 ; i<11 ; i++){
@@ -1363,14 +1446,18 @@ void load(){
 		for( i=0 ; i<8 ; i++){
 			fgets(arr , 20 , fg);
 			 sscanf( arr , "%c" , &groups_array[i].groupname);
-	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , groups_array[i].teams[0]);
-	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , groups_array[i].teams[1]);
-	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , groups_array[i].teams[2]);
-	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , groups_array[i].teams[3]);
+	   		fgets(arr2 , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+		    strcpy(groups_array[i].teams[0] , arr3);
+	   		fgets(arr2 , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+		    strcpy(groups_array[i].teams[1] , arr3);
+	   		fgets(arr2 , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+		    strcpy(groups_array[i].teams[2] , arr3);
+	   		fgets(arr2 , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+		    strcpy(groups_array[i].teams[3] , arr3);
 	   		fgets(arr , 20 , fg);
 	   		sscanf(arr , "%s" , &groups_array[i].result[0][0]);
 	   		fgets(arr , 20 , fg);
@@ -1418,7 +1505,8 @@ void save(){
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.lose );
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.draw );
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.score );
-		
+		fprintf(filesave , "%d\n" ,  counter);
+		fprintf(filesave , "%d\n" ,  gamesDone);
 
 		for( i=0 ; i<11 ; i++){
 		fprintf(filesave , "%s %d %f %d %d %d %d %c %c\n" ,  team_array[cnt].mainplayers[i].playername ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
@@ -1469,7 +1557,7 @@ int determineWiner(int i , int j){
 	int attackavg1 = 0;
 	int attackavg2 = 0;
 	int cnt=0;
-	static int counter =0;
+	
 	
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
@@ -1539,8 +1627,11 @@ int determineWiner(int i , int j){
 	}	
 
 	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
-		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 85)/4 ) * 10;
-	}
+
+		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 80)/4 ) * 10;
+
+	}	
+
 
 	
 	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
@@ -1553,7 +1644,7 @@ int determineWiner(int i , int j){
 
 	
 
-	//	printf("%d\n" , resault);
+		printf("%d\n" , resault);
 	
 	for( cnt =0 ; cnt < 11 ; cnt++ ){
 		team_array[i].mainplayers[cnt].fitness -= 2;
@@ -1899,10 +1990,10 @@ void final()
 }
 
 
-void proceed(char n){
+void proceed(char n,int userTeam){
 	static int num=0;
 	num += (int)n - 48;//48='0';
-	saveResultGames(num);
+	saveResultGames(num,userTeam);
 	table();
 
 }
@@ -1984,11 +2075,16 @@ int penalty(int i , int j){
 
 int main(){
 
-		
 	srand( time ( NULL ));
+	int userTeam;
+	userTeam=game_start();
+	schedule(4);
 
-	game_start();
-	
+
+		
+
+
+
 	while(1){
 	int proceedNum = 0;
 	char *input;
@@ -2016,14 +2112,14 @@ int main(){
 			int entrance = getchar();
 			
 			if(entrance == '\n'){
-				proceed('1');
+				proceed('1',userTeam);
 				
 			}
 			
 	
 		
 			else{
-				proceed(entrance);
+				proceed(entrance,userTeam);
 			}
 
 
