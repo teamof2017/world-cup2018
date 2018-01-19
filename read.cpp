@@ -1525,14 +1525,14 @@ void load(){
 		 	fgets(arr , 100 , fp);
 			strcpy( team_array[cnt].mainplayers[i].playername , arr);
 		 	fgets(arr , 100 , fp);
-		 	sscanf(arr , "%d%f%d%d%d%d%c%c" ,&(team_array[cnt].mainplayers[i].age) , &(team_array[cnt].mainplayers[i].avg) ,&(team_array[cnt].mainplayers[i].fitness) , &(team_array[cnt].mainplayers[i].form) , &(team_array[cnt].mainplayers[i].skill) , &(team_array[cnt].mainplayers[i].num) , &(team_array[cnt].mainplayers[i].mainpost) , &(team_array[cnt].mainplayers[i].post));
+		 	sscanf(arr , "%d%f%d%d%d%d%d%c%c" ,&(team_array[cnt].mainplayers[i].age) , &(team_array[cnt].mainplayers[i].avg) ,&(team_array[cnt].mainplayers[i].fitness) ,&(team_array[cnt].mainplayers[i].mainskill) , &(team_array[cnt].mainplayers[i].form) , &(team_array[cnt].mainplayers[i].skill) , &(team_array[cnt].mainplayers[i].num) , &(team_array[cnt].mainplayers[i].mainpost) , &(team_array[cnt].mainplayers[i].post));
 		 }
 		 
 		 for(i=0 ; i<team_array[cnt].numberOfPlayer - 11 ; i++){
 		 	fgets(arr , 100 , fp);
 			strcpy( team_array[cnt].storeplayers[i].playername , arr);
 		 	fgets(arr , 100 , fp);
-		 	sscanf(arr , "%d%f%d%d%d%d%c%c"  ,&(team_array[cnt].storeplayers[i].age) , &(team_array[cnt].storeplayers[i].avg) , &(team_array[cnt].storeplayers[i].fitness) , &(team_array[cnt].storeplayers[i].form) , &(team_array[cnt].storeplayers[i].skill) , &(team_array[cnt].storeplayers[i].num) , &(team_array[cnt].storeplayers[i].mainpost) , &(team_array[cnt].storeplayers[i].post) );
+		 	sscanf(arr , "%d%f%d%d%d%d%d%c%c"  ,&(team_array[cnt].storeplayers[i].age) , &(team_array[cnt].storeplayers[i].avg) , &(team_array[cnt].storeplayers[i].fitness) ,&(team_array[cnt].storeplayers[i].mainskill) , &(team_array[cnt].storeplayers[i].form) , &(team_array[cnt].storeplayers[i].skill) , &(team_array[cnt].storeplayers[i].num) , &(team_array[cnt].storeplayers[i].mainpost) , &(team_array[cnt].storeplayers[i].post) );
 
 		 }
 		 	fclose(fp);
@@ -1557,17 +1557,29 @@ void load(){
 	   		arr3 = strtok(arr2 , ",");
 		    strcpy(groups_array[i].teams[3] , arr3);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[0][0]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[0][0]);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[0][1]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[0][1]);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[1][0]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[1][0]);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[1][1]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[1][1]);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[2][0]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[2][0]);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[2][1]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[2][1]);
+	   		fgets(arr , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+	   		strcpy(groups_array[i].teamscpy[0] , arr3);
+	   		fgets(arr , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+	   		strcpy(groups_array[i].teamscpy[1] , arr3);
+	   		fgets(arr , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+	   		strcpy(groups_array[i].teamscpy[2] , arr3);
+	   		fgets(arr , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+	   		strcpy(groups_array[i].teamscpy[3] , arr3);
 	   		
 		}
 		fgets(arr , 40 , fg);
@@ -1618,14 +1630,14 @@ void save(){
 		
 		for( i=0 ; i<11 ; i++){
 		fprintf(filesave , "%s\n" ,team_array[cnt].mainplayers[i].playername);
-		fprintf(filesave , "%d %f %d %d %d %d %c %c\n"    ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
+		fprintf(filesave , "%d %f %d %d %d %d %d %c %c\n"    ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].mainskill, team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
 			
 		}
 
 		for( i=0 ; i<team_array[cnt].numberOfPlayer - 11 ; i++){
 		fprintf(filesave , "%s\n" ,team_array[cnt].storeplayers[i].playername);
 
-		fprintf(filesave , "%d %f %d %d %d %d %c %c\n" ,  team_array[cnt].storeplayers[i].age , team_array[cnt].storeplayers[i].avg , team_array[cnt].storeplayers[i].fitness , team_array[cnt].storeplayers[i].form , team_array[cnt].storeplayers[i].skill , team_array[cnt].storeplayers[i].num , team_array[cnt].storeplayers[i].mainpost , team_array[cnt].storeplayers[i].post );
+		fprintf(filesave , "%d %f %d %d %d %d %d %c %c\n" ,  team_array[cnt].storeplayers[i].age , team_array[cnt].storeplayers[i].avg , team_array[cnt].storeplayers[i].fitness ,team_array[cnt].storeplayers[i].mainskill, team_array[cnt].storeplayers[i].form , team_array[cnt].storeplayers[i].skill , team_array[cnt].storeplayers[i].num , team_array[cnt].storeplayers[i].mainpost , team_array[cnt].storeplayers[i].post );
 			
 		}
 		
@@ -1637,18 +1649,20 @@ void save(){
 
 		for( i=0 ; i<8 ; i++){
 			fprintf( fp , "%c\n" , groups_array[i].groupname);
-			fprintf( fp , "%s\n" , groups_array[i].teams[0]);
-			fprintf( fp , "%s\n" , groups_array[i].teams[1]);
-			fprintf( fp , "%s\n" , groups_array[i].teams[2]);
-			fprintf( fp , "%s\n" , groups_array[i].teams[3]);
+			fprintf( fp , "%s%c\n" , groups_array[i].teams[0] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teams[1] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teams[2] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teams[3] , ",");
 			fprintf( fp , "%d\n" , groups_array[i].result[0][0]);
 			fprintf( fp , "%d\n" , groups_array[i].result[0][1]);
 			fprintf( fp , "%d\n" , groups_array[i].result[1][0]);
 			fprintf( fp , "%d\n" , groups_array[i].result[1][1]);
 			fprintf( fp , "%d\n" , groups_array[i].result[2][0]);
 			fprintf( fp , "%d\n" , groups_array[i].result[2][1]);
-
-			
+			fprintf( fp , "%s%c\n" , groups_array[i].teamscpy[0] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teamscpy[1] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teamscpy[2] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teamscpy[3] , ",");
 		}
 		for(i=0 ; i<=15 ; i++){
 			if(i!=15)
