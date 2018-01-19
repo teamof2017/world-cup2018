@@ -25,6 +25,8 @@ void final();
 int semiFinal(int team_number);
 void load();
 
+
+
 typedef struct teamplayer{
 	char playername[40];
 	int form;
@@ -756,6 +758,9 @@ int  game_start()
 		
 		char write_teamNum[] = "\nWrite the number of the team you want to play with : ";
 		typeInConsole(write_teamNum);
+
+		
+
 		while(1){
 		scanf("%d", &team_number);
 		if(team_number <1 || team_number>32)
@@ -767,6 +772,7 @@ int  game_start()
 		showTeamList(team_number);
 		sortByPost();
 		//	return team_number ;
+
 
 	}
 	
@@ -959,7 +965,7 @@ int searchByName(char *name){
 
 void saveResultGames(int n,int team_number){
 	static int gamesDone=0; 
-	int flagRise=0,flag=1,flagOneEight=1,flagOneFour=1,flagRanking=1;
+	int flagRise=0,flagNo=1,flagOneEight=1,flagOneFour=1,flagRanking=1,flagYes=1;
 
 	while(1){
 		if(gamesDone==n)
@@ -1040,19 +1046,37 @@ void saveResultGames(int n,int team_number){
 		}
 		if(flagRise==0){
 			char answer='s';
-			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
-			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
+			while(1){
+			printf("Your team dosen't climb to knockout stage.Do you want to continue to result of cup?(Y/N)");
 			scanf("%c",&answer);
-			if(answer=='Y' || answer=='y' )
+			if(answer=='Y'){
 				n=7;
-			else if(answer=='N' || answer=='n'){
-				flag=0;
+				flagYes=0;
+			}
+			else if(answer=='y'){
+				n=7;
+				flagYes=0;
+			}
+			else if(answer=='N'){
+				flagNo=0;
 				break;
 			}
+			else if(answer=='n'){
+				flagNo=0;
+				break;
+			}
+			if(answer=='Y')
+				break;
+			if(answer=='N')
+				break;
+			if(answer=='y')
+				break;
+			if(answer=='n')
+				break;
 			else if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
 				printf("please wirte a correct answer");
 			}
-			if(flag==0)
+			if(flagNo==0)
 				break;
 		}
 		if(gamesDone==n)
@@ -1060,22 +1084,41 @@ void saveResultGames(int n,int team_number){
 		if(gamesDone<4){
 		flagOneEight=oneEight(team_number);
 		gamesDone++;
-		if(flag == 1){
+		if(flagYes == 1){
 			if(flagOneEight==0){
 			char answer='s';
-			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
-			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
+
+			while(1){
+			printf("Your team has been lost on one Eight.Do you want to continue to result of cup?(Y/N)");
 			scanf("%c",&answer);
-			if(answer=='Y' || answer=='y' )
+			if(answer=='Y'){
 				n=7;
-			else if(answer=='N' || answer=='n'){
-				flag=0;
+				flagYes=0;
+			}
+			else if(answer=='y'){
+				n=7;
+				flagYes=0;
+			}
+			else if(answer=='N'){
+				flagNo=0;
 				break;
 			}
+			else if(answer=='n'){
+				flagNo=0;
+				break;
+			}
+			if(answer=='Y')
+				break;
+			if(answer=='N')
+				break;
+			if(answer=='y')
+				break;
+			if(answer=='n')
+				break;
 			else if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
 				printf("please wirte a correct answer");
 			}
-			if(flag==0)
+			if(flagNo==0)
 				break;
 			}
 		}
@@ -1085,22 +1128,40 @@ void saveResultGames(int n,int team_number){
 		if(gamesDone<5){
 		flagOneFour=oneFour(team_number);
 		gamesDone++;
-		if(flag == 1){
+		if(flagYes == 1){
 			if(flagOneEight==0){
 			char answer='s';
-			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
-			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
+			while(1){
+			printf("Your team has been lost on one Four.Do you want to continue to result of cup?(Y/N)");
 			scanf("%c",&answer);
-			if(answer=='Y' || answer=='y' )
+			if(answer=='Y'){
 				n=7;
-			else if(answer=='N' || answer=='n'){
-				flag=0;
+				flagYes=0;
+			}
+			else if(answer=='y'){
+				n=7;
+				flagYes=0;
+			}
+			else if(answer=='N'){
+				flagNo=0;
 				break;
 			}
+			else if(answer=='n'){
+				flagNo=0;
+				break;
+			}
+			if(answer=='Y')
+				break;
+			if(answer=='N')
+				break;
+			if(answer=='y')
+				break;
+			if(answer=='n')
+				break;
 			else if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
 				printf("please wirte a correct answer");
 			}
-			if(flag==0)
+			if(flagNo==0)
 				break;
 			}
 		}
@@ -1110,9 +1171,9 @@ void saveResultGames(int n,int team_number){
 		if(gamesDone<6){
 		flagRanking=semiFinal(team_number);
 		gamesDone++;
-		if(flag==1){
+		if(flagYes==1){
 			if(flagRanking==0){
-			printf("Your team has been lost.and now go to ranking match");
+			printf("Your team has been lost one semiFinal.and now go to ranking match");
 			}
 		}
 		}
@@ -1664,9 +1725,6 @@ int determineWiner(int i , int j){
 	}
 
 	
-
-	//	printf("%d\n" , resault);
-	
 	for( cnt =0 ; cnt < 11 ; cnt++ ){
 		team_array[i].mainplayers[cnt].fitness -= 2;
 	}
@@ -2099,7 +2157,7 @@ int main(){
 	srand( time ( NULL ));
 
 	game_start();
-	schedule(4);
+
 
 
 		
@@ -2133,14 +2191,13 @@ int main(){
 			int entrance = getchar();
 			
 			if(entrance == '\n'){
-				proceed('1',team_number);
-				
+				proceed('1',team_number - 1);
 			}
 			
 	
 		
 			else{
-				proceed(entrance,team_number);
+				proceed(entrance,team_number - 1);
 			}
 
 
