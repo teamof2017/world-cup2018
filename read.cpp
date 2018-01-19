@@ -23,6 +23,7 @@ void oneEight();
 void oneFour();
 void final();
 void semiFinal();
+void load();
 
 typedef struct teamplayer{
 	char playername[40];
@@ -87,7 +88,7 @@ teams team_array[32];
 int a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2;
 int w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62;
 int firstTeamGoals, secTeamGoals, firstTeamPenalty, secTeamPenalty;
-
+int counter =0 ,  gamesDone=0;;
 
 enum teamsName{
 	Argentina=1,
@@ -762,6 +763,12 @@ int  game_start()
 
 	}
 	
+	if( start == 2){
+		
+		load();
+		save_group();
+	}
+	
 }
 
 void showTeamList()
@@ -943,7 +950,7 @@ int searchByName(char *name){
 
 
 void saveResultGames(int n){
-	static int gamesDone=0; 
+	 
 	while(1){
 		if(gamesDone==n)
 			break;
@@ -1204,6 +1211,10 @@ void load(){
 		 sscanf(arr , "%d" , &team_array[cnt].stand.draw);
 		 fgets(arr , 20 , fp);
 		 sscanf(arr , "%d" , &team_array[cnt].stand.score);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &counter);
+		 fgets(arr , 20 , fp);
+		 sscanf(arr , "%d" , &gamesDone);
 		 int i = 0;
 		 
 		 for(i =0 ; i<11 ; i++){
@@ -1225,14 +1236,18 @@ void load(){
 		for( i=0 ; i<8 ; i++){
 			fgets(arr , 20 , fg);
 			 sscanf( arr , "%c" , &groups_array[i].groupname);
-	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , groups_array[i].teams[0]);
-	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , groups_array[i].teams[1]);
-	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , groups_array[i].teams[2]);
-	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , groups_array[i].teams[3]);
+	   		fgets(arr2 , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+		    strcpy(groups_array[i].teams[0] , arr3);
+	   		fgets(arr2 , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+		    strcpy(groups_array[i].teams[1] , arr3);
+	   		fgets(arr2 , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+		    strcpy(groups_array[i].teams[2] , arr3);
+	   		fgets(arr2 , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+		    strcpy(groups_array[i].teams[3] , arr3);
 	   		fgets(arr , 20 , fg);
 	   		sscanf(arr , "%s" , &groups_array[i].result[0][0]);
 	   		fgets(arr , 20 , fg);
@@ -1280,7 +1295,8 @@ void save(){
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.lose );
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.draw );
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.score );
-		
+		fprintf(filesave , "%d\n" ,  counter);
+		fprintf(filesave , "%d\n" ,  gamesDone);
 
 		for( i=0 ; i<11 ; i++){
 		fprintf(filesave , "%s %d %f %d %d %d %d %c %c\n" ,  team_array[cnt].mainplayers[i].playername ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
@@ -1331,7 +1347,7 @@ int determineWiner(int i , int j){
 	int attackavg1 = 0;
 	int attackavg2 = 0;
 	int cnt=0;
-	static int counter =0;
+	
 	
 	
 	for(cnt=0 ; cnt< 11 ; cnt++){
@@ -1396,26 +1412,26 @@ int determineWiner(int i , int j){
 	defensiveavg1 /= ((((team_array[i].system) / 100 )) + 1);
 	defensiveavg2 /= ((((team_array[j].system) / 100 )) + 1);
 	int resault = 0;
-	if(((attackavg1 + middleavg1 - defensiveavg2-85)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
-		resault = ( attackavg2 + middleavg2 - defensiveavg1 -85) /4;
+	if(((attackavg1 + middleavg1 - defensiveavg2-80)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
+		resault = ( attackavg2 + middleavg2 - defensiveavg1 -80) /4;
 	}	
 
-	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
-		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 85)/4 ) * 10;
+	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
+		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 80)/4 ) * 10;
 	}
 
 	
-	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
-		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-85 )/4) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-85 )/4);
+	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
+		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-80 )/4) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-80 )/4);
 	}
 	
-	else if(((attackavg1 + middleavg1 - defensiveavg2-85 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
+	else if(((attackavg1 + middleavg1 - defensiveavg2-80 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
 		resault = 0;
 	}
 
 	
 
-	//	printf("%d\n" , resault);
+		printf("%d\n" , resault);
 	
 	for( cnt =0 ; cnt < 11 ; cnt++ ){
 		team_array[i].mainplayers[cnt].fitness -= 2;
@@ -1792,31 +1808,11 @@ int penalty(int i , int j){
 	
 
 int main(){
-<<<<<<< HEAD
-	
-	/*load();
-	save_group();
-	printf("%s\n" , team_array[0].name);
-	printf("%s\n" , team_array[5].name);
-	printf("%s\n" , team_array[0].confedration);
-	printf("%f\n" , team_array[0].power);
 
-	printf("%d\n" , team_array[0].system);
-	printf("%c\n" , team_array[0].group);
-	printf("%d\n" , team_array[0].stand.win);
-	printf("%d\n" , team_array[1].stand.win);
-
-	table();
-	*/
 	srand( time ( NULL ));
 	game_start();
-=======
-
->>>>>>> a7d40b2a7134460da1bedcc20b09e26edf96818d
 		
-	srand( time ( NULL ));
 
-	game_start();
 
 	schedule();
 
