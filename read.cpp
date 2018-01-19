@@ -15,15 +15,15 @@ void sortByPost();
 int searchByName(char *name);
 void printBall();
 int determineWiner(int i , int j);
-void saveResultGames(int n);
+void saveResultGames(int n,int userTeam);
 void table();
 void sortForTable();
 void lotterySeed();
 int penalty(int i , int j);
-void oneEight();
-void oneFour();
+int oneEight(int userTeam);
+int oneFour(int userTeam);
 void final();
-void semiFinal();
+int semiFinal(int userTeam);
 
 typedef struct teamplayer{
 	char playername[40];
@@ -943,8 +943,9 @@ int searchByName(char *name){
 }
 
 
-void saveResultGames(int n){
+void saveResultGames(int n,int userTeam){
 	static int gamesDone=0; 
+	int flagRise=0,flag=1,flagOneEight=1,flagOneFour=1,flagRanking=1;
 	while(1){
 		if(gamesDone==n)
 			break;
@@ -1013,23 +1014,91 @@ void saveResultGames(int n){
 		groups_array[6].result[2][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[0]));
 		gamesDone++;
 		}
+		for(int x=0;x<8;x++){
+			if(groups_array[x].groupname==team_array[userTeam].group){
+				if(strcmp(groups_array[x].teams[0],team_array[userTeam].name) == 0 || strcmp(groups_array[x].teams[1],team_array[userTeam].name) == 0 )
+					flagRise=1;
+				else 
+					flagRise=0;
+			}
+		}
+		if(flagRise==0){
+			char answer='s';
+			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
+			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
+			scanf("%s",&answer);
+			if(answer=='Y' || answer=='y' )
+				n=7;
+			else if(answer=='N' || answer=='n'){
+				flag=0;
+				break;
+			}
+			else if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
+				printf("please wirte a correct answer");
+			}
+			if(flag==0)
+				break;
+		}
 		if(gamesDone==n)
 		break;
 		if(gamesDone<4){
-		oneEight();
+		flagOneEight=oneEight(userTeam);
 		gamesDone++;
+		if(flag == 1){
+			if(flagOneEight==0){
+			char answer='s';
+			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
+			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
+			scanf("%s",&answer);
+			if(answer=='Y' || answer=='y' )
+				n=7;
+			else if(answer=='N' || answer=='n'){
+				flag=0;
+				break;
+			}
+			else if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
+				printf("please wirte a correct answer");
+			}
+			if(flag==0)
+				break;
+			}
+		}
 		}
 		if(gamesDone==n)
 		break;
 		if(gamesDone<5){
-		oneFour();
+		flagOneFour=oneFour(userTeam);
 		gamesDone++;
+		if(flag == 1){
+			if(flagOneEight==0){
+			char answer='s';
+			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
+			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
+			scanf("%s",&answer);
+			if(answer=='Y' || answer=='y' )
+				n=7;
+			else if(answer=='N' || answer=='n'){
+				flag=0;
+				break;
+			}
+			else if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
+				printf("please wirte a correct answer");
+			}
+			if(flag==0)
+				break;
+			}
+		}
 		}
 		if(gamesDone==n)
 		break;
 		if(gamesDone<6){
-		semiFinal();
+		flagRanking=semiFinal(userTeam);
 		gamesDone++;
+		if(flag==1){
+			if(flagRanking==0){
+			printf("Your team has been lost.and now go to ranking match");
+			}
+		}
 		}
 		if(gamesDone==n)
 		break;
@@ -1339,20 +1408,20 @@ int determineWiner(int i , int j){
 	defensiveavg1 /= ((((team_array[i].system) / 100 )) + 1);
 	defensiveavg2 /= ((((team_array[j].system) / 100 )) + 1);
 	int resault = 0;
-	if(((attackavg1 + middleavg1 - defensiveavg2-85)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
+	if(((attackavg1 + middleavg1 - defensiveavg2-80)< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
 		resault = ( attackavg2 + middleavg2 - defensiveavg1 -85) /4;
 	}	
 
-	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
-		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 85)/4 ) * 10;
+	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
+		resault = ((attackavg1 + middleavg1 - defensiveavg2 - 80)/4 ) * 10;
 	}
 
 	
-	else if(((attackavg1 + middleavg1 - defensiveavg2-85) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)>0){
-		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-85 )/4) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-85 )/4);
+	else if(((attackavg1 + middleavg1 - defensiveavg2-80) > 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)>0){
+		resault = (((attackavg1 + middleavg1 - defensiveavg2 )-80 )/4) * 10 + (((attackavg2 + middleavg2 - defensiveavg1)-80 )/4);
 	}
 	
-	else if(((attackavg1 + middleavg1 - defensiveavg2-85 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -85)<0){
+	else if(((attackavg1 + middleavg1 - defensiveavg2-80 )< 0 ) && (attackavg2 + middleavg2 - defensiveavg1 -80)<0){
 		resault = 0;
 	}
 
@@ -1466,7 +1535,7 @@ int knockout(int firstTeam, int secTeam)
 	}
 }
 
-void oneEight()
+int oneEight(int userTeam)
 {
 	printf("\n\n	ROUND OF 16\n\n");
 	a1 = searchByName(groups_array[0].teams[0]);
@@ -1550,7 +1619,7 @@ void oneEight()
 	}
 }
 
-void oneFour()
+int oneFour(int userTeam)
 {
 	printf("\n\n	QUARTER_FINAL\n\n");
 	w57 = knockout(w49, w50);
@@ -1586,7 +1655,7 @@ void oneFour()
 	}
 }
 
-void semiFinal()
+int semiFinal(int userTeam)
 {
 	printf("\n\n	SEMI FINAL\n\n");
 	w61 = knockout(w57, w58);
@@ -1647,10 +1716,10 @@ void final()
 }
 
 
-void proceed(char n){
+void proceed(char n,int userTeam){
 	static int num=0;
 	num += (int)n - 48;//48='0';
-	saveResultGames(num);
+	saveResultGames(num,userTeam);
 	table();
 
 }
@@ -1727,8 +1796,9 @@ int penalty(int i , int j){
 int main(){
 		
 	srand( time ( NULL ));
+	int userTeam;
 
-	game_start();
+	userTeam=game_start();
 	schedule();
 
 
@@ -1759,14 +1829,14 @@ int main(){
 			int entrance = getchar();
 			
 			if(entrance == '\n'){
-				proceed('1');
+				proceed('1',userTeam);
 				
 			}
 			
 	
 		
 			else{
-				proceed(entrance);
+				proceed(entrance,userTeam);
 			}
 			
 }
