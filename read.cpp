@@ -707,18 +707,6 @@ void lineup()
 
 int  game_start()
 {	
-<<<<<<< HEAD
-	
-=======
-	printBall();
-	ReadFromFileTeaminfo();
-	ReadFromFilePlayerinfo();
-	save_group();
-    playerSkill();
-  	systemOfTeam(0);
- 	
-
->>>>>>> 0aaece1cbe66b0812823d4983a3f8ce2e07a18fa
 	
   
 	char username[100];
@@ -1001,10 +989,6 @@ int searchByName(char *name){
 
 
 void saveResultGames(int n,int userTeam){
-<<<<<<< HEAD
-=======
-	static int gamesDone=0; 
->>>>>>> 0aaece1cbe66b0812823d4983a3f8ce2e07a18fa
 	int flagRise=0,flagNo=1,flagOneEight=1,flagOneFour=1,flagRanking=1,flagYes=1;
 
 	while(1){
@@ -1080,11 +1064,9 @@ void saveResultGames(int n,int userTeam){
 
 		for(int x=0;x<8;x++){
 			if(groups_array[x].groupname==team_array[userTeam].group){
-<<<<<<< HEAD
-				if(strcmp(groups_array[x].teams[0],team_array[userTeam].name) == 0 || strcmp(groups_array[x].teams[1],team_array[userTeam].name) == 0 )
-=======
-				if(strcmp(groups_array[x].teamscpy[0],team_array[userTeam].name) == 0 || strcmp(groups_array[x].teamscpy[1],team_array[userTeam].name) == 0 )
->>>>>>> 0aaece1cbe66b0812823d4983a3f8ce2e07a18fa
+				if(strcmp(groups_array[x].teamscpy[0],team_array[userTeam].name) == 0  )
+					flagRise=1;
+				if(strcmp(groups_array[x].teamscpy[1],team_array[userTeam].name) == 0 )
 					flagRise=1;
 			}
 		}
@@ -2124,21 +2106,11 @@ void final()
 }
 
 
-<<<<<<< HEAD
 void proceed(char n ,int userTeam){
 	
 	num += (int)n - 48;//48='0';
 	saveResultGames(num , userTeam);
 	schedule(num);
-=======
-void proceed(char n,int userTeam){
-	static int num=0;
-	num += (int)n - 48;//48='0';
-	saveResultGames(num,userTeam);
-	table();
->>>>>>> 0aaece1cbe66b0812823d4983a3f8ce2e07a18fa
-
-	table();
 }
 
 
