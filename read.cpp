@@ -10,7 +10,7 @@ void print_players();
 void playerSkill();
 void chooseMainPlayer();
 void chooseStorePlayer();
-void sortByPost();
+void sortByPost(int n);
 int searchByName(char *name);
 void printBall();
 int determineWiner(int i , int j);
@@ -790,7 +790,7 @@ int  game_start()
 	}
 		//system("cls");
 		showTeamList(team_number);
-		sortByPost();
+		sortByPost(0);
 		chooseMainPlayer();
 		chooseStorePlayer();
 		//	return team_number ;
@@ -826,8 +826,12 @@ int searchByPost(char post,int j){
 	return tedad;
 }
 
-void sortByPost(){
+void sortByPost(int n){
 	for(int j=0;j<32;j++){
+		if(n==1){
+			if(j==team_number-1)
+				continue;
+		}
 		int sum=0;
 		sum+=searchByPost('G',j);
 		for(int x=0;x<searchByPost('G',j);x++){
@@ -1013,6 +1017,9 @@ void saveResultGames(int n,int userTeam){
 		groups_array[7].result[0][0]=determineWiner(searchByName(groups_array[7].teams[2]),searchByName(groups_array[7].teams[3]));
 		groups_array[7].result[0][1]=determineWiner(searchByName(groups_array[7].teams[0]),searchByName(groups_array[7].teams[1]));
 		gamesDone++;
+		sortByPost(1);
+		chooseMainPlayer();
+		chooseStorePlayer();
 		}
 		if(gamesDone==n)
 			break;
@@ -1035,6 +1042,9 @@ void saveResultGames(int n,int userTeam){
 		groups_array[7].result[1][0]=determineWiner(searchByName(groups_array[7].teams[3]),searchByName(groups_array[7].teams[1]));
 		groups_array[7].result[1][1]=determineWiner(searchByName(groups_array[7].teams[0]),searchByName(groups_array[7].teams[2]));
 		gamesDone++;
+		sortByPost(1);
+		chooseMainPlayer();
+		chooseStorePlayer();
 		}
 		if(gamesDone==n)
 		break;
@@ -1057,13 +1067,18 @@ void saveResultGames(int n,int userTeam){
 		groups_array[6].result[2][0]=determineWiner(searchByName(groups_array[6].teams[1]),searchByName(groups_array[6].teams[2]));
 		groups_array[6].result[2][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[0]));
 		gamesDone++;
+		sortByPost(1);
+		chooseMainPlayer();
+		chooseStorePlayer();
 		}
 		if(gamesDone==n)
 		break;
 
 		for(int x=0;x<8;x++){
 			if(groups_array[x].groupname==team_array[userTeam].group){
-				if(strcmp(groups_array[x].teamscpy[0],team_array[userTeam].name) == 0 || strcmp(groups_array[x].teamscpy[1],team_array[userTeam].name) == 0 )
+				if(strcmp(groups_array[x].teamscpy[0],team_array[userTeam].name) == 0  )
+					flagRise=1;
+				if(strcmp(groups_array[x].teamscpy[1],team_array[userTeam].name) == 0  )
 					flagRise=1;
 			}
 		}
@@ -1107,6 +1122,9 @@ void saveResultGames(int n,int userTeam){
 		if(gamesDone<4){
 		flagOneEight=oneEight(userTeam);
 		gamesDone++;
+		sortByPost(1);
+		chooseMainPlayer();
+		chooseStorePlayer();
 		if(flagYes == 1){
 			if(flagOneEight==0){
 			char answer='s';
@@ -1151,6 +1169,9 @@ void saveResultGames(int n,int userTeam){
 		if(gamesDone<5){
 		flagOneFour=oneFour(userTeam);
 		gamesDone++;
+		sortByPost(1);
+		chooseMainPlayer();
+		chooseStorePlayer();
 		if(flagYes == 1){
 			if(flagOneFour==0){
 			char answer='s';
@@ -1194,6 +1215,9 @@ void saveResultGames(int n,int userTeam){
 		if(gamesDone<6){
 		flagRanking=semiFinal(userTeam);
 		gamesDone++;
+		sortByPost(1);
+		chooseMainPlayer();
+		chooseStorePlayer();
 		if(flagYes==1){
 			if(flagRanking==0){
 			printf("Your team has been lost one semiFinal.and now go to ranking match");
@@ -2016,6 +2040,7 @@ int oneFour(int userTeam)
 	printf("\n\n	SEMI FINAL\n\n");
 	printf("%s ::: %s\n\n", team_array[w57].name, team_array[w58].name);
 	printf("%s ::: %s\n\n", team_array[w59].name, team_array[w60].name);
+	
 	return flag;
 }
 
