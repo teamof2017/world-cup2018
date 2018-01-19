@@ -14,16 +14,16 @@ void sortByPost();
 int searchByName(char *name);
 void printBall();
 int determineWiner(int i , int j);
-void saveResultGames(int n,int userTeam);
+void saveResultGames(int n,int team_number);
 void table();
 void sortForTable();
 void lotterySeed();
 int penalty(int i , int j);
-int oneEight(int userTeam);
-int oneFour(int userTeam);
+int oneEight(int team_number);
+int oneFour(int team_number);
 void final();
-int semiFinal(int userTeam);
-
+int semiFinal(int team_number);
+void load();
 
 typedef struct teamplayer{
 	char playername[40];
@@ -90,7 +90,6 @@ int w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61
 int counter =0 ,  gamesDone=0;;
 int firstTeamGoals, secTeamGoals, firstTeamPenalty, secTeamPenalty, shomareshgar;
 int knockoutResult[16];
-
 
 enum teamsName{
 	Argentina=1,
@@ -757,13 +756,17 @@ int  game_start()
 		
 		char write_teamNum[] = "\nWrite the number of the team you want to play with : ";
 		typeInConsole(write_teamNum);
-
-		int userTeam;
-		scanf("%d", &userTeam);
+		while(1){
+		scanf("%d", &team_number);
+		if(team_number <1 || team_number>32)
+			puts("Invalid team number please try again!!!!");
+		else 
+			break;
+	}
 		//system("cls");
-		showTeamList(userTeam);
+		showTeamList(team_number);
 		sortByPost();
-			return userTeam;
+		//	return team_number ;
 
 	}
 	
@@ -954,7 +957,7 @@ int searchByName(char *name){
 
 
 
-void saveResultGames(int n,int userTeam){
+void saveResultGames(int n,int team_number){
 	static int gamesDone=0; 
 	int flagRise=0,flag=1,flagOneEight=1,flagOneFour=1,flagRanking=1;
 
@@ -1028,9 +1031,10 @@ void saveResultGames(int n,int userTeam){
 		}
 		if(gamesDone==n)
 		break;
+
 		for(int x=0;x<8;x++){
-			if(groups_array[x].groupname==team_array[userTeam].group){
-				if(strcmp(groups_array[x].teams[0],team_array[userTeam].name) == 0 || strcmp(groups_array[x].teams[1],team_array[userTeam].name) == 0 )
+			if(groups_array[x].groupname==team_array[team_number].group){
+				if(strcmp(groups_array[x].teams[0],team_array[team_number].name) == 0 || strcmp(groups_array[x].teams[1],team_array[team_number].name) == 0 )
 					flagRise=1;
 			}
 		}
@@ -1054,7 +1058,7 @@ void saveResultGames(int n,int userTeam){
 		if(gamesDone==n)
 		break;
 		if(gamesDone<4){
-		flagOneEight=oneEight(userTeam);
+		flagOneEight=oneEight(team_number);
 		gamesDone++;
 		if(flag == 1){
 			if(flagOneEight==0){
@@ -1079,7 +1083,7 @@ void saveResultGames(int n,int userTeam){
 		if(gamesDone==n)
 		break;
 		if(gamesDone<5){
-		flagOneFour=oneFour(userTeam);
+		flagOneFour=oneFour(team_number);
 		gamesDone++;
 		if(flag == 1){
 			if(flagOneEight==0){
@@ -1104,7 +1108,7 @@ void saveResultGames(int n,int userTeam){
 		if(gamesDone==n)
 		break;
 		if(gamesDone<6){
-		flagRanking=semiFinal(userTeam);
+		flagRanking=semiFinal(team_number);
 		gamesDone++;
 		if(flag==1){
 			if(flagRanking==0){
@@ -1425,6 +1429,9 @@ void load(){
 		 sscanf(arr , "%d" , &counter);
 		 fgets(arr , 20 , fp);
 		 sscanf(arr , "%d" , &gamesDone);
+		 
+		 
+		 
 		 int i = 0;
 		 
 		 for(i =0 ; i<11 ; i++){
@@ -1470,8 +1477,14 @@ void load(){
 	   		sscanf(arr , "%s" , &groups_array[i].result[2][0]);
 	   		fgets(arr , 20 , fg);
 	   		sscanf(arr , "%s" , &groups_array[i].result[2][1]);
+	   		
 		}
-		
+		fgets(arr , 40 , fg);
+		sscanf( arr , "%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d" , knockoutResult[0],knockoutResult[1],knockoutResult[2],knockoutResult[3],knockoutResult[4],knockoutResult[5],knockoutResult[6],knockoutResult[7],knockoutResult[8],knockoutResult[9],knockoutResult[10],knockoutResult[11],knockoutResult[12],knockoutResult[13],knockoutResult[14],knockoutResult[15]);
+		fgets(arr , 20 , fg);
+		sscanf(arr , "%d" , &shomareshgar);
+		fgets(arr , 20 , fg);
+		sscanf(arr , "%d" , &team_number);
 		fgets(arr , 100 , fg);
 		sscanf(arr , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d" , &a1, &a2, &b1, &b2, &c1, &c2, &d1, &d2, &e1, &e2, &f1, &f2, &g1, &g2, &h1, &h2);
 		fgets(arr , 100 ,fg);
@@ -1507,7 +1520,9 @@ void save(){
 		fprintf(filesave , "%d\n" ,  team_array[cnt].stand.score );
 		fprintf(filesave , "%d\n" ,  counter);
 		fprintf(filesave , "%d\n" ,  gamesDone);
-
+		
+		
+		
 		for( i=0 ; i<11 ; i++){
 		fprintf(filesave , "%s %d %f %d %d %d %d %c %c\n" ,  team_array[cnt].mainplayers[i].playername ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
 			
@@ -1536,9 +1551,15 @@ void save(){
 			fprintf( fp , "%d\n" , groups_array[i].result[1][1]);
 			fprintf( fp , "%d\n" , groups_array[i].result[2][0]);
 			fprintf( fp , "%d\n" , groups_array[i].result[2][1]);
+
 			
 		}
-		
+		for(i=0 ; i<16 ; i++){
+			fprintf( fp , "%d " , knockoutResult[i]);
+		}
+		fprintf( fp , "%d\n" ,  shomareshgar);
+		fprintf( fp , "%d\n" ,  team_number);
+
 		fprintf( fp , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" , a1, a2, b1, b2, c1, c2, d1, d2, e1, e2, f1, f2, g1, g2, h1, h2);
 		fprintf( fp , "%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n" , w49, w50, w51, w52, w53, w54, w55, w56, w57, w58, w59, w60, w61, w62, lose61, lose62);
 
@@ -1644,7 +1665,7 @@ int determineWiner(int i , int j){
 
 	
 
-		printf("%d\n" , resault);
+	//	printf("%d\n" , resault);
 	
 	for( cnt =0 ; cnt < 11 ; cnt++ ){
 		team_array[i].mainplayers[cnt].fitness -= 2;
@@ -1755,7 +1776,7 @@ int knockout(int firstTeam, int secTeam)
 	}
 }
 
-int oneEight(int userTeam)
+int oneEight(int team_number)
 {
 	int flag = 0;
 	printf("\n\n	ROUND OF 16\n\n");
@@ -1768,7 +1789,7 @@ int oneEight(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[a1].name, firstTeamGoals, secTeamGoals, team_array[b2].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w49 == userTeam)
+	if (w49 == team_number)
 		flag = 1;
 	
 	c1 = searchByName(groups_array[2].teams[0]);
@@ -1780,7 +1801,7 @@ int oneEight(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[c1].name, firstTeamGoals, secTeamGoals, team_array[d2].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w50 == userTeam)
+	if (w50 == team_number)
 		flag = 1;
 	
 	b1 = searchByName(groups_array[1].teams[0]);
@@ -1792,7 +1813,7 @@ int oneEight(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[b1].name, firstTeamGoals, secTeamGoals, team_array[a2].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w51 == userTeam)
+	if (w51 == team_number)
 		flag = 1;
 	
 	d1 = searchByName(groups_array[3].teams[0]);
@@ -1804,7 +1825,7 @@ int oneEight(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[d1].name, firstTeamGoals, secTeamGoals, team_array[c2].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w52 == userTeam)
+	if (w52 == team_number)
 		flag = 1;
 	
 	e1 = searchByName(groups_array[4].teams[0]);
@@ -1816,7 +1837,7 @@ int oneEight(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[e1].name, firstTeamGoals, secTeamGoals, team_array[f2].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w53 == userTeam)
+	if (w53 == team_number)
 		flag = 1;
 	
 	g1 = searchByName(groups_array[6].teams[0]);
@@ -1828,7 +1849,7 @@ int oneEight(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[g1].name, firstTeamGoals, secTeamGoals, team_array[h2].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w54 == userTeam)
+	if (w54 == team_number)
 		flag = 1;
 	
 	f1 = searchByName(groups_array[5].teams[0]);
@@ -1840,7 +1861,7 @@ int oneEight(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[f1].name, firstTeamGoals, secTeamGoals, team_array[e2].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w55 == userTeam)
+	if (w55 == team_number)
 		flag = 1;
 	
 	h1 = searchByName(groups_array[7].teams[0]);
@@ -1852,7 +1873,7 @@ int oneEight(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[h1].name, firstTeamGoals, secTeamGoals, team_array[g2].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w56 == userTeam)
+	if (w56 == team_number)
 		flag = 1;
 		
 	return flag;
@@ -1865,7 +1886,7 @@ int oneEight(int userTeam)
 	printf("%s ::: %s\n\n", team_array[w55].name, team_array[w56].name);
 }
 
-int oneFour(int userTeam)
+int oneFour(int team_number)
 {
 	int flag = 0;
 	printf("\n\n	QUARTER_FINAL\n\n");
@@ -1876,7 +1897,7 @@ int oneFour(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[w49].name, firstTeamGoals, secTeamGoals, team_array[w50].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w57 == userTeam)
+	if (w57 == team_number)
 		flag = 1;
 	
 	w58 = knockout(w53, w54);
@@ -1886,7 +1907,7 @@ int oneFour(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[w53].name, firstTeamGoals, secTeamGoals, team_array[w54].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w58 == userTeam)
+	if (w58 == team_number)
 		flag = 1;
 	
 	w59 = knockout(w51, w52);
@@ -1896,7 +1917,7 @@ int oneFour(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[w51].name, firstTeamGoals, secTeamGoals, team_array[w52].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w59 == userTeam)
+	if (w59 == team_number)
 		flag = 1;
 	
 	w60 = knockout(w55, w56);
@@ -1906,7 +1927,7 @@ int oneFour(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[w55].name, firstTeamGoals, secTeamGoals, team_array[w56].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w60 == userTeam)
+	if (w60 == team_number)
 		flag = 1;
 		
 	return flag;
@@ -1917,9 +1938,9 @@ int oneFour(int userTeam)
 	printf("%s ::: %s\n\n", team_array[w59].name, team_array[w60].name);
 }
 
-int semiFinal(int userTeam)
+int semiFinal(int team_number)
 {
-	int falg = 0;
+	int flag = 0;
 	printf("\n\n	SEMI FINAL\n\n");
 	w61 = knockout(w57, w58);
 	if(firstTeamGoals != secTeamGoals)
@@ -1928,7 +1949,7 @@ int semiFinal(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[w57].name, firstTeamGoals, secTeamGoals, team_array[w58].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w61 == userTeam)
+	if (w61 == team_number)
 		flag = 1;
 	
 	w62 = knockout(w59, w60);
@@ -1938,7 +1959,7 @@ int semiFinal(int userTeam)
 		printf("%s %d ::: %d %s\n", team_array[w59].name, firstTeamGoals, secTeamGoals, team_array[w60].name);
 		printf("Penalty  :  %d ::: %d\n\n", firstTeamPenalty, secTeamPenalty);
 	}
-	if (w62 == userTeam)
+	if (w62 == team_number)
 		flag = 1;
 	
 	if(w61 = w57)
@@ -1990,10 +2011,10 @@ void final()
 }
 
 
-void proceed(char n,int userTeam){
+void proceed(char n,int team_number){
 	static int num=0;
 	num += (int)n - 48;//48='0';
-	saveResultGames(num,userTeam);
+	saveResultGames(num,team_number);
 	table();
 
 }
@@ -2076,8 +2097,8 @@ int penalty(int i , int j){
 int main(){
 
 	srand( time ( NULL ));
-	int userTeam;
-	userTeam=game_start();
+
+	game_start();
 	schedule(4);
 
 
@@ -2112,14 +2133,14 @@ int main(){
 			int entrance = getchar();
 			
 			if(entrance == '\n'){
-				proceed('1',userTeam);
+				proceed('1',team_number);
 				
 			}
 			
 	
 		
 			else{
-				proceed(entrance,userTeam);
+				proceed(entrance,team_number);
 			}
 
 
