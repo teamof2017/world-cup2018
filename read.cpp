@@ -1030,20 +1030,19 @@ void saveResultGames(int n,int team_number){
 		gamesDone++;
 		}
 		if(gamesDone==n)
-				break;
-		
+		break;
+
 		for(int x=0;x<8;x++){
 			if(groups_array[x].groupname==team_array[team_number].group){
 				if(strcmp(groups_array[x].teams[0],team_array[team_number].name) == 0 || strcmp(groups_array[x].teams[1],team_array[team_number].name) == 0 )
 					flagRise=1;
-			
 			}
 		}
 		if(flagRise==0){
 			char answer='s';
 			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
 			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
-			scanf("%s",&answer);
+			scanf("%c",&answer);
 			if(answer=='Y' || answer=='y' )
 				n=7;
 			else if(answer=='N' || answer=='n'){
@@ -1066,7 +1065,7 @@ void saveResultGames(int n,int team_number){
 			char answer='s';
 			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
 			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
-			scanf("%s",&answer);
+			scanf("%c",&answer);
 			if(answer=='Y' || answer=='y' )
 				n=7;
 			else if(answer=='N' || answer=='n'){
@@ -1091,7 +1090,7 @@ void saveResultGames(int n,int team_number){
 			char answer='s';
 			while(answer !='Y'|| answer !='y' || answer !='N' || answer !='n'){
 			printf("Your team dosen't climb to knockout stage.Do you want to continue?(Y/N)");
-			scanf("%s",&answer);
+			scanf("%c",&answer);
 			if(answer=='Y' || answer=='y' )
 				n=7;
 			else if(answer=='N' || answer=='n'){
