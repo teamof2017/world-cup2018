@@ -42,6 +42,7 @@ typedef struct teamplayer{
 typedef struct group_stage{
 	char groupname;
 	char teams[4][40];
+	char teamscpy[4][40];
 	int result[3][2]; //result[round][game Number]
 
 } groups;
@@ -245,6 +246,7 @@ void save_group(){
 			
 		if(team_array[i].group == groupName){
 			strcpy(groups_array[(int)groupName - 65].teams[team_array[i].placeInGroup-1] , team_array[i].name);
+			strcpy(groups_array[(int)groupName - 65].teamscpy[team_array[i].placeInGroup-1] , team_array[i].name);
 			j++;
 
 			if(j % 4 == 0){
@@ -522,10 +524,10 @@ void sortForTable(){
 		teams[i]=0;
 	}
 	for(int z=0;z<8;z++){
-	firstTeam=searchByName(groups_array[z].teams[0]);
-	secTeam=searchByName(groups_array[z].teams[1]);
-	thirdTeam=searchByName(groups_array[z].teams[2]);
-	fourthTeam=searchByName(groups_array[z].teams[3]);
+	firstTeam=searchByName(groups_array[z].teamscpy[0]);
+	secTeam=searchByName(groups_array[z].teamscpy[1]);
+	thirdTeam=searchByName(groups_array[z].teamscpy[2]);
+	fourthTeam=searchByName(groups_array[z].teamscpy[3]);
 	teams[0]=firstTeam;
 	teams[1]=secTeam;
 	teams[2]=thirdTeam;
@@ -537,9 +539,9 @@ void sortForTable(){
 					if(team_array[teams[i+1]].stand.score>team_array[teams[i]].stand.score){
 						char tmp[40];
 						int temp;
-						strcpy(tmp,groups_array[z].teams[i]);
-						strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
-						strcpy(groups_array[z].teams[i+1],tmp);
+						strcpy(tmp,groups_array[z].teamscpy[i]);
+						strcpy(groups_array[z].teamscpy[i],groups_array[z].teamscpy[i+1]);
+						strcpy(groups_array[z].teamscpy[i+1],tmp);
 						temp=teams[i];
 						teams[i]=teams[i+1];
 						teams[i+1]=temp;
@@ -562,9 +564,9 @@ void sortForTable(){
 							if(team_array[teams[i+1]].stand.difference>team_array[teams[i]].stand.difference&&team_array[teams[i+1]].stand.score==team_array[teams[i]].stand.score){
 								char tmp[40];
 								int temp;
-								strcpy(tmp,groups_array[z].teams[i]);
-								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
-								strcpy(groups_array[z].teams[i+1],tmp);
+								strcpy(tmp,groups_array[z].teamscpy[i]);
+								strcpy(groups_array[z].teamscpy[i],groups_array[z].teamscpy[i+1]);
+								strcpy(groups_array[z].teamscpy[i+1],tmp);
 								temp=teams[i];
 								teams[i]=teams[i+1];
 								teams[i+1]=temp;
@@ -587,9 +589,9 @@ void sortForTable(){
 							if(team_array[teams[i+1]].stand.goalsF>team_array[teams[i]].stand.goalsF&&team_array[teams[i+1]].stand.difference==team_array[teams[i]].stand.difference&&team_array[teams[i+1]].stand.score==team_array[teams[i]].stand.score){
 								char tmp[40];
 								int temp;
-								strcpy(tmp,groups_array[z].teams[i]);
-								strcpy(groups_array[z].teams[i],groups_array[z].teams[i+1]);
-								strcpy(groups_array[z].teams[i+1],tmp);
+								strcpy(tmp,groups_array[z].teamscpy[i]);
+								strcpy(groups_array[z].teamscpy[i],groups_array[z].teamscpy[i+1]);
+								strcpy(groups_array[z].teamscpy[i+1],tmp);
 								temp=teams[i];
 								teams[i]=teams[i+1];
 								teams[i+1]=temp;
@@ -1030,7 +1032,7 @@ void saveResultGames(int n,int team_number){
 		break;
 		for(int x=0;x<8;x++){
 			if(groups_array[x].groupname==team_array[team_number].group){
-				if(strcmp(groups_array[x].teams[0],team_array[team_number].name) == 0 || strcmp(groups_array[x].teams[1],team_array[team_number].name) == 0 )
+				if(strcmp(groups_array[x].teamscpy[0],team_array[team_number].name) == 0 || strcmp(groups_array[x].teamscpy[1],team_array[team_number].name) == 0 )
 					flagRise=1;
 			}
 		}
@@ -1360,14 +1362,14 @@ void schedule(int round)
 	
 		//Round of 16 without result
 		printf("\n\n	ROUND OF 16\n\n");
-		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[0].teams[0])].name, team_array[searchByName(groups_array[1].teams[1])].name);
-		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[2].teams[0])].name, team_array[searchByName(groups_array[3].teams[1])].name);
-		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[1].teams[0])].name, team_array[searchByName(groups_array[0].teams[1])].name);
-		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[3].teams[0])].name, team_array[searchByName(groups_array[2].teams[1])].name);
-		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[4].teams[0])].name, team_array[searchByName(groups_array[5].teams[1])].name);
-		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[6].teams[0])].name, team_array[searchByName(groups_array[7].teams[1])].name);
-		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[5].teams[0])].name, team_array[searchByName(groups_array[4].teams[1])].name);
-		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[7].teams[0])].name, team_array[searchByName(groups_array[6].teams[1])].name);
+		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[0].teamscpy[0])].name, team_array[searchByName(groups_array[1].teamscpy[1])].name);
+		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[2].teamscpy[0])].name, team_array[searchByName(groups_array[3].teamscpy[1])].name);
+		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[1].teamscpy[0])].name, team_array[searchByName(groups_array[0].teamscpy[1])].name);
+		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[3].teamscpy[0])].name, team_array[searchByName(groups_array[2].teamscpy[1])].name);
+		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[4].teamscpy[0])].name, team_array[searchByName(groups_array[5].teamscpy[1])].name);
+		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[6].teamscpy[0])].name, team_array[searchByName(groups_array[7].teamscpy[1])].name);
+		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[5].teamscpy[0])].name, team_array[searchByName(groups_array[4].teamscpy[1])].name);
+		printf("%s ::: %s\n\n", team_array[searchByName(groups_array[7].teamscpy[0])].name, team_array[searchByName(groups_array[6].teamscpy[1])].name);
 	}
 }
 
@@ -1385,10 +1387,10 @@ void table() {
 	for (cnt = 0; cnt < 8; cnt++, group++) {
 		int firstTeam, secTeam, thirdTeam, fourthTeam;
 		
-		firstTeam = searchByName(groups_array[cnt].teams[0]);
-		secTeam = searchByName(groups_array[cnt].teams[1]);
-		thirdTeam = searchByName(groups_array[cnt].teams[2]);
-		fourthTeam = searchByName(groups_array[cnt].teams[3]);
+		firstTeam = searchByName(groups_array[cnt].teamscpy[0]);
+		secTeam = searchByName(groups_array[cnt].teamscpy[1]);
+		thirdTeam = searchByName(groups_array[cnt].teamscpy[2]);
+		fourthTeam = searchByName(groups_array[cnt].teamscpy[3]);
 		
 		int firstTeamScore = team_array[firstTeam].stand.score;
 		int secTeamScore = team_array[secTeam].stand.score;
@@ -1427,10 +1429,10 @@ void table() {
 		
 		printf("GROUP %c\n", group);
 		printf("		Pts	W	D	L	GF	GA	GD\n\n");
-		printf("%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[0], firstTeamScore, firstTeamWon, firstTeamDraw, firstTeamLose, firstTeamGF, firstTeamGA, firstTeamDif);
-		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[1], secTeamScore, secTeamWon, secTeamDraw, secTeamLose, secTeamGF, secTeamGA, secTeamDif);
-		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teams[2], thirdTeamScore, thirdTeamWon, thirdTeamDraw, thirdTeamLose, thirdTeamGF, thirdTeamGA, thirdTeamDif);
-		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n\n\n\n\n", groups_array[cnt].teams[3], fourthTeamScore, fourthTeamWon, fourthTeamDraw, fourthTeamLose, fourthTeamGF, fourthTeamGA, fourthTeamDif);
+		printf("%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teamscpy[0], firstTeamScore, firstTeamWon, firstTeamDraw, firstTeamLose, firstTeamGF, firstTeamGA, firstTeamDif);
+		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teamscpy[1], secTeamScore, secTeamWon, secTeamDraw, secTeamLose, secTeamGF, secTeamGA, secTeamDif);
+		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n", groups_array[cnt].teamscpy[2], thirdTeamScore, thirdTeamWon, thirdTeamDraw, thirdTeamLose, thirdTeamGF, thirdTeamGA, thirdTeamDif);
+		printf("\n%-17s%-7d%-8d%-8d%-8d%-8d%-8d%-8d\n\n\n\n\n", groups_array[cnt].teamscpy[3], fourthTeamScore, fourthTeamWon, fourthTeamDraw, fourthTeamLose, fourthTeamGF, fourthTeamGA, fourthTeamDif);
 	}
 }
 
@@ -1811,8 +1813,8 @@ int oneEight(int team_number)
 {
 	int flag = 0;
 	printf("\n\n	ROUND OF 16\n\n");
-	a1 = searchByName(groups_array[0].teams[0]);
-	b2 = searchByName(groups_array[1].teams[1]);
+	a1 = searchByName(groups_array[0].teamscpy[0]);
+	b2 = searchByName(groups_array[1].teamscpy[1]);
 	w49 = knockout(a1, b2);
 	if(firstTeamGoals != secTeamGoals)
 		printf("%s %d ::: %d %s\n\n", team_array[a1].name, firstTeamGoals, secTeamGoals, team_array[b2].name);
@@ -1823,8 +1825,8 @@ int oneEight(int team_number)
 	if (w49 == team_number)
 		flag = 1;
 	
-	c1 = searchByName(groups_array[2].teams[0]);
-	d2 = searchByName(groups_array[3].teams[1]);
+	c1 = searchByName(groups_array[2].teamscpy[0]);
+	d2 = searchByName(groups_array[3].teamscpy[1]);
 	w50 = knockout(c1, d2);
 	if(firstTeamGoals != secTeamGoals)
 		printf("%s %d ::: %d %s\n\n", team_array[c1].name, firstTeamGoals, secTeamGoals, team_array[d2].name);
@@ -1835,8 +1837,8 @@ int oneEight(int team_number)
 	if (w50 == team_number)
 		flag = 1;
 	
-	b1 = searchByName(groups_array[1].teams[0]);
-	a2 = searchByName(groups_array[0].teams[1]);
+	b1 = searchByName(groups_array[1].teamscpy[0]);
+	a2 = searchByName(groups_array[0].teamscpy[1]);
 	w51 = knockout(b1, a2);
 	if(firstTeamGoals != secTeamGoals)
 		printf("%s %d ::: %d %s\n\n", team_array[b1].name, firstTeamGoals, secTeamGoals, team_array[a2].name);
@@ -1847,8 +1849,8 @@ int oneEight(int team_number)
 	if (w51 == team_number)
 		flag = 1;
 	
-	d1 = searchByName(groups_array[3].teams[0]);
-	c2 = searchByName(groups_array[2].teams[1]);
+	d1 = searchByName(groups_array[3].teamscpy[0]);
+	c2 = searchByName(groups_array[2].teamscpy[1]);
 	w52 = knockout(d1, c2);
 	if(firstTeamGoals != secTeamGoals)
 		printf("%s %d ::: %d %s\n\n", team_array[d1].name, firstTeamGoals, secTeamGoals, team_array[c2].name);
@@ -1859,8 +1861,8 @@ int oneEight(int team_number)
 	if (w52 == team_number)
 		flag = 1;
 	
-	e1 = searchByName(groups_array[4].teams[0]);
-	f2 = searchByName(groups_array[5].teams[1]);
+	e1 = searchByName(groups_array[4].teamscpy[0]);
+	f2 = searchByName(groups_array[5].teamscpy[1]);
 	w53 = knockout(e1, f2);
 	if(firstTeamGoals != secTeamGoals)
 		printf("%s %d ::: %d %s\n\n", team_array[e1].name, firstTeamGoals, secTeamGoals, team_array[f2].name);
@@ -1871,8 +1873,8 @@ int oneEight(int team_number)
 	if (w53 == team_number)
 		flag = 1;
 	
-	g1 = searchByName(groups_array[6].teams[0]);
-	h2 = searchByName(groups_array[7].teams[1]);
+	g1 = searchByName(groups_array[6].teamscpy[0]);
+	h2 = searchByName(groups_array[7].teamscpy[1]);
 	w54 = knockout(g1, h2);
 	if(firstTeamGoals != secTeamGoals)
 		printf("%s %d ::: %d %s\n\n", team_array[g1].name, firstTeamGoals, secTeamGoals, team_array[h2].name);
@@ -1883,8 +1885,8 @@ int oneEight(int team_number)
 	if (w54 == team_number)
 		flag = 1;
 	
-	f1 = searchByName(groups_array[5].teams[0]);
-	e2 = searchByName(groups_array[4].teams[1]);
+	f1 = searchByName(groups_array[5].teamscpy[0]);
+	e2 = searchByName(groups_array[4].teamscpy[1]);
 	w55 = knockout(f1, e2);
 	if(firstTeamGoals != secTeamGoals)
 		printf("%s %d ::: %d %s\n\n", team_array[f1].name, firstTeamGoals, secTeamGoals, team_array[e2].name);
@@ -1895,8 +1897,8 @@ int oneEight(int team_number)
 	if (w55 == team_number)
 		flag = 1;
 	
-	h1 = searchByName(groups_array[7].teams[0]);
-	g2 = searchByName(groups_array[6].teams[1]);
+	h1 = searchByName(groups_array[7].teamscpy[0]);
+	g2 = searchByName(groups_array[6].teamscpy[1]);
 	w56 = knockout(h1, g2);
 	if(firstTeamGoals != secTeamGoals)
 		printf("%s %d ::: %d %s\n\n", team_array[h1].name, firstTeamGoals, secTeamGoals, team_array[g2].name);
