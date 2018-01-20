@@ -681,7 +681,7 @@ void lineup()
 	}
 	
 	else if(num == 3){
-		print_group;
+		print_group();
 	}
 	
 	else if(num == 4){
