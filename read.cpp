@@ -10,7 +10,7 @@ void print_players();
 void playerSkill();
 void chooseMainPlayer();
 void chooseStorePlayer();
-void sortByPost(int n);
+void sortByPost();
 int searchByName(char *name);
 void printBall();
 int determineWiner(int i , int j);
@@ -24,8 +24,8 @@ int oneFour(int userTeam);
 void final();
 int semiFinal(int userTeam);
 void load();
-
-
+void checkMainPlayer();
+void game_start();
 
 typedef struct teamplayer{
 	char playername[40];
@@ -397,9 +397,25 @@ void systemOfTeam(int i){
 			
 
 	}
+	chooseMainPlayer();
+	chooseStorePlayer();
+	checkMainPlayer();
 
 
 }
+}
+void checkMainPlayer(){
+	for(int main_player_element=0;main_player_element<11;main_player_element++){
+	
+	if(team_array[team_number - 1].mainplayers[main_player_element].mainpost != team_array[team_number - 1].mainplayers[main_player_element].post){
+		if(team_array[team_number - 1].mainplayers[main_player_element].mainskill - team_array[team_number - 1].mainplayers[main_player_element].skill == 0)
+		team_array[team_number - 1].mainplayers[main_player_element].skill -=7;
+	}
+	if(team_array[team_number - 1].mainplayers[main_player_element].mainpost == team_array[team_number - 1].mainplayers[main_player_element].post){
+		if(team_array[team_number - 1].mainplayers[main_player_element].mainskill - team_array[team_number - 1].mainplayers[main_player_element].skill == 7)
+		team_array[team_number - 1].mainplayers[main_player_element].skill +=7;
+	}
+	}
 }
 
 
@@ -681,7 +697,7 @@ void lineup()
 	}
 	
 	else if(num == 3){
-		print_group;
+		print_group();
 	}
 	
 	else if(num == 4){
@@ -705,7 +721,7 @@ void lineup()
 	
 }
 
-int  game_start()
+void  game_start()
 {	
 	
   
@@ -761,7 +777,7 @@ int  game_start()
 	Sleep(700);
 	
 	if(start == 1) {
-		
+	
 	printBall();
 	ReadFromFileTeaminfo();
 	ReadFromFilePlayerinfo();
@@ -792,7 +808,7 @@ int  game_start()
 	}
 		//system("cls");
 		showTeamList(team_number);
-		sortByPost(0);
+		sortByPost();
 		chooseMainPlayer();
 		chooseStorePlayer();
 		//	return team_number ;
@@ -828,12 +844,8 @@ int searchByPost(char post,int j){
 	return tedad;
 }
 
-void sortByPost(int n){
+void sortByPost(){
 	for(int j=0;j<32;j++){
-		if(n==1){
-			if(j==team_number-1)
-				continue;
-		}
 		int sum=0;
 		sum+=searchByPost('G',j);
 		for(int x=0;x<searchByPost('G',j);x++){
@@ -971,11 +983,11 @@ void print_players(){
 	int j = team_array[team_number - 1].numberOfPlayer - 11;
 	
 	puts("\n\t STORE PLAYERS:");
-	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST    POST");
+	puts("NUM        NAME                         SKILL    FITNESS    FORM    MAINPOST");
 
 
 	for(int i=0 ; i<j ; i++){
-		printf("%2d.%-20s%20d%10d%9d%10c%10c\n",team_array[team_number-1].storeplayers[i].num , team_array[team_number-1].storeplayers[i].playername , team_array[team_number-1].storeplayers[i].skill , team_array[team_number-1].storeplayers[i].fitness , team_array[team_number-1].storeplayers[i].form , team_array[team_number-1].storeplayers[i].mainpost , team_array[team_number-1].storeplayers[i].post);
+		printf("%2d.%-20s%20d%10d%9d%10c\n",team_array[team_number-1].storeplayers[i].num , team_array[team_number-1].storeplayers[i].playername , team_array[team_number-1].storeplayers[i].skill , team_array[team_number-1].storeplayers[i].fitness , team_array[team_number-1].storeplayers[i].form , team_array[team_number-1].storeplayers[i].mainpost);
 	}
 	
 	
@@ -1018,9 +1030,6 @@ void saveResultGames(int n,int userTeam){
 		groups_array[7].result[0][0]=determineWiner(searchByName(groups_array[7].teams[2]),searchByName(groups_array[7].teams[3]));
 		groups_array[7].result[0][1]=determineWiner(searchByName(groups_array[7].teams[0]),searchByName(groups_array[7].teams[1]));
 		gamesDone++;
-		sortByPost(1);
-		chooseMainPlayer();
-		chooseStorePlayer();
 		}
 		if(gamesDone==n)
 			break;
@@ -1043,9 +1052,6 @@ void saveResultGames(int n,int userTeam){
 		groups_array[7].result[1][0]=determineWiner(searchByName(groups_array[7].teams[3]),searchByName(groups_array[7].teams[1]));
 		groups_array[7].result[1][1]=determineWiner(searchByName(groups_array[7].teams[0]),searchByName(groups_array[7].teams[2]));
 		gamesDone++;
-		sortByPost(1);
-		chooseMainPlayer();
-		chooseStorePlayer();
 		}
 		if(gamesDone==n)
 		break;
@@ -1068,9 +1074,6 @@ void saveResultGames(int n,int userTeam){
 		groups_array[6].result[2][0]=determineWiner(searchByName(groups_array[6].teams[1]),searchByName(groups_array[6].teams[2]));
 		groups_array[6].result[2][1]=determineWiner(searchByName(groups_array[6].teams[3]),searchByName(groups_array[6].teams[0]));
 		gamesDone++;
-		sortByPost(1);
-		chooseMainPlayer();
-		chooseStorePlayer();
 		}
 		if(gamesDone==n)
 		break;
@@ -1079,14 +1082,14 @@ void saveResultGames(int n,int userTeam){
 			if(groups_array[x].groupname==team_array[userTeam].group){
 				if(strcmp(groups_array[x].teamscpy[0],team_array[userTeam].name) == 0  )
 					flagRise=1;
-				if(strcmp(groups_array[x].teamscpy[1],team_array[userTeam].name) == 0  )
+				if(strcmp(groups_array[x].teamscpy[1],team_array[userTeam].name) == 0 )
 					flagRise=1;
 			}
 		}
 		if(flagRise==0){
 			char answer='s';
 			while(1){
-			printf("Your team dosen't climb to knockout stage.Do you want to continue to result of cup?(Y/N)");
+			printf("Your team dosen't climb to knockout stage.Do you want to see the result of cup?(Y/N)");
 			scanf("%c",&answer);
 			if(answer=='Y'){
 				n=7;
@@ -1123,22 +1126,21 @@ void saveResultGames(int n,int userTeam){
 		if(gamesDone<4){
 		flagOneEight=oneEight(userTeam);
 		gamesDone++;
-		sortByPost(1);
-		chooseMainPlayer();
-		chooseStorePlayer();
 		if(flagYes == 1){
 			if(flagOneEight==0){
 			char answer='s';
 
 			while(1){
-			printf("Your team has been lost on one Eight.Do you want to continue to result of cup?(Y/N)");
+			printf("Your team has been lost on one Eight. Do you want to see the result of cup?(Y/N)");
 			scanf("%c",&answer);
 			if(answer=='Y'){
 				n=7;
+				num = 7;
 				flagYes=0;
 			}
 			else if(answer=='y'){
 				n=7;
+				num = 7;
 				flagYes=0;
 			}
 			else if(answer=='N'){
@@ -1170,21 +1172,20 @@ void saveResultGames(int n,int userTeam){
 		if(gamesDone<5){
 		flagOneFour=oneFour(userTeam);
 		gamesDone++;
-		sortByPost(1);
-		chooseMainPlayer();
-		chooseStorePlayer();
 		if(flagYes == 1){
 			if(flagOneFour==0){
 			char answer='s';
 			while(1){
-			printf("Your team has been lost on one Four.Do you want to continue to result of cup?(Y/N)");
+			printf("Your team has been lost on one Four. Do you want to see the result of cup?(Y/N)");
 			scanf("%c",&answer);
 			if(answer=='Y'){
 				n=7;
+				num = 7;
 				flagYes=0;
 			}
 			else if(answer=='y'){
 				n=7;
+				num = 7;
 				flagYes=0;
 			}
 			else if(answer=='N'){
@@ -1216,9 +1217,6 @@ void saveResultGames(int n,int userTeam){
 		if(gamesDone<6){
 		flagRanking=semiFinal(userTeam);
 		gamesDone++;
-		sortByPost(1);
-		chooseMainPlayer();
-		chooseStorePlayer();
 		if(flagYes==1){
 			if(flagRanking==0){
 			printf("Your team has been lost one semiFinal.and now go to ranking match");
@@ -1547,14 +1545,14 @@ void load(){
 		 	fgets(arr , 100 , fp);
 			strcpy( team_array[cnt].mainplayers[i].playername , arr);
 		 	fgets(arr , 100 , fp);
-		 	sscanf(arr , "%d%f%d%d%d%d%c%c" ,&(team_array[cnt].mainplayers[i].age) , &(team_array[cnt].mainplayers[i].avg) ,&(team_array[cnt].mainplayers[i].fitness) , &(team_array[cnt].mainplayers[i].form) , &(team_array[cnt].mainplayers[i].skill) , &(team_array[cnt].mainplayers[i].num) , &(team_array[cnt].mainplayers[i].mainpost) , &(team_array[cnt].mainplayers[i].post));
+		 	sscanf(arr , "%d%f%d%d%d%d%d%c%c" ,&(team_array[cnt].mainplayers[i].age) , &(team_array[cnt].mainplayers[i].avg) ,&(team_array[cnt].mainplayers[i].fitness) ,&(team_array[cnt].mainplayers[i].mainskill) , &(team_array[cnt].mainplayers[i].form) , &(team_array[cnt].mainplayers[i].skill) , &(team_array[cnt].mainplayers[i].num) , &(team_array[cnt].mainplayers[i].mainpost) , &(team_array[cnt].mainplayers[i].post));
 		 }
 		 
 		 for(i=0 ; i<team_array[cnt].numberOfPlayer - 11 ; i++){
 		 	fgets(arr , 100 , fp);
 			strcpy( team_array[cnt].storeplayers[i].playername , arr);
 		 	fgets(arr , 100 , fp);
-		 	sscanf(arr , "%d%f%d%d%d%d%c%c"  ,&(team_array[cnt].storeplayers[i].age) , &(team_array[cnt].storeplayers[i].avg) , &(team_array[cnt].storeplayers[i].fitness) , &(team_array[cnt].storeplayers[i].form) , &(team_array[cnt].storeplayers[i].skill) , &(team_array[cnt].storeplayers[i].num) , &(team_array[cnt].storeplayers[i].mainpost) , &(team_array[cnt].storeplayers[i].post) );
+		 	sscanf(arr , "%d%f%d%d%d%d%d%c%c"  ,&(team_array[cnt].storeplayers[i].age) , &(team_array[cnt].storeplayers[i].avg) , &(team_array[cnt].storeplayers[i].fitness) ,&(team_array[cnt].storeplayers[i].mainskill) , &(team_array[cnt].storeplayers[i].form) , &(team_array[cnt].storeplayers[i].skill) , &(team_array[cnt].storeplayers[i].num) , &(team_array[cnt].storeplayers[i].mainpost) , &(team_array[cnt].storeplayers[i].post) );
 
 		 }
 		 	fclose(fp);
@@ -1579,17 +1577,29 @@ void load(){
 	   		arr3 = strtok(arr2 , ",");
 		    strcpy(groups_array[i].teams[3] , arr3);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[0][0]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[0][0]);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[0][1]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[0][1]);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[1][0]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[1][0]);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[1][1]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[1][1]);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[2][0]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[2][0]);
 	   		fgets(arr , 20 , fg);
-	   		sscanf(arr , "%s" , &groups_array[i].result[2][1]);
+	   		sscanf(arr , "%d" , &groups_array[i].result[2][1]);
+	   		fgets(arr , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+	   		strcpy(groups_array[i].teamscpy[0] , arr3);
+	   		fgets(arr , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+	   		strcpy(groups_array[i].teamscpy[1] , arr3);
+	   		fgets(arr , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+	   		strcpy(groups_array[i].teamscpy[2] , arr3);
+	   		fgets(arr , 20 , fg);
+	   		arr3 = strtok(arr2 , ",");
+	   		strcpy(groups_array[i].teamscpy[3] , arr3);
 	   		
 		}
 		fgets(arr , 40 , fg);
@@ -1640,14 +1650,14 @@ void save(){
 		
 		for( i=0 ; i<11 ; i++){
 		fprintf(filesave , "%s\n" ,team_array[cnt].mainplayers[i].playername);
-		fprintf(filesave , "%d %f %d %d %d %d %c %c\n"    ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
+		fprintf(filesave , "%d %f %d %d %d %d %d %c %c\n"    ,team_array[cnt].mainplayers[i].age , team_array[cnt].mainplayers[i].avg , team_array[cnt].mainplayers[i].fitness , team_array[cnt].mainplayers[i].mainskill, team_array[cnt].mainplayers[i].form , team_array[cnt].mainplayers[i].skill , team_array[cnt].mainplayers[i].num , team_array[cnt].mainplayers[i].mainpost , team_array[cnt].mainplayers[i].post );
 			
 		}
 
 		for( i=0 ; i<team_array[cnt].numberOfPlayer - 11 ; i++){
 		fprintf(filesave , "%s\n" ,team_array[cnt].storeplayers[i].playername);
 
-		fprintf(filesave , "%d %f %d %d %d %d %c %c\n" ,  team_array[cnt].storeplayers[i].age , team_array[cnt].storeplayers[i].avg , team_array[cnt].storeplayers[i].fitness , team_array[cnt].storeplayers[i].form , team_array[cnt].storeplayers[i].skill , team_array[cnt].storeplayers[i].num , team_array[cnt].storeplayers[i].mainpost , team_array[cnt].storeplayers[i].post );
+		fprintf(filesave , "%d %f %d %d %d %d %d %c %c\n" ,  team_array[cnt].storeplayers[i].age , team_array[cnt].storeplayers[i].avg , team_array[cnt].storeplayers[i].fitness ,team_array[cnt].storeplayers[i].mainskill, team_array[cnt].storeplayers[i].form , team_array[cnt].storeplayers[i].skill , team_array[cnt].storeplayers[i].num , team_array[cnt].storeplayers[i].mainpost , team_array[cnt].storeplayers[i].post );
 			
 		}
 		
@@ -1659,18 +1669,20 @@ void save(){
 
 		for( i=0 ; i<8 ; i++){
 			fprintf( fp , "%c\n" , groups_array[i].groupname);
-			fprintf( fp , "%s\n" , groups_array[i].teams[0]);
-			fprintf( fp , "%s\n" , groups_array[i].teams[1]);
-			fprintf( fp , "%s\n" , groups_array[i].teams[2]);
-			fprintf( fp , "%s\n" , groups_array[i].teams[3]);
+			fprintf( fp , "%s%c\n" , groups_array[i].teams[0] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teams[1] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teams[2] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teams[3] , ",");
 			fprintf( fp , "%d\n" , groups_array[i].result[0][0]);
 			fprintf( fp , "%d\n" , groups_array[i].result[0][1]);
 			fprintf( fp , "%d\n" , groups_array[i].result[1][0]);
 			fprintf( fp , "%d\n" , groups_array[i].result[1][1]);
 			fprintf( fp , "%d\n" , groups_array[i].result[2][0]);
 			fprintf( fp , "%d\n" , groups_array[i].result[2][1]);
-
-			
+			fprintf( fp , "%s%c\n" , groups_array[i].teamscpy[0] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teamscpy[1] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teamscpy[2] , ",");
+			fprintf( fp , "%s%c\n" , groups_array[i].teamscpy[3] , ",");
 		}
 		for(i=0 ; i<=15 ; i++){
 			if(i!=15)
@@ -2052,7 +2064,6 @@ int oneFour(int userTeam)
 	printf("\n\n	SEMI FINAL\n\n");
 	printf("%s ::: %s\n\n", team_array[w57].name, team_array[w58].name);
 	printf("%s ::: %s\n\n", team_array[w59].name, team_array[w60].name);
-	
 	return flag;
 }
 
