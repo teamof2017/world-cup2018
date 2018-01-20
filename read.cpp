@@ -1578,6 +1578,7 @@ void load(){
 		    strcpy(groups_array[i].teams[3] , arr3);
 	   		fgets(arr , 20 , fg);
 	   		sscanf(arr , "%d" , &groups_array[i].result[0][0]);
+
 	   		fgets(arr , 20 , fg);
 	   		sscanf(arr , "%d" , &groups_array[i].result[0][1]);
 	   		fgets(arr , 20 , fg);
@@ -1589,6 +1590,7 @@ void load(){
 	   		fgets(arr , 20 , fg);
 	   		sscanf(arr , "%d" , &groups_array[i].result[2][1]);
 	   		fgets(arr , 20 , fg);
+
 	   		arr3 = strtok(arr2 , ",");
 	   		strcpy(groups_array[i].teamscpy[0] , arr3);
 	   		fgets(arr , 20 , fg);
